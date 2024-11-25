@@ -1,0 +1,138 @@
+﻿@*@model BTL_CharityWebsite.Data.NGUOIDUNG*@
+@model BTL_CharityWebsite.ViewModel.RegisterVM
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+/* Toàn bộ form */
+.register-form {
+    max-width: 55%;
+    margin: 0 auto; /* Căn giữa form */
+    background-color: #f9f9f9; /* Màu nền nhạt */
+    border: 1px solid #ddd; /* Viền mỏng */
+    border-radius: 8px; /* Bo góc */
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+/* Tiêu đề */
+.register-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Dòng trong form */
+.register-form .row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label */
+.row p{
+    font-weight: bold;
+}
+
+/* Input */
+.register-form .form-control {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.register-form .form-control:focus {
+    border-color: #007bff; /* Màu xanh khi focus */
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+/* Validation message */
+.register-form .field-validation-error {
+    color: #e74c3c; /* Màu đỏ cho lỗi */
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Button */
+.register-form .btn {
+    background-color: #4faba7;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 40%;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.register-form .btn:hover {
+    background-color: #377774; /* Màu đậm hơn khi hover */
+}
+    .register-form .row-button {
+        display: flex;
+        justify-content: center; /* Căn giữa ngang */
+        align-items: center; /* (Tùy chọn) căn giữa dọc */
+        margin-top: 20px; /* Tạo khoảng cách trên */
+    }
+
+</style>
+
+<h2 style="text-align:center; padding-top: 20px; color:darkred; font-weight: bold">ĐĂNG KÝ</h2>
+<div class="register-form">
+    @using (Html.BeginForm("DangKy", "User", FormMethod.Post))
+    {
+        <div class="row">
+            <p>Họ và tên</p>
+            @Html.TextBoxFor(n => n.HoTen, new { placeholder = "Họ và tên", @class = "form-control" })
+            @Html.ValidationMessageFor(n => n.HoTen)
+        </div>
+        <div class="row">
+            <p>Tên tài khoản</p>
+            @Html.TextBoxFor(n => n.TaiKhoan, new { placeholder = "Tên tài khoản", @class = "form-control" })
+            @Html.ValidationMessageFor(n => n.TaiKhoan)
+        </div>
+        <div class="row">
+            <p>Mật khẩu</p>
+            @Html.PasswordFor(n => n.MatKhau, new { placeholder = "Mật khẩu", @class = "form-control" })
+            @Html.ValidationMessageFor(n => n.MatKhau)
+        </div>
+        <div class="row">
+            <p>Xác nhận mật khẩu</p>
+            @Html.PasswordFor(n => n.XacNhanMK, new { placeholder = "Xác nhận mật khẩu", @class = "form-control" })
+            @Html.ValidationMessageFor(n => n.XacNhanMK)
+        </div>
+        <div class="row">
+            <p>Email</p>
+            @Html.TextBoxFor(n => n.Email, new { placeholder = "Email", @class = "form-control" })
+            @Html.ValidationMessageFor(n => n.Email)
+        </div>
+        <div class="row">
+            <p>Số điện thoại</p>
+            @Html.TextBoxFor(n => n.SDT, new { placeholder = "Số điện thoại", @class = "form-control" })
+            @Html.ValidationMessageFor(n => n.SDT)
+        </div>
+        <div class="row">
+            <p>Địa chỉ</p>
+            @Html.TextBoxFor(n => n.DiaChi, new { placeholder = "Địa chỉ", @class = "form-control" })
+            @Html.ValidationMessageFor(n => n.DiaChi)
+        </div>
+        <div class="row">
+            <p>Ngày Sinh</p>
+            @Html.TextBoxFor(n => n.NgaySinh, new { placeholder = "Ngày sinh", @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(n => n.NgaySinh)
+        </div>
+        <div class="row row-button">
+            <button type="submit" class="btn btn-success">Đăng Ký</button>
+        </div>
+    }
+</div>

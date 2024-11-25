@@ -1,0 +1,40 @@
+﻿@model BTL_CharityWebsite.Models.NGUOIDUNG
+@{
+    ViewBag.Title = "ThongTinNguoiDung";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <h2>Thông Tin Cá Nhân</h2>
+    <table class="table table-bordered">
+        <tr>
+            <th>Họ tên:</th>
+            <td>@Model.HoTen</td>
+        </tr>
+        <tr>
+            <th>Tài khoản:</th>
+            <td>@Model.TaiKhoan</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Địa chỉ:</th>
+            <td>@Model.DiaChi</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại:</th>
+            <td>@Model.SDT</td>
+        </tr>
+        <tr>
+            <th>Ngày sinh:</th>
+            <td>@(Model.NgaySinh.HasValue ? Model.NgaySinh.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+        </tr>
+    </table>
+    <div>
+        <a href="@Url.Action("ChinhSuaThongTin", "User")">Chỉnh sửa thông tin cá nhân</a>
+    </div>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về trang chủ</a>
+</div>

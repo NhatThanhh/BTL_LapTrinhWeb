@@ -1,0 +1,197 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|e:\\l\u1EADp tr\u00ECnh web\\b\u00E0i t\u1EADp l\u1EDBn\\btl_charitywebsite\\btl_charitywebsite\\controllers\\donatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\controllers\\donatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\campaign\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\campaign\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\user\\chinhsuathongtin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\user\\chinhsuathongtin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\donate\\quyengop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\donate\\quyengop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\donate\\xacnhanquyengop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\donate\\xacnhanquyengop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\user\\dangnhap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\user\\dangnhap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\user\\dangky.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\user\\dangky.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\btl_charitywebsite\\views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78D0DABC-EDF5-430D-8FED-35EA88B0834B}|BTL_CharityWebsite\\BTL_CharityWebsite.csproj|solutionrelative:btl_charitywebsite\\views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Controllers\\UserController.cs",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Controllers\\UserController.cs",
+              "RelativeToolTip": "BTL_CharityWebsite\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAAwJkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T10:50:57.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DonateController.cs",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Controllers\\DonateController.cs",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Controllers\\DonateController.cs",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Controllers\\DonateController.cs",
+              "RelativeToolTip": "BTL_CharityWebsite\\Controllers\\DonateController.cs",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAAAPoAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T14:15:58.405Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Campaign\\Index.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\Campaign\\Index.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Campaign\\Index.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\Campaign\\Index.cshtml",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAFUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-21T15:17:12.409Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ChinhSuaThongTin.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\User\\ChinhSuaThongTin.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\User\\ChinhSuaThongTin.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\User\\ChinhSuaThongTin.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\User\\ChinhSuaThongTin.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-25T07:32:16.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "QuyenGop.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Donate\\QuyenGop.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\Donate\\QuyenGop.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Donate\\QuyenGop.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\Donate\\QuyenGop.cshtml",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAowHUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-23T12:17:23.584Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAACsAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-23T11:25:09.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DangNhap.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\User\\DangNhap.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\User\\DangNhap.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\User\\DangNhap.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\User\\DangNhap.cshtml",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAAAHwAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-20T09:33:41.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "XacNhanQuyenGop.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Donate\\XacNhanQuyenGop.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\Donate\\XacNhanQuyenGop.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Donate\\XacNhanQuyenGop.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\Donate\\XacNhanQuyenGop.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-23T10:34:24.997Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TeamController.cs",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Controllers\\TeamController.cs",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Controllers\\TeamController.cs",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Controllers\\TeamController.cs",
+              "RelativeToolTip": "BTL_CharityWebsite\\Controllers\\TeamController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-21T09:03:51.238Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Contact.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Home\\Contact.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\Home\\Contact.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\Home\\Contact.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\Home\\Contact.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-19T07:56:19.748Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DangKy.cshtml",
+              "DocumentMoniker": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\User\\DangKy.cshtml",
+              "RelativeDocumentMoniker": "BTL_CharityWebsite\\Views\\User\\DangKy.cshtml",
+              "ToolTip": "E:\\L\u1EADp tr\u00ECnh web\\B\u00E0i t\u1EADp l\u1EDBn\\BTL_CharityWebsite\\BTL_CharityWebsite\\Views\\User\\DangKy.cshtml",
+              "RelativeToolTip": "BTL_CharityWebsite\\Views\\User\\DangKy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-20T06:39:23.659Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

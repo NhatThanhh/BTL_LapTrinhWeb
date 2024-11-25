@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BTL_CharityWebsite.Models.QUANLY>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .team_section {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px;
+        background-color: #f9f9f9; /* Nền sáng */
+    }
+
+        .team_section .team_container {
+            text-align: center;
+        }
+
+            .team_section .team_container h2 {
+                padding: 40px;
+                font-weight: bold;
+                color: #5187af;
+            }
+
+        .team_section .team_row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 0 -15px; /* Điều chỉnh khoảng cách giữa các cột */
+        }
+
+        .team_section .team_card {
+            flex: 0 0 50%; /* Mỗi cột chiếm 50% chiều rộng */
+            max-width: 30%;
+            padding: 15px; /* Điều chỉnh padding */
+            margin: 30px;
+            border: 1px solid #ddd; /* Viền cho mỗi div */
+            border-radius: 10px; /* Bo tròn góc */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+            transition: transform 0.3s ease; /* Hiệu ứng mượt khi hover */
+            text-align: center;
+            background-color: #fff; /* Nền trắng */
+        }
+
+            .team_section .team_card:hover {
+                transform: scale(1.05); /* Phóng to nhẹ khi hover */
+                cursor: pointer;
+            }
+
+            .team_section .team_card img {
+                width: 100%;
+                height: auto; /* Đảm bảo hình ảnh không bị méo */
+                border-radius: 10px;
+            }
+
+            .team_section .team_card .team_body {
+                padding: 10px 0;
+            }
+
+            .team_section .team_card .team_title {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333; /* Màu chữ */
+            }
+
+</style>
+
+<section class="team_section layout_padding">
+
+    <div class="team_container">
+        <h2>Thành viên của tổ chức</h2>
+        <div class="team_row">
+            @foreach (var item in Model)
+            {
+                <div class="team_card">
+                    <a href="@Url.Action("chiTietQL", "Team", new { id = item.MaQL })" style="text-decoration: none;">
+                        <img src="~/Content/images/@item.AnhQL" alt="@item.TenQL" />
+                        <div class="team_body">
+                            <h4 class="team_title">@item.TenQL</h4>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>

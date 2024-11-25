@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Style cho tiêu đề */
+    h3 {
+        text-align: center;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    /* Style cho các cột */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 auto;
+    }
+
+    /* Mỗi cột chiếm 50% chiều rộng trên màn hình lớn */
+    .col-md-6 {
+        display: inline-block;
+        align-items: center;
+        margin-bottom: 20px; /* Khoảng cách giữa các cột */
+        width: 48%; /* Sử dụng width 48% để tạo khoảng trống giữa các cột */
+        box-sizing: border-box; /* Đảm bảo không bị tràn */
+        transition: font-weight 0.3s ease-in-out;
+    }
+    .col-md-6:hover{
+        cursor: pointer;
+        font-weight: bold;
+
+    }
+
+    /* Style cho icon */
+    .icon {
+        font-size: 50px;
+        margin-bottom: 10px; /* Khoảng cách giữa biểu tượng và văn bản */
+        transition: transform 0.3s ease-in-out;
+    }
+
+        /* Thêm hiệu ứng hover cho icon */
+        .icon:hover {
+            transform: scale(1.1); /* Phóng to biểu tượng khi hover */
+        }
+
+    /* Style cho văn bản */
+    span {
+        font-size: 18px;
+        color: #555;
+        text-align: center;
+        display: block;
+    }
+
+    /* Cải thiện sự căn chỉnh giữa các phần tử */
+    .col-md-6 {
+        text-align: center;
+    }
+    .title{
+        text-align: center;
+        padding: 100px;
+        color: #5187af;
+    }
+    .title h2{
+        font-weight: bold;
+        font-size: 50px;
+    }
+    .title-img{
+        width: 30%;
+        height: auto;
+    }
+    .introduce-content1{
+        text-align: center;
+        padding: 50px 20px;
+        background-color: #bde1e2;
+    }
+    .introduce-content1 h3{
+        color: #5187af;
+        font-size: 30px;
+    }
+    .introduce-content1 p{
+        font-size: 24px;
+    }
+    .introduce-content2 {
+        text-align: center;
+        padding: 100px 20px;
+    }
+        .introduce-content2 h3 {
+            color: #5187af;
+            font-size: 30px;
+        }
+
+</style>
+
+
+
+<div class="title">
+    <h2>CHÀO MỪNG BẠN ĐẾN VỚI CHARITY LIFE</h2>
+    <img src="~/Content/images/preview-removebg-preview.png" alt="Charity Life" class="title-img" />
+</div>
+<div class="introduce-content1">
+    <h3>SỨ MỆNH CỦA CHÚNG TÔI</h3>
+    <p>Charity Life là tổ chức từ thiện với sứ mệnh đầy tình yêu thương: mang đến hy vọng và sự hỗ trợ cho những người đang gặp<br />
+    khó khăn. Chúng tôi nỗ lực không ngừng để cải thiện chất lượng cuộc sống của những người cần được giúp đỡ, từ cung cấp các nhu<br />
+    cầu thiết yếu như thực phẩm, quần áo, và chỗ ở, đến tạo ra các cơ hội giáo dục và việc làm. Charity Life không chỉ đơn thuần <br />
+    là việc trao tặng mà còn là kết nối, lắng nghe và cùng nhau xây dựng một cộng đồng mạnh mẽ, nơi mọi người đều có cơ hội <br />
+    để phát triển và sống một cuộc sống trọn vẹn.</p>
+</div>
+<div class="introduce-content2">
+    <h3>Những việc Charity Life làm</h3>
+    <div class="row">
+        <!-- Cột 1 -->
+        <div class="col-md-6">
+            <div class="icon">
+                 <i class="fa-solid fa-house" style="color: #64a3d3;"></i>
+            </div>
+            <span>Xây nhà tình thương</span>
+        </div>
+        <div class="col-md-6">
+            <div class="icon">
+                <i class="fa-solid fa-school" style="color: #64a3d3;"></i>
+            </div>
+            <span>Xây trường học</span>
+        </div>
+
+        <!-- Cột 2 -->
+        <div class="col-md-6">
+            <div class="icon">
+                <i class="fa-solid fa-book-open" style="color: #64a3d3;"></i>
+            </div>
+            <span>Tặng học bổng</span>
+        </div>
+        <div class="col-md-6">
+            <div class="icon">
+                <i class="fa-solid fa-fish" style="color: #64a3d3;"></i>
+            </div>
+            <span>Nấu ăn cho em</span>
+        </div>
+    </div>
+
+</div>

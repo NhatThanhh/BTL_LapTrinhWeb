@@ -1,0 +1,111 @@
+﻿@model BTL_CharityWebsite.Models.CHIENDICH
+@{
+    ViewBag.Title = "chiTietCD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .chiTietCDl_section {
+        display: flex;
+        justify-content: center; /* Căn giữa toàn bộ nội dung */
+        padding: 20px;
+        background-color: #f9f9f9; /* Màu nền nhạt */
+    }
+
+    .chiTietCD_container {
+        display: flex;
+        flex-wrap: wrap; /* Đảm bảo bố cục đáp ứng trên màn hình nhỏ */
+        max-width: 1200px; /* Đặt giới hạn chiều rộng */
+        margin: 0 auto;
+        background-color: white; /* Màu nền trắng cho container */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+        overflow: hidden; /* Bỏ các phần tràn */
+    }
+
+    .chiTietCD_row {
+        display: flex;
+        flex-wrap: wrap; /* Đảm bảo bố cục gọn gàng trên màn hình nhỏ */
+        width: 100%;
+    }
+
+    .col-md-6 {
+        flex: 0 0 50%; /* Mỗi cột chiếm 50% chiều rộng */
+        max-width: 50%; /* Đảm bảo kích thước tối đa */
+        padding: 20px;
+        box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước cột */
+    }
+
+        .col-md-6 img {
+            width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng cột */
+            height: auto; /* Giữ tỉ lệ hình ảnh */
+            border-radius: 10px; /* Bo tròn góc hình ảnh */
+        }
+
+        .col-md-6 span {
+            display: block; /* Căn chỉnh như một dòng độc lập */
+            margin-bottom: 10px; /* Khoảng cách dưới */
+            font-size: 22px;
+            color: #333;
+        }
+
+        .col-md-6 p {
+            margin: 10px 0;
+            font-size: 16px;
+            line-height: 1.5; /* Tăng khoảng cách giữa các dòng cho dễ đọc */
+        }
+
+            .col-md-6 p:last-child {
+                color: red; /* Màu đỏ cho dòng cuối */
+                font-weight: bold;
+            }
+
+    .quyengop_btn {
+        background-color: #5ea0a0;
+        color: white;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+        .quyengop_btn:hover {
+            background-color: #4c8c8c;
+            box-shadow: 0 0 10px 4px rgba(94, 160, 160, 0.8); /* Hiệu ứng viền phát sáng */
+        }
+</style>
+
+
+<section class="chiTietCDl_section layout_padding" style="display: flex;">
+    <div class="chiTietCD_container">
+        <div class="chiTietCD_row">
+            <!-- Cột ảnh -->
+            <div class="col-md-6">
+                <img src="~/Content/images/@Model.AnhBia" alt="@Model.TenCD" class="img_CD" />
+            </div>
+            <!-- Cột thông tin -->
+            <div class="col-md-6">
+                <h2 style="font-size: 20px; padding-top: 20px; font-weight: bold;">
+                    @Model.TenCD
+                </h2>
+                <p><strong>Chịu trách nhiệm bởi: </strong>@ViewBag.TenQL</p>
+                <p><strong>Thông tin chiến dịch: </strong>@Model.MoTa</p>
+                <p><strong>Ngày khởi động chiến dịch:</strong> @ViewBag.NgayTao</p>
+                <p style="color: red; font-weight: bold;">
+                    Tổng quỹ: @String.Format("{0:0,0}", Model.TongQuy) VND
+                </p>
+                <div>
+                    <a href="@Url.Action("ThemQuyenGop", "Donate", new { iMaCD = Model.MaCD  , strURL = "QuyenGop", tienQuyenGop =  0})" class="quyengop_btn">
+                        QUYÊN GÓP
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

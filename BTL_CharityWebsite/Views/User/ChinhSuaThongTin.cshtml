@@ -1,0 +1,39 @@
+﻿@model BTL_CharityWebsite.Models.NGUOIDUNG
+
+@{
+    ViewBag.Title = "ChinhSuaThongTin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chỉnh sửa thông tin cá nhân</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@using (Html.BeginForm("ChinhSuaThongTin", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="HoTen">Họ tên</label>
+        @Html.TextBoxFor(model => model.HoTen, new { @class = "form-control", id = "HoTen", required = "required" })
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "Email", type = "email", required = "required" })
+    </div>
+    <div class="form-group">
+        <label for="SDT">Số điện thoại</label>
+        @Html.TextBoxFor(model => model.SDT, new { @class = "form-control", id = "SDT", required = "required" })
+    </div>
+    <div class="form-group">
+        <label for="DiaChi">Địa chỉ</label>
+        @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control", id = "DiaChi", required = "required" })
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+}

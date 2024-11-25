@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CharityManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CHIENDICH">
+    <Key>
+      <PropertyRef Name="MaCD" />
+    </Key>
+    <Property Name="MaCD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenCD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MaQL" Type="Int32" Nullable="false" />
+    <Property Name="AnhBia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TongQuy" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="QUANLY" Relationship="Self.FK__CHIENDICH__MaQL__571DF1D5" FromRole="CHIENDICH" ToRole="QUANLY" />
+  </EntityType>
+  <EntityType Name="NGUOIDUNG">
+    <Key>
+      <PropertyRef Name="MaND" />
+    </Key>
+    <Property Name="MaND" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="QUANLY">
+    <Key>
+      <PropertyRef Name="MaQL" />
+    </Key>
+    <Property Name="MaQL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenQL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmailQL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SDTQL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="TieuSu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AnhQL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CHIENDICHes" Relationship="Self.FK__CHIENDICH__MaQL__571DF1D5" FromRole="QUANLY" ToRole="CHIENDICH" />
+  </EntityType>
+  <Association Name="FK__CHIENDICH__MaQL__571DF1D5">
+    <End Role="QUANLY" Type="Self.QUANLY" Multiplicity="1" />
+    <End Role="CHIENDICH" Type="Self.CHIENDICH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QUANLY">
+        <PropertyRef Name="MaQL" />
+      </Principal>
+      <Dependent Role="CHIENDICH">
+        <PropertyRef Name="MaQL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CharityManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CHIENDICHes" EntityType="Self.CHIENDICH" />
+    <EntitySet Name="NGUOIDUNGs" EntityType="Self.NGUOIDUNG" />
+    <EntitySet Name="QUANLies" EntityType="Self.QUANLY" />
+    <AssociationSet Name="FK__CHIENDICH__MaQL__571DF1D5" Association="Self.FK__CHIENDICH__MaQL__571DF1D5">
+      <End Role="QUANLY" EntitySet="QUANLies" />
+      <End Role="CHIENDICH" EntitySet="CHIENDICHes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
