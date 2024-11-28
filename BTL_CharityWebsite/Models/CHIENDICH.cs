@@ -18,6 +18,7 @@ namespace BTL_CharityWebsite.Models
         public CHIENDICH()
         {
             this.CHITIETQUYENGOPs = new HashSet<CHITIETQUYENGOP>();
+            this.THUVIENs = new HashSet<THUVIEN>();
         }
     
         public int MaCD { get; set; }
@@ -31,5 +32,7 @@ namespace BTL_CharityWebsite.Models
         public virtual QUANLY QUANLY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETQUYENGOP> CHITIETQUYENGOPs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<THUVIEN> THUVIENs { get; set; }
     }
 }

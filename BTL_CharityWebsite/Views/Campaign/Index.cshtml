@@ -1,90 +1,109 @@
-﻿@model IEnumerable<BTL_CharityWebsite.Models.CHIENDICH>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<BTL_CharityWebsite.Models.CHIENDICH>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
-    .campaign_section {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 30px 20px;
-        padding-bottom: 150px;
-        background-color: #f9f9f9; /* Nền sáng */
+    /* Container chung */
+    .campaign-list-container {
+        padding: 20px;
+        margin: 50px 40px;
     }
 
-        .campaign_section .campaign_container {
+        /* Tiêu đề */
+        .campaign-list-container .campaign-list-title {
             text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #8b0000;
         }
 
-            .campaign_section .campaign_container h2 {
-                padding: 40px;
-                font-weight: bold;
-                color: #5187af;
-            }
-
-        .campaign_section .campaign_row {
+        /* Hàng chứa các chiến dịch */
+        .campaign-list-container .campaign-list-row {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between; /* Tạo khoảng cách đều */
         }
 
-        .campaign_section .campaign_card {
-            flex: 0 0 30%; /* Mỗi cột chiếm 50% chiều rộng */
-            max-width: 20%;
-            padding: 15px; /* Điều chỉnh padding */
-            margin: 30px;
-            border: 1px solid #ddd; /* Viền cho mỗi div */
-            border-radius: 10px; /* Bo tròn góc */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Đổ bóng */
-            transition: transform 0.3s ease; /* Hiệu ứng mượt khi hover */
+        /* Thẻ card chứa chiến dịch */
+        .campaign-list-container .campaign-card {
+            flex: 0 0 23%; /* Mỗi thẻ chiếm 23% chiều rộng */
+            max-width: 23%; /* Giới hạn tối đa chiều rộng */
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0; /* Viền nhẹ */
+            border-radius: 8px; /* Bo góc thẻ */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
+            overflow: hidden; /* Ẩn các nội dung tràn */
             text-align: center;
-            background-color: #fff; /* Nền trắng */
         }
 
-            .campaign_section .campaign_card:hover {
-                transform: scale(1.05); /* Phóng to nhẹ khi hover */
+            .campaign-list-container .campaign-card:hover {
+                transform: translateY(-5px); /* Hiệu ứng nổi lên */
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Đổ bóng đậm hơn */
                 cursor: pointer;
             }
 
-            .campaign_section .campaign_card img {
+            /* Hình ảnh trong thẻ */
+            .campaign-list-container .campaign-card img {
                 width: 100%;
-                height: auto; /* Đảm bảo hình ảnh không bị méo */
-                border-radius: 10px;
+                height: auto;
             }
 
-            .campaign_section .campaign_card .campaign_body {
-                padding: 10px 0;
+            /* Nội dung chiến dịch */
+            .campaign-list-container .campaign-card .campaign-body {
+                padding: 20px;
             }
 
-            .campaign_section .campaign_card .campaign_title {
-                font-size: 18px;
+            .campaign-list-container .campaign-card .campaign-title {
+                font-size: 16px;
                 font-weight: bold;
-                color: #333; /* Màu chữ */
+                color: #333; /* Màu chữ đậm */
+                margin-bottom: 10px;
             }
+
+            .campaign-list-container .campaign-card .campaign-total {
+                font-size: 16px;
+                color: red; /* Màu đỏ cho tổng quỹ */
+                padding-bottom: 10px;
+            }
+
+        /* Phân trang */
+        .campaign-list-container .pagination-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+
 </style>
 
+<div class="campaign-list-container">
+    <h2 class="campaign-list-title">Danh sách chiến dịch</h2>
 
-
-<section class="campaign_section layout_padding">
-
-    <div class="campaign_container">
-        <h2>CHIẾN DỊCH</h2>
-        <div class="campaign_row">
-            @foreach (var item in Model)
-            {
-                <div class="campaign_card">
-                    <a href="@Url.Action("chiTietCD", "Campaign", new { id = item.MaCD})" style="text-decoration: none;">
-                        <img src="~/Content/images/@item.AnhBia" alt="@item.TenCD" />
-                        <div class="campaign_body">
-                            <h4 class="campaign_title">@item.TenCD</h4>
-                        </div>
-                        <div class="campaign_total">
-                            <p style="color: red">Tổng quỹ: @String.Format("{0:0,0}", item.TongQuy) VND</p>
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
+    <div class="campaign-list-row">
+        @foreach (var item in Model)
+        {
+            <div class="campaign-card">
+                <a href="@Url.Action("chiTietCD", "Campaign", new { id = item.MaCD})" style="text-decoration: none;">
+                    <img src="~/Content/images/@item.AnhBia" alt="@item.TenCD" />
+                    <div class="campaign-body">
+                        <h4 class="campaign-title">@item.TenCD</h4>
+                    </div>
+                    <div class="campaign-total">
+                        <p style="padding-bottom: 20px">Tổng quỹ: @String.Format("{0:0,0}", item.TongQuy) VND</p>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
-</section>
+
+    <div class="pagination-container">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+</div>

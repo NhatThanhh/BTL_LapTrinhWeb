@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace BTL_CharityWebsite.Controllers
 {
@@ -22,10 +24,12 @@ namespace BTL_CharityWebsite.Controllers
             return db.CHIENDICHes.Take(count).ToList();
         }
         // GET: Campaign
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var CDlist = listCD(6);
-            return View(CDlist);
+            int pageSize = 8;
+            int pageNum = (page ?? 1);
+            var CDlist = listCD(16);
+            return View(CDlist.ToPagedList(pageNum,pageSize));
         }
         [HttpGet]
         public ActionResult chiTietCD(int id)

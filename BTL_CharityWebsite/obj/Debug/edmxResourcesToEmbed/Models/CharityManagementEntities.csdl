@@ -13,6 +13,7 @@
     <Property Name="NgayTao" Type="DateTime" Precision="3" />
     <NavigationProperty Name="QUANLY" Relationship="Self.FK__CHIENDICH__MaQL__571DF1D5" FromRole="CHIENDICH" ToRole="QUANLY" />
     <NavigationProperty Name="CHITIETQUYENGOPs" Relationship="CharityManagementModel.FK_ChienDich" FromRole="CHIENDICH" ToRole="CHITIETQUYENGOP" />
+    <NavigationProperty Name="THUVIENs" Relationship="CharityManagementModel.fk_CD" FromRole="CHIENDICH" ToRole="THUVIEN" />
   </EntityType>
   <EntityType Name="QUANLY">
     <Key>
@@ -60,6 +61,11 @@
     <AssociationSet Name="FK__QUYENGOP__MaND__5DCAEF64" Association="CharityManagementModel.FK__QUYENGOP__MaND__5DCAEF64">
       <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
       <End Role="QUYENGOP" EntitySet="QUYENGOPs" />
+    </AssociationSet>
+    <EntitySet Name="THUVIENs" EntityType="CharityManagementModel.THUVIEN" />
+    <AssociationSet Name="fk_CD" Association="CharityManagementModel.fk_CD">
+      <End Role="CHIENDICH" EntitySet="CHIENDICHes" />
+      <End Role="THUVIEN" EntitySet="THUVIENs" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="CHITIETQUYENGOP">
@@ -119,7 +125,7 @@
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="3" />
     <NavigationProperty Name="QUYENGOPs" Relationship="CharityManagementModel.FK__QUYENGOP__MaND__5DCAEF64" FromRole="NGUOIDUNG" ToRole="QUYENGOP" />
   </EntityType>
   <Association Name="FK__QUYENGOP__MaND__5DCAEF64">
@@ -131,6 +137,29 @@
       </Principal>
       <Dependent Role="QUYENGOP">
         <PropertyRef Name="MaND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="THUVIEN">
+    <Key>
+      <PropertyRef Name="MaCD" />
+      <PropertyRef Name="MaHA" />
+    </Key>
+    <Property Name="MaCD" Type="Int32" Nullable="false" />
+    <Property Name="MaHA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Anh" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NgayDang" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CHIENDICH" Relationship="CharityManagementModel.fk_CD" FromRole="THUVIEN" ToRole="CHIENDICH" />
+  </EntityType>
+  <Association Name="fk_CD">
+    <End Type="CharityManagementModel.CHIENDICH" Role="CHIENDICH" Multiplicity="1" />
+    <End Type="CharityManagementModel.THUVIEN" Role="THUVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHIENDICH">
+        <PropertyRef Name="MaCD" />
+      </Principal>
+      <Dependent Role="THUVIEN">
+        <PropertyRef Name="MaCD" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

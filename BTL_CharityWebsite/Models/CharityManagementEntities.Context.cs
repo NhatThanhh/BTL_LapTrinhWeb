@@ -30,5 +30,6 @@ namespace BTL_CharityWebsite.Models
         public virtual DbSet<CHITIETQUYENGOP> CHITIETQUYENGOPs { get; set; }
         public virtual DbSet<QUYENGOP> QUYENGOPs { get; set; }
         public virtual DbSet<NGUOIDUNG> NGUOIDUNGs { get; set; }
+        public virtual DbSet<THUVIEN> THUVIENs { get; set; }
     }
 }

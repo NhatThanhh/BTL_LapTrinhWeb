@@ -1,0 +1,109 @@
+﻿@model BTL_CharityWebsite.Models.NGUOIDUNG
+
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* CSS for Change Password Form */
+    .changepass_form {
+        width: 100%;
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .changepass_form h2 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .changepass_form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .changepass_form label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .changepass_form input[type="text"],
+        .changepass_form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+            .changepass_form input[type="text"]:focus,
+            .changepass_form input[type="password"]:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+
+        .changepass_form .text-danger {
+            color: #ff4d4d;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .changepass_form button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4faba7;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .changepass_form button[type="submit"]:hover {
+                background-color: #377774;
+            }
+
+</style>
+
+<div class="changepass_form">
+    <h2>ĐỔI MẬT KHẨU</h2>
+    @using (Html.BeginForm("DoiMatKhau", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="HoTen">Mật khẩu hiện tại</label>
+            <input type="text" name="MatKhauCu" id="MatKhauCu" class="form-control" required="required" />
+            @if (ViewBag.Loi1 != null)
+            {
+                <span class="text-danger">@ViewBag.Loi1</span>
+            }
+        </div>
+        <div class="form-group">
+            <label for="Email">Mật khẩu mới</label>
+            <input type="text" name="MatKhauMoi" id="MatKhauMoi" class="form-control" required="required" />
+            @if (ViewBag.Loi2 != null)
+            {
+                <span class="text-danger">@ViewBag.Loi2</span>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+    }
+</div>
+

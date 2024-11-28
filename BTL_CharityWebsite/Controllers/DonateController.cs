@@ -37,8 +37,8 @@ namespace BTL_CharityWebsite.Controllers
             //Lấy session quyên góp
             List<DonateVM> lstQuyenGop = layQuyenGop();
             DonateVM chiendich = lstQuyenGop.Find(x => x.iMaCD == iMaCD);
-   
-            if(chiendich == null)
+
+            if (chiendich == null)
             {
                 chiendich = new DonateVM(iMaCD);
                 chiendich.iTongquy += tienQuyenGop;
@@ -46,10 +46,10 @@ namespace BTL_CharityWebsite.Controllers
             }
             else
             {
-                chiendich.iTongquy += tienQuyenGop;                
+                chiendich.iTongquy += tienQuyenGop;
             }
             var chienDichdb = db.CHIENDICHes.SingleOrDefault(x => x.MaCD == iMaCD);
-            if(chienDichdb != null)
+            if (chienDichdb != null)
             {
                 chienDichdb.TongQuy += (decimal)tienQuyenGop;
                 db.SaveChanges();
@@ -60,7 +60,7 @@ namespace BTL_CharityWebsite.Controllers
         public ActionResult QuyenGop()
         {
             List<DonateVM> lstQuyenGop = layQuyenGop();
-            if(lstQuyenGop.Count == 0)
+            if (lstQuyenGop.Count == 0)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -72,10 +72,10 @@ namespace BTL_CharityWebsite.Controllers
             List<DonateVM> lstQuyenGop = layQuyenGop();
             //kiểm tra quyengop đã có trong session["QuyenGop"]
             DonateVM quyenGop = lstQuyenGop.SingleOrDefault(x => x.iMaCD == iMaCDich);
-            if(quyenGop != null)
+            if (quyenGop != null)
             {
                 lstQuyenGop.RemoveAll(x => x.iMaCD == iMaCDich);
-                return RedirectToAction("QuyenGop");       
+                return RedirectToAction("QuyenGop");
             }
             if (lstQuyenGop.Count == 0)
             {
@@ -146,13 +146,13 @@ namespace BTL_CharityWebsite.Controllers
             db.QUYENGOPs.Add(qg);
             db.SaveChanges();
             //chi tiết quyên góp
-            foreach( var item in lstQuyenGop)
+            foreach (var item in lstQuyenGop)
             {
                 CHITIETQUYENGOP ctqg = new CHITIETQUYENGOP();
                 ctqg.MaQG = qg.MaQG;
-                ctqg.MaCD= item.iMaCD;
+                ctqg.MaCD = item.iMaCD;
                 ctqg.SoTienQG = (decimal)item.iSoTien;
-                db.CHITIETQUYENGOPs.Add (ctqg);
+                db.CHITIETQUYENGOPs.Add(ctqg);
 
                 var chienDich = db.CHIENDICHes.FirstOrDefault(cd => cd.MaCD == item.iMaCD);
                 if (chienDich != null)
@@ -190,7 +190,7 @@ namespace BTL_CharityWebsite.Controllers
         public string UrlPayment(int TypePaymentVN, string iMaQG)
         {
             var urlPayment = "";
-            var quyenGop = db.QUYENGOPs.FirstOrDefault(x => x.MaQG.ToString()  == iMaQG);
+            var quyenGop = db.QUYENGOPs.FirstOrDefault(x => x.MaQG.ToString() == iMaQG);
             //Get Config Info
             string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"]; //URL nhan ket qua tra ve 
             string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"]; //URL thanh toan cua VNPAY 
@@ -199,7 +199,7 @@ namespace BTL_CharityWebsite.Controllers
 
             //Build URL for VNPAY
             VnPayLibrary vnpay = new VnPayLibrary();
-            var Price = (long)TongTien()* 100;
+            var Price = (long)TongTien() * 100;
             vnpay.AddRequestData("vnp_Amount", Price.ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
 
             vnpay.AddRequestData("vnp_Version", VnPayLibrary.VERSION);
@@ -239,6 +239,8 @@ namespace BTL_CharityWebsite.Controllers
             var vnp_HashSecret = ConfigurationManager.AppSettings["vnp_HashSecret"];
             VnPayLibrary vnpay = new VnPayLibrary();
             var request = HttpContext.Request.QueryString;
+
+            // Lấy dữ liệu phản hồi từ VNPay
             foreach (string key in request)
             {
                 if (!string.IsNullOrEmpty(key))
@@ -252,16 +254,56 @@ namespace BTL_CharityWebsite.Controllers
 
             if (checkSignature)
             {
-                // Xử lý kết quả thanh toán thành công
+                // Lấy mã giao dịch từ phản hồi VNPay
                 string vnp_ResponseCode = Request.QueryString["vnp_ResponseCode"];
+                string txnRef = Request.QueryString["vnp_TxnRef"]; // Mã tham chiếu của QUYENGOP
+                int maQG;
+                if (!int.TryParse(txnRef, out maQG))
+                {
+                    return RedirectToAction("QuyenGop");
+                }
+
+                // Nếu thanh toán thành công
                 if (vnp_ResponseCode == "00")
                 {
-                    // Thành công
                     return RedirectToAction("XacNhanQuyenGop");
                 }
                 else
                 {
-                    // Lỗi thanh toán
+                    // Nếu thanh toán không thành công, xóa dữ liệu đã lưu trong QUYENGOP và CHITIETQUYENGOP
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var quyenGop = db.QUYENGOPs.SingleOrDefault(q => q.MaQG == maQG);
+                            if (quyenGop != null)
+                            {
+                                // Xóa chi tiết quyên góp
+                                var chiTietQuyenGop = db.CHITIETQUYENGOPs.Where(ct => ct.MaQG == maQG).ToList();
+                                db.CHITIETQUYENGOPs.RemoveRange(chiTietQuyenGop);
+
+                                // Xóa quyên góp chính
+                                db.QUYENGOPs.Remove(quyenGop);
+                                foreach (var item in chiTietQuyenGop)
+                                {
+                                    var chienDich = db.CHIENDICHes.SingleOrDefault(x => x.MaCD == item.MaCD);
+                                    if(chienDich != null)
+                                    {
+                                        chienDich.TongQuy -= item.SoTienQG;
+                                    }
+                                }
+
+                                db.SaveChanges();
+                                transaction.Commit();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            // Xử lý lỗi nếu cần
+                        }
+                    }
+
                     return RedirectToAction("QuyenGop");
                 }
             }
@@ -271,6 +313,5 @@ namespace BTL_CharityWebsite.Controllers
                 return RedirectToAction("QuyenGop");
             }
         }
-
     }
 }

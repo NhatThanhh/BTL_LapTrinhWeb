@@ -1,0 +1,160 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model Tuple<List<BTL_CharityWebsite.Models.CHIENDICH>, IPagedList<BTL_CharityWebsite.Models.THUVIEN>, int?>
+
+@{
+    ViewBag.Title = "ThuVien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listCD = Model.Item1; // Danh sách chiến dịch
+    var listTV = Model.Item2; // Danh sách hình ảnh
+}
+
+<style>
+    .row {
+        margin: 50px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .col-md-3 {
+        padding-right: 15px;
+        margin-left: 10px;
+        width: 20%;
+    }
+
+    .list-group-item {
+        cursor: pointer;
+        font-size: 20px;
+        padding: 5px 10px;
+        height: 50px;
+        align-content: center;
+        background-color: #ffffff;
+    }
+
+        .list-group-item:hover {
+            background-color: #808080;
+        }
+
+        .list-group-item a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+    .img-fluid {
+        width: 100%;
+        height: auto;
+        transition: .2s linear;
+    }
+
+        .img-fluid:hover {
+            transform: scale(1.1);
+        }
+
+    .image-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Khoảng cách giữa các hình */
+    }
+
+    .image-item {
+        width: 30%;
+        padding: 10px 10px;
+    }
+
+    .image-row .popup-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,.9);
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+        display: none;
+    }
+
+        .image-row .popup-image span {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 60px;
+            font-weight: bolder;
+            color: #ffff;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .image-row .popup-image img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #fff;
+            width: 750px;
+            object-fit: cover;
+        }
+
+    .popup-image span:hover {
+        color: red;
+        cursor: pointer;
+    }
+
+     .pagination-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+
+</style>
+
+<div class="row">
+    <!-- Danh sách chiến dịch bên trái -->
+    <div class="col-md-3">
+        <h4 style="color: #8b0000; font-weight: bold">Danh mục chiến dịch</h4>
+        <ul class="list-group">
+            @foreach (var cd in listCD)
+            {
+                <li class="list-group-item">
+                    <a href="@Url.Action("ThuVien", "Home", new { MaCD = cd.MaCD })">
+                        @cd.TenCD
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!-- Hình ảnh của chiến dịch được chọn -->
+    <div class="col-md-9">
+        <div class="image-row">
+            @foreach (var item in listTV)
+            {
+                <div class="image-item">
+                    <img src="~/Content/images/@item.Anh" alt="Image" class="img-fluid" />
+                </div>
+                <div class="popup-image">
+                    <span>&times;</span>
+                    <img src="~/Content/images/@item.Anh" alt="" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@*Phân trang*@
+<div class="pagination-container">
+    @Html.PagedListPager(Model.Item2, page => Url.Action("ThuVien", new { page = page, MaCD = Model.Item3}))
+</div>
+
+
+<script>
+    document.querySelectorAll('.image-item img').forEach(image => {
+        image.onclick = () => {
+            document.querySelector('.popup-image').style.display = 'block';
+            document.querySelector('.popup-image img').src = image.getAttribute('src');
+        }
+    });
+    document.querySelector('.popup-image span').onclick = () => {
+        document.querySelector('.popup-image').style.display = 'none';
+    }
+</script>

@@ -60,5 +60,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="THUVIENs">
+      <EntityTypeMapping TypeName="CharityManagementModel.THUVIEN">
+        <MappingFragment StoreEntitySet="THUVIEN">
+          <ScalarProperty Name="NgayDang" ColumnName="NgayDang" />
+          <ScalarProperty Name="Anh" ColumnName="Anh" />
+          <ScalarProperty Name="MaHA" ColumnName="MaHA" />
+          <ScalarProperty Name="MaCD" ColumnName="MaCD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

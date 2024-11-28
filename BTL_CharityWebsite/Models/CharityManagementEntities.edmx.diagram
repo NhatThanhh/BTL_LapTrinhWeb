@@ -14,6 +14,8 @@
         <AssociationConnector Association="CharityManagementModel.FK_QuyenGop" />
         <EntityTypeShape EntityType="CharityManagementModel.NGUOIDUNG" Width="1.5" PointX="2.625" PointY="4.875" />
         <AssociationConnector Association="CharityManagementModel.FK__QUYENGOP__MaND__5DCAEF64" />
+        <EntityTypeShape EntityType="CharityManagementModel.THUVIEN" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="CharityManagementModel.fk_CD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

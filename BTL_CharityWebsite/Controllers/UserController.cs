@@ -180,7 +180,70 @@ namespace BTL_CharityWebsite.Controllers
                 return RedirectToAction("DangNhap", "User");
             }
         }
+        [HttpGet]
+        public ActionResult DoiMatKhau()
+        {
+            if (Session["TaiKhoan"] == null || string.IsNullOrEmpty(Session["TaiKhoan"].ToString()))
+            {
+                return RedirectToAction("DangNhap", "User");
+            }
 
+            return View();
+        }
+
+        //Đổi mật khẩu
+        [HttpPost]
+        public ActionResult DoiMatKhau(FormCollection c)
+        {
+            if (Session["TaiKhoan"] == null || string.IsNullOrEmpty(Session["TaiKhoan"].ToString()))
+            {
+                return RedirectToAction("DangNhap", "User");
+            }
+            NGUOIDUNG currentUser = (NGUOIDUNG)Session["TaiKhoan"];
+            var userDb = db.NGUOIDUNGs.SingleOrDefault(u => u.MaND == currentUser.MaND);
+            
+            if(userDb == null)
+            {
+               
+                return RedirectToAction("DangNhap", "User");
+            }
+            string _MatKhauCu = Request.Form["MatKhauCu"];
+            string _MatKhauMoi = Request.Form["MatKhauMoi"];
+
+            if(userDb.MatKhau != _MatKhauCu)
+            {
+                ViewBag.Loi1 = "Mật khẩu hiện tại không chính xác";
+                return View();
+            }
+
+            if (string.IsNullOrEmpty(_MatKhauMoi))
+            {
+                ViewBag.Loi2 = "Vui lòng nhập mật khẩu mới";
+                return View();
+            }
+
+            if (_MatKhauCu == _MatKhauMoi)
+            {
+                ViewBag.Loi2 = "Mật khẩu mới không được trùng với mật khẩu hiện tại";
+                return View();
+            }
+
+            if (userDb != null)
+            {
+                userDb.MatKhau = _MatKhauMoi;
+
+                // Lưu thay đổi vào cơ sở dữ liệu
+                db.SaveChanges();
+
+                // Cập nhật Session với thông tin mới
+                Session["TaiKhoan"] = userDb;
+
+                TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
+                return RedirectToAction("ChinhSuaThongTin");
+            }
+
+            return RedirectToAction("ChinhSuaThongTin");
+        }
 
         //Đăng xuất
         public ActionResult DangXuat()

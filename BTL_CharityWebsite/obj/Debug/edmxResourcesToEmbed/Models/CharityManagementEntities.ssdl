@@ -32,7 +32,7 @@
     <Property Name="Email" Type="varchar" MaxLength="100" />
     <Property Name="SDT" Type="varchar" MaxLength="20" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
-    <Property Name="NgaySinh" Type="date" />
+    <Property Name="NgaySinh" Type="datetime" />
   </EntityType>
   <EntityType Name="QUANLY">
     <Key>
@@ -55,6 +55,16 @@
     <Property Name="SoTien" Type="decimal" Precision="18" Scale="0" />
     <Property Name="NgayQuyenGop" Type="datetime" />
   </EntityType>
+  <EntityType Name="THUVIEN">
+    <Key>
+      <PropertyRef Name="MaCD" />
+      <PropertyRef Name="MaHA" />
+    </Key>
+    <Property Name="MaCD" Type="int" Nullable="false" />
+    <Property Name="MaHA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Anh" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NgayDang" Type="datetime" />
+  </EntityType>
   <Association Name="FK__CHIENDICH__MaQL__571DF1D5">
     <End Role="QUANLY" Type="Self.QUANLY" Multiplicity="1" />
     <End Role="CHIENDICH" Type="Self.CHIENDICH" Multiplicity="*" />
@@ -76,6 +86,18 @@
       </Principal>
       <Dependent Role="QUYENGOP">
         <PropertyRef Name="MaND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_CD">
+    <End Role="CHIENDICH" Type="Self.CHIENDICH" Multiplicity="1" />
+    <End Role="THUVIEN" Type="Self.THUVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHIENDICH">
+        <PropertyRef Name="MaCD" />
+      </Principal>
+      <Dependent Role="THUVIEN">
+        <PropertyRef Name="MaCD" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -109,6 +131,7 @@
     <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QUANLY" EntityType="Self.QUANLY" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QUYENGOP" EntityType="Self.QUYENGOP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="THUVIEN" EntityType="Self.THUVIEN" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__CHIENDICH__MaQL__571DF1D5" Association="Self.FK__CHIENDICH__MaQL__571DF1D5">
       <End Role="QUANLY" EntitySet="QUANLY" />
       <End Role="CHIENDICH" EntitySet="CHIENDICH" />
@@ -116,6 +139,10 @@
     <AssociationSet Name="FK__QUYENGOP__MaND__5DCAEF64" Association="Self.FK__QUYENGOP__MaND__5DCAEF64">
       <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
       <End Role="QUYENGOP" EntitySet="QUYENGOP" />
+    </AssociationSet>
+    <AssociationSet Name="fk_CD" Association="Self.fk_CD">
+      <End Role="CHIENDICH" EntitySet="CHIENDICH" />
+      <End Role="THUVIEN" EntitySet="THUVIEN" />
     </AssociationSet>
     <AssociationSet Name="FK_ChienDich" Association="Self.FK_ChienDich">
       <End Role="CHIENDICH" EntitySet="CHIENDICH" />
