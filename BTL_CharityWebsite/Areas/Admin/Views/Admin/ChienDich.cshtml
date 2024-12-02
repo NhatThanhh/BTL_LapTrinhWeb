@@ -1,0 +1,126 @@
+﻿@using BTL_CharityWebsite.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<BTL_CharityWebsite.Models.CHIENDICH>
+
+@{
+    ViewBag.Title = "ChienDich";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    td a{
+        text-decoration: none;
+        color: #fff;
+        background-color: #428ddd;
+        padding: 5px 10px;
+        border-radius: 6px;
+    }
+    td a:hover{
+        background-color: #326ba8;
+        color: #fff;
+    }
+    p a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #428ddd;
+        padding: 5px 10px;
+        border-radius: 6px;
+    }
+    p a:hover {
+        background-color: #326ba8;
+        color: #fff;
+    }
+
+    .pagination-container {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+        .pagination-container .pagination {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .pagination-container .pagination li a {
+                display: block;
+                padding: 8px 12px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                color: #007bff;
+                background-color: #f8f9fa;
+                transition: all 0.3s ease;
+            }
+
+                .pagination-container .pagination li a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                }
+</style>
+
+<h2 style="text-align: center; font-weight: bold; color: #295e97; padding: 40px ">DANH SÁCH CHIẾN DỊCH</h2>
+<table class="table">
+    <tr>
+        <th>
+            Tên Chiến Dịch
+        </th>
+        <th style="width: 40%">
+            Mô tả
+        </th>
+        <th>
+            Quản Lí
+        </th>
+        <th>
+            Ảnh
+        </th>
+        <th>
+            Tổng Quỹ
+        </th>
+        <th>
+            Ngày Tạo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenCD)
+            </td>
+            <td>
+                @Html.Raw(item.MoTa.Length > 100 ? item.MoTa.Substring(0, 100) + "..." : item.MoTa)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QUANLY.TenQL)
+            </td>
+            <td>
+                <img src="~/Content/images/@item.AnhBia" style="width: 120px; height: auto" />
+            </td>
+            <td>
+                @String.Format("{0:0,0}", item.TongQuy)
+            </td>
+            <td>
+                @(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy") : "N/A")
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "SuaChienDich", new { id = item.MaCD }) |
+                @Html.ActionLink("Chi Tiết", "ChiTietChienDich", new { id = item.MaCD }) |
+                @Html.ActionLink("Xoá", "XoaChienDich", new { id = item.MaCD })
+            </td>
+        </tr>
+    }
+</table>
+<p style=" text-align: center">
+    @Html.ActionLink("Thêm Mới", "ThemChienDich")
+</p>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="pagination-container">
+    @Html.PagedListPager(Model, page => Url.Action("ChienDich", new { page = page }))
+</div>
+

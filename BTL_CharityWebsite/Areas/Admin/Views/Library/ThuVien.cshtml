@@ -1,0 +1,73 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<BTL_CharityWebsite.Models.THUVIEN>
+
+@{
+    ViewBag.Title = "Hình ảnh của chiến dịch";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .pagination-container {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+        .pagination-container .pagination {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .pagination-container .pagination li a {
+                display: block;
+                padding: 8px 12px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                color: #007bff;
+                background-color: #f8f9fa;
+                transition: all 0.3s ease;
+            }
+
+                .pagination-container .pagination li a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                }
+</style>
+
+<h2>Hình ảnh của chiến dịch: @ViewBag.MaCD</h2>
+
+<p>
+    @Html.ActionLink("Quay lại danh sách chiến dịch", "DanhSachChienDich", null, new { @class = "btn btn-secondary" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>Mã hình ảnh</th>
+        <th>Hình ảnh</th>
+        <th>Ngày đăng</th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaHA</td>
+            <td>
+                <img src="~/Content/images/@item.Anh" style="width: 150px; height: auto;" />
+            </td>
+            <td>@string.Format("{0:dd/MM/yyyy}", item.NgayDang)</td>
+            <td>   
+                @Html.ActionLink("Xóa", "Delete", new { id = item.MaHA }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="pagination-container">
+    @Html.PagedListPager(Model, page => Url.Action("ThuVien", new { MaCD = ViewBag.MaCD, page = page }))
+</div>

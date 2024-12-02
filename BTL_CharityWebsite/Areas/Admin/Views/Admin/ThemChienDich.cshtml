@@ -1,0 +1,141 @@
+﻿@using BTL_CharityWebsite.Models
+@model BTL_CharityWebsite.Models.CHIENDICH
+
+@{
+    ViewBag.Title = "ThemChienDich";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Định dạng cho tiêu đề */
+    h2 {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #295e97;
+    }
+    /* Định dạng cho các nhóm form */
+
+    .form-horizontal {
+        max-width: 70%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
+
+    .form-group {
+        padding-left: 15px;
+        margin-bottom: 20px;
+    }
+
+    textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .text-danger {
+        color: red;
+        font-size: 14px;
+    }
+
+    .form-group .btn {
+        background-color: #6695da;
+        padding: 10px 20px;
+        font-weight: bold;
+        color: #f9f9f9;
+    }
+
+    .form-group .btn:hover {
+        cursor: pointer;
+        background-color: #557cb5;
+    }
+</style>
+
+
+
+@using (Html.BeginForm("ThemChienDich", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>THÊM CHIẾN DỊCH</h2>
+        <hr />
+
+        @if (ViewBag.Thongbao != null)
+        {
+            <p class="text-danger">@ViewBag.Thongbao</p>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenCD, "Tên chiến dịch", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenCD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenCD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoTa, "Thông tin chiến dịch", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    
+                    @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", @id = "editor" })
+                    @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaQL, "Người quản lý", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MaQL, (SelectList)ViewBag.MaQL, "Chọn người quản lý", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaQL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnhBia, "Ảnh", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="fileupload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TongQuy, "Tổng quỹ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TongQuy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TongQuy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayTao, "Ngày tạo", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NgayTao, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.NgayTao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+            <input type="submit" value="THÊM" class="btn" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Danh Sách Chiến Dịch", "ChienDich", new { area = "Admin" })
+</div>
+
+
+
+<script>
+    // Replace the textarea with CKEditor 5
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>

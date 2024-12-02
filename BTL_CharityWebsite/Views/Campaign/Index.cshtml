@@ -27,7 +27,7 @@
         .campaign-list-container .campaign-list-row {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between; /* Tạo khoảng cách đều */
+            justify-content: left; /* Tạo khoảng cách đều */
         }
 
         /* Thẻ card chứa chiến dịch */
@@ -35,12 +35,13 @@
             flex: 0 0 23%; /* Mỗi thẻ chiếm 23% chiều rộng */
             max-width: 23%; /* Giới hạn tối đa chiều rộng */
             margin-bottom: 20px;
+            margin-left: 30px;
             border: 1px solid #e0e0e0; /* Viền nhẹ */
             border-radius: 8px; /* Bo góc thẻ */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
             transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
             overflow: hidden; /* Ẩn các nội dung tràn */
-            text-align: center;
+            text-align: center;           
         }
 
             .campaign-list-container .campaign-card:hover {

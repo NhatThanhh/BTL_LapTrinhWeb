@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CharityManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="UserAdmin" />
+          </Key>
+          <Property Name="UserAdmin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassAdmin" Type="varchar" MaxLength="10" />
+          <Property Name="NameAdmin" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="CHIENDICH">
           <Key>
             <PropertyRef Name="MaCD" />
@@ -131,6 +139,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CharityManagementModelStoreContainer">
+          <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHIENDICH" EntityType="Self.CHIENDICH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETQUYENGOP" EntityType="Self.CHITIETQUYENGOP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" Schema="dbo" store:Type="Tables" />
@@ -229,6 +238,7 @@
             <End Role="CHIENDICH" EntitySet="CHIENDICHes" />
             <End Role="THUVIEN" EntitySet="THUVIENs" />
           </AssociationSet>
+          <EntitySet Name="ADMINs" EntityType="CharityManagementModel.ADMIN" />
         </EntityContainer>
         <EntityType Name="CHITIETQUYENGOP">
           <Key>
@@ -325,6 +335,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="UserAdmin" />
+          </Key>
+          <Property Name="UserAdmin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PassAdmin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NameAdmin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -397,6 +415,15 @@
                 <ScalarProperty Name="Anh" ColumnName="Anh" />
                 <ScalarProperty Name="MaHA" ColumnName="MaHA" />
                 <ScalarProperty Name="MaCD" ColumnName="MaCD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ADMINs">
+            <EntityTypeMapping TypeName="CharityManagementModel.ADMIN">
+              <MappingFragment StoreEntitySet="ADMIN">
+                <ScalarProperty Name="NameAdmin" ColumnName="NameAdmin" />
+                <ScalarProperty Name="PassAdmin" ColumnName="PassAdmin" />
+                <ScalarProperty Name="UserAdmin" ColumnName="UserAdmin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -67,6 +67,7 @@
       <End Role="CHIENDICH" EntitySet="CHIENDICHes" />
       <End Role="THUVIEN" EntitySet="THUVIENs" />
     </AssociationSet>
+    <EntitySet Name="ADMINs" EntityType="CharityManagementModel.ADMIN" />
   </EntityContainer>
   <EntityType Name="CHITIETQUYENGOP">
     <Key>
@@ -163,4 +164,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="ADMIN">
+    <Key>
+      <PropertyRef Name="UserAdmin" />
+    </Key>
+    <Property Name="UserAdmin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PassAdmin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NameAdmin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

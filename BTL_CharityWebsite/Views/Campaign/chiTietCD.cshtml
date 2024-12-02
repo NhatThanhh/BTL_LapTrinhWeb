@@ -92,7 +92,7 @@
                     @Model.TenCD
                 </h2>
                 <p><strong>Chịu trách nhiệm bởi: </strong>@ViewBag.TenQL</p>
-                <p><strong>Thông tin chiến dịch: </strong>@Model.MoTa</p>
+                <p><strong>Thông tin chiến dịch: </strong>@Html.Raw(Model.MoTa)</p> 
                 <p><strong>Ngày khởi động chiến dịch:</strong> @ViewBag.NgayTao</p>
                 <p style="color: red; font-weight: bold;">
                     Tổng quỹ: @String.Format("{0:0,0}", Model.TongQuy) VND
