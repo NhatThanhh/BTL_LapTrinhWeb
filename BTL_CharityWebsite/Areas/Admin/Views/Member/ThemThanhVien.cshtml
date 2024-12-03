@@ -1,0 +1,90 @@
+﻿@model BTL_CharityWebsite.Models.QUANLY
+
+@{
+    ViewBag.Title = "ThemThanhVien";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ThemThanhVien</h2>
+
+@using (Html.BeginForm("ThemThanhVien", "Member", FormMethod.Post, new { @enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>QUANLY</h4>
+    <hr />
+    @if (ViewBag.Thongbao != null)
+    {
+        <p class="text-danger">@ViewBag.Thongbao</p>
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        Tên
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TenQL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenQL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Email
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EmailQL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmailQL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Số điện thoại
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SDTQL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SDTQL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Tiểu sử
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.TieuSu, new { @class = "form-control", @id = "editor" })
+            @Html.ValidationMessageFor(model => model.TieuSu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Ảnh
+        <div class="col-md-10">
+            <div class="col-md-10">
+                <input type="file" name="fileupload" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        Chức vụ
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ChucVu, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ChucVu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    // Replace the textarea with CKEditor 5
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>

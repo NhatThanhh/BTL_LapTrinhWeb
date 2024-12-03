@@ -7,6 +7,53 @@
 }
 
 <style>
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        color: #295e97;
+        padding: 40px
+    }
+    .image-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px; /* Khoảng cách giữa các hình */
+        margin: 20px auto;
+        padding-left: 6%;
+    }
+
+    .image-item {
+        position: relative;
+        width: calc(30% - 10px);
+        box-sizing: border-box;
+    }
+    .image-item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .image-checkbox{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 1;
+        transform: scale(1.2);
+    }
+
+    .delete-image {
+        display: flex;
+        justify-content: center;
+    }
+
+        .delete-image button {
+            text-decoration: none;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 10px;
+            background-color: darkred;
+            margin-top: 40px;
+        }
+
     .pagination-container {
         margin-top: 10px;
         display: flex;
@@ -36,38 +83,88 @@
                     color: #fff;
                     border-color: #007bff;
                 }
-</style>
 
-<h2>Hình ảnh của chiến dịch: @ViewBag.MaCD</h2>
-
-<p>
-    @Html.ActionLink("Quay lại danh sách chiến dịch", "DanhSachChienDich", null, new { @class = "btn btn-secondary" })
-</p>
-
-<table class="table">
-    <tr>
-        <th>Mã hình ảnh</th>
-        <th>Hình ảnh</th>
-        <th>Ngày đăng</th>
-        <th>Thao tác</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.MaHA</td>
-            <td>
-                <img src="~/Content/images/@item.Anh" style="width: 150px; height: auto;" />
-            </td>
-            <td>@string.Format("{0:dd/MM/yyyy}", item.NgayDang)</td>
-            <td>   
-                @Html.ActionLink("Xóa", "Delete", new { id = item.MaHA }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
+    .add-image {
+        text-align: center;
+        margin: 20px;
     }
 
-</table>
+        .add-image button {
+            color: #fff;
+            background-color: #8b0000;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
+</style>
 
+<h2>@ViewBag.TenCD</h2>
+@if (TempData["thongbao"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["thongbao"]
+    </div>
+}
+@using (Html.BeginForm("XoaAnh", "Library", FormMethod.Post))
+{
+    <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
+    <div class="image-row">
+        @foreach (var item in Model)
+        {
+            <div class="image-item">
+                <input type="checkbox" name="AnhChon" value="@item.MaHA" class="image-checkbox"/>
+                <img src="~/Content/images/@item.Anh" />
+            </div>
+        }
+    </div>
+
+    <div class="delete-image">
+        <button type="submit" onclick="confirmDelete(event);">Xoá</button>
+    </div>
+}
+@if (TempData["thongbaoThem"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["thongbaoThem"]
+    </div>
+}
+@using (Html.BeginForm("ThemAnh", "Library", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="add-image">
+        <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
+
+        <!-- Input file ẩn -->
+        <input type="file" name="fileupload" id="fileInput" class="file-input" multiple />
+        <div class="add-btn">
+            <button type="submit">Tải lên ảnh</button>
+        </div>
+    </div>
+}
+
+<p style="text-align: center">
+    @Html.ActionLink("Danh sách chiến dịch", "DanhSachChienDich")
+</p>
 <div class="pagination-container">
     @Html.PagedListPager(Model, page => Url.Action("ThuVien", new { MaCD = ViewBag.MaCD, page = page }))
 </div>
+
+<script>
+    function confirmDelete(event) {
+        event.preventDefault(); // Ngăn không cho form gửi ngay lập tức
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Dữ liệu sẽ bị xóa và không thể khôi phục!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.form.submit(); // Gửi form nếu người dùng xác nhận
+            }
+        });
+    }
+</script>

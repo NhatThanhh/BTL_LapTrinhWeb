@@ -8,10 +8,27 @@
 }
 
 <style>
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        color: #295e97;
+        padding: 40px
+    }
+    .list{
+        width: 40%;
+        margin: 0 auto;
+    }
     .pagination-container {
         margin-top: 10px;
         display: flex;
         justify-content: center;
+    }
+    td a{
+        text-decoration: none;
+        color: #fff;
+        background-color: #428ddd;
+        padding: 5px 10px;
+        border-radius: 10px;
     }
 
         .pagination-container .pagination {
@@ -39,28 +56,28 @@
                 }
 </style>
 <h2>Danh mục</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            Tên chiến dịch
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="list">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenCD)
-            </td>
-            <td>
-                @Html.ActionLink("Chi tiết", "ThuVien", new { MaCD = item.MaCD }) |
-                @Html.ActionLink("Xoá", "Delete", new { id = item.MaCD })
-            </td>
+            <th>
+                Tên dự án
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenCD)
+                </td>
+                <td style="text-align: right">
+                    @Html.ActionLink("Chi tiết", "ThuVien", new { MaCD = item.MaCD })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
 <div class="pagination-container">
     @Html.PagedListPager(Model, page => Url.Action("DanhSachChienDich", new { page = page }))

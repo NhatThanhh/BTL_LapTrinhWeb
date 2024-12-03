@@ -104,7 +104,7 @@
 </style>
 
 
-<h2 style="text-align: center; font-weight: bold; color: #295e97; padding: 40px ">CHỈNH SỬA THÔNG TIN CHIẾN DỊCH</h2>
+<h2 style="text-align: center; font-weight: bold; color: #295e97; padding: 40px ">CHỈNH SỬA THÔNG TIN DỰ ÁN</h2>
 
 @using (Html.BeginForm("SuaChienDich", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -117,7 +117,7 @@
         }
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <div class="edit-title">Mã chiến dịch</div>           
+            <div class="edit-title">Mã dự án</div>           
             <div class="col-md-10">
                 <div style="font:18px; padding: 5px 0 0 5px">
                     @Model.MaCD
@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="edit-title">Tên chiến dịch</div>
+            <div class="edit-title">Tên dự án</div>
             
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TenCD, new { htmlAttributes = new { @class = "form-control" } })

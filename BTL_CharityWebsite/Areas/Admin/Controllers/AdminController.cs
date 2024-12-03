@@ -24,6 +24,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             return View();
         }
 
@@ -65,6 +69,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
 
         public ActionResult ChienDich(int? page)
         {
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             int pageSize = 6;
             int pageNum = (page ?? 1);
             return View(db.CHIENDICHes.ToList().OrderBy(x => x.MaCD).ToPagedList(pageNum, pageSize));
@@ -250,6 +258,11 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
             }
             
             return View(model);
+        }
+        public ActionResult DangXuat()
+        {
+            Session["AdminTK"] = null;
+            return RedirectToAction("Login");
         }
     }
 }

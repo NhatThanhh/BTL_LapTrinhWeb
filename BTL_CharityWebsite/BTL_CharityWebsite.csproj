@@ -130,6 +130,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\LibraryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MemberController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\DonateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -282,6 +283,11 @@
     <Content Include="Areas\Admin\Views\Admin\SuaChienDich.cshtml" />
     <Content Include="Areas\Admin\Views\Library\ThuVien.cshtml" />
     <Content Include="Areas\Admin\Views\Library\DanhSachChienDich.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\DanhSachThanhVien.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\ChiTietThanhVien.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\ThemThanhVien.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\XoaThanhVien.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\SuaThanhVien.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
