@@ -138,6 +138,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_QuyenGopTheoThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CharityManagementModelStoreContainer">
           <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHIENDICH" EntityType="Self.CHIENDICH" Schema="dbo" store:Type="Tables" />
@@ -239,6 +240,7 @@
             <End Role="THUVIEN" EntitySet="THUVIENs" />
           </AssociationSet>
           <EntitySet Name="ADMINs" EntityType="CharityManagementModel.ADMIN" />
+          <FunctionImport Name="sp_QuyenGopTheoThang" ReturnType="Collection(CharityManagementModel.sp_QuyenGopTheoThang_Result)" />
         </EntityContainer>
         <EntityType Name="CHITIETQUYENGOP">
           <Key>
@@ -343,6 +345,11 @@
           <Property Name="PassAdmin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="NameAdmin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="sp_QuyenGopTheoThang_Result">
+          <Property Type="Int32" Name="Nam" Nullable="true" />
+          <Property Type="Int32" Name="Thang" Nullable="true" />
+          <Property Type="Int32" Name="SoLuotQuyenGop" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -427,6 +434,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_QuyenGopTheoThang" FunctionName="CharityManagementModel.Store.sp_QuyenGopTheoThang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CharityManagementModel.sp_QuyenGopTheoThang_Result">
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="SoLuotQuyenGop" ColumnName="SoLuotQuyenGop" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

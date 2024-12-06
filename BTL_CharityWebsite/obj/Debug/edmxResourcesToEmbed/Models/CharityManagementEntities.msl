@@ -79,5 +79,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_QuyenGopTheoThang" FunctionName="CharityManagementModel.Store.sp_QuyenGopTheoThang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CharityManagementModel.sp_QuyenGopTheoThang_Result">
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+          <ScalarProperty Name="Thang" ColumnName="Thang" />
+          <ScalarProperty Name="SoLuotQuyenGop" ColumnName="SoLuotQuyenGop" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

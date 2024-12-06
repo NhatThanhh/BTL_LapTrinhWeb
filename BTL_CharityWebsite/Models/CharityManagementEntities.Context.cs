@@ -12,6 +12,8 @@ namespace BTL_CharityWebsite.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class CharityManagementEntities : DbContext
     {
@@ -32,5 +34,10 @@ namespace BTL_CharityWebsite.Models
         public virtual DbSet<NGUOIDUNG> NGUOIDUNGs { get; set; }
         public virtual DbSet<THUVIEN> THUVIENs { get; set; }
         public virtual DbSet<ADMIN> ADMINs { get; set; }
+    
+        public virtual ObjectResult<sp_QuyenGopTheoThang_Result> sp_QuyenGopTheoThang()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_QuyenGopTheoThang_Result>("sp_QuyenGopTheoThang");
+        }
     }
 }

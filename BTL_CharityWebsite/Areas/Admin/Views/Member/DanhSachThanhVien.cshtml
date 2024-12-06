@@ -87,7 +87,12 @@
 </style>
 
 <h2>DANH SÁCH THÀNH VIÊN</h2>
-
+<form method="get" action="@Url.Action("DanhSachThanhVien", "Member")" style="margin-bottom: 20px; text-align: center;">
+    <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
+    <input type="text" id="tenThanhVien" name="tenThanhVien" value="@Request.QueryString["tenThanhVien"]" placeholder="Nhập tên thành viên" />
+    <input type="text" id="chucVu" name="chucVu" value="@Request.QueryString["chucVu"]" placeholder="Chức vụ" />
+    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+</form>
 <table class="table">
     <tr>
         <th>
@@ -110,35 +115,44 @@
         </th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
+    @if (!Model.Any())
     {
         <tr>
-            <td style="width: 10%">
-                @Html.DisplayFor(modelItem => item.TenQL)
-            </td>
-            <td style="width: 2%">
-                @Html.DisplayFor(modelItem => item.EmailQL)
-            </td>
-            <td style="width: 8%">
-                @Html.DisplayFor(modelItem => item.SDTQL)
-            </td>
-            <td width="25%">
-                @Html.Raw(item.TieuSu.Length > 100 ? item.TieuSu.Substring(0, 100) + "..." : item.TieuSu)
-            </td>
-            <td>
-                <img src="~/Content/images/@item.AnhQL" style="width: 150px; height: auto" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChucVu)
-            </td>
-            <td>
-                @Html.ActionLink("Chỉnh sửa", "SuaThanhVien", new { id = item.MaQL }) |
-                @Html.ActionLink("Chi Tiết", "ChiTietThanhVien", new { id = item.MaQL }) |
-                @Html.ActionLink("Xoá", "XoaThanhVien", new { id = item.MaQL })
-            </td>
+            <td colspan="7" style="text-align: center;">Không tìm thấy chiến dịch nào phù hợp.</td>
         </tr>
     }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 10%">
+                    @Html.DisplayFor(modelItem => item.TenQL)
+                </td>
+                <td style="width: 2%">
+                    @Html.DisplayFor(modelItem => item.EmailQL)
+                </td>
+                <td style="width: 8%">
+                    @Html.DisplayFor(modelItem => item.SDTQL)
+                </td>
+                <td width="25%">
+                    @Html.Raw(item.TieuSu.Length > 100 ? item.TieuSu.Substring(0, 100) + "..." : item.TieuSu)
+                </td>
+                <td>
+                    <img src="~/Content/images/@item.AnhQL" style="width: 150px; height: auto" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChucVu)
+                </td>
+                <td>
+                    @Html.ActionLink("Chỉnh sửa", "SuaThanhVien", new { id = item.MaQL }) |
+                    @Html.ActionLink("Chi Tiết", "ChiTietThanhVien", new { id = item.MaQL }) |
+                    @Html.ActionLink("Xoá", "XoaThanhVien", new { id = item.MaQL })
+                </td>
+            </tr>
+        }
+    }
+
 
 </table>
 <div class="add-btn">
@@ -148,5 +162,8 @@
 </div>
 <p style="text-align: center; margin-top: 30px">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount</p>
 <div class="pagination-container">
-    @Html.PagedListPager(Model, page => Url.Action("DanhSachThanhVien", new { page = page }))
+    @Html.PagedListPager(Model, page => Url.Action("DanhSachThanhVien", new { page = page ,
+    tenThanhVien = Request.QueryString["tenThanhVien"],
+    chucVu = Request.QueryString["chucVu"]
+}))
 </div>

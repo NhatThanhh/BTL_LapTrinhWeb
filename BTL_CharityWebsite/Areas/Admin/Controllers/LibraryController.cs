@@ -29,10 +29,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         //Danh sách chiến dịch
         public ActionResult DanhSachChienDich(int? page = 1)
         {
-            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
-            {
-                return RedirectToAction("Login", "Admin");
-            }
+            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            //{
+            //    return RedirectToAction("Login", "Admin");
+            //}
             int pageSize = 10;
             int pageNum = (page ?? 1);
 
@@ -44,16 +44,24 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
             return View(listChienDich);
         }
 
-
+        //Tìm kiếm
+        public List<THUVIEN> TimKiem(List<THUVIEN> thuVien, DateTime? ngayDang)
+        {
+            var data = (from item in thuVien
+                        where (ngayDang == null || item.NgayDang == ngayDang)
+                        select item).ToList();
+            return data;
+        }
         //Thư viện
-        public ActionResult ThuVien(int? MaCD, int? page = 1)
+        public ActionResult ThuVien(int? MaCD,DateTime? ngayDang, int? page = 1 )
         {
             int pageSize = 9;
             int pageNum = (page ?? 1);
-            var imagelist = db.THUVIENs.Where(x => x.MaCD == MaCD).OrderBy(x => x.MaHA).ToPagedList(pageNum, pageSize);
+            var imagelist = db.THUVIENs.Where(x => x.MaCD == MaCD).ToList();
+            var ketQua = TimKiem(imagelist, ngayDang);
             ViewBag.MaCD = MaCD;
             ViewBag.TenCD = db.CHIENDICHes.Where(x => x.MaCD == MaCD).Select(x => x.TenCD).SingleOrDefault();
-            return View(imagelist);
+            return View(ketQua.OrderBy(x => x.MaHA).ToPagedList(pageNum,pageSize));
         }
         //xoá ảnh
         [HttpPost]

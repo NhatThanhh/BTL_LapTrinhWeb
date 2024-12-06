@@ -133,6 +133,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="sp_QuyenGopTheoThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="CharityManagementModelStoreContainer">
     <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHIENDICH" EntityType="Self.CHIENDICH" Schema="dbo" store:Type="Tables" />

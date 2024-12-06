@@ -26,7 +26,15 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         {
             return View();
         }
-        public ActionResult DanhSachThanhVien(int? page)
+        //tìm kiếm
+        public List<QUANLY> TimKiem(List<QUANLY> thanhVien, string tenThanhVien, string chucVu)
+        {
+            var data = (from item in thanhVien where (string.IsNullOrEmpty(tenThanhVien) == true || item.TenQL.ToLower().Contains(tenThanhVien.ToLower()) == true)
+                        && (string.IsNullOrEmpty(chucVu) == true || item.ChucVu.ToLower().Contains(chucVu.ToLower()) == true)
+                        select item).ToList();
+            return data;
+        }
+        public ActionResult DanhSachThanhVien(int? page, string tenThanhVien, string chucVu)
         {
             //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
             //{
@@ -34,7 +42,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
             //}
             int pageSize = 6;
             int pageNum = (page ?? 1);
-            return View(db.QUANLies.ToList().OrderBy(x => x.MaQL).ToPagedList(pageNum, pageSize));
+            var DSThanhVien = db.QUANLies.ToList();
+            //Tìm kiếm
+            var ketQua = TimKiem(DSThanhVien, tenThanhVien, chucVu);
+            return View(ketQua.OrderBy(x => x.MaQL).ToPagedList(pageNum, pageSize));
         }
 
         public ActionResult ChiTietThanhVien(int id)
@@ -48,6 +59,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemThanhVien()
         {
+            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            //{
+            //    return RedirectToAction("Login", "Admin");
+            //}
             return View();
         }
         [HttpPost]

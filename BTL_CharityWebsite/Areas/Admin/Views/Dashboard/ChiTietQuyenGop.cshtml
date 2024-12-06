@@ -1,0 +1,23 @@
+﻿@model IEnumerable<BTL_CharityWebsite.ViewModel.ChiTietQuyenGopVM>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Họ tên người dùng</th>
+            <th>Tên chiến dịch</th>
+            <th>Số tiền quyên góp</th>
+            <th>Ngày quyên góp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.HoTenNguoiDung</td>
+                <td>@item.TenChienDich</td>
+                <td> @String.Format("{0:0,0}", @item.SoTienQuyenGop) VNĐ</td>
+                <td>@item.NgayQuyenGop</td>
+            </tr>
+        }
+    </tbody>
+</table>

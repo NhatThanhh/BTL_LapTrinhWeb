@@ -56,7 +56,7 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                 if (admin != null)
                 {
                     Session["AdminTK"] = admin;
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Dashboard");
                 }
                 else
                 {
@@ -66,22 +66,39 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
             return View();
         }
 
-
-        public ActionResult ChienDich(int? page)
+        //Tìm kiếm
+        public List<CHIENDICH> TimKiem(List<CHIENDICH> chiendich, int? namTao, string tenChienDich, decimal? minTongQuy, decimal? maxTongQuy)
         {
-            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
-            {
-                return RedirectToAction("Login", "Admin");
-            }
+            var data = (from item in chiendich where (namTao == null || item.NgayTao.Value.Year == namTao)
+                        && (string.IsNullOrEmpty(tenChienDich) == true|| item.TenCD.ToLower().Contains(tenChienDich.ToLower()) == true)
+                        && (minTongQuy == null || item.TongQuy >= minTongQuy)
+                        && (maxTongQuy == null || item.TongQuy <= maxTongQuy)
+                        select item).ToList();
+            return data;
+        }
+        public ActionResult ChienDich(int? page, int? namTao, string tenChienDich, decimal? minTongQuy, decimal? maxTongQuy)
+        {
+            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            //{
+            //    return RedirectToAction("Login", "Admin");
+            //}
             int pageSize = 6;
             int pageNum = (page ?? 1);
-            return View(db.CHIENDICHes.ToList().OrderBy(x => x.MaCD).ToPagedList(pageNum, pageSize));
+            //Toàn bộ danh sách
+            var DSChienDich = db.CHIENDICHes.ToList();
+            //Tìm kiếm
+            var ketQua = TimKiem(DSChienDich, namTao, tenChienDich, minTongQuy, maxTongQuy);
+            return View(ketQua.OrderBy(x => x.MaCD).ToPagedList(pageNum, pageSize));
         }
 
 
         [HttpGet]
         public ActionResult ThemChienDich()
         {
+            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            //{
+            //    return RedirectToAction("Login", "Admin");
+            //}
             // Đưa danh sách người quản lý vào ViewBag
             ViewBag.MaQL = new SelectList(db.QUANLies.ToList().OrderBy(x => x.TenQL), "MaQL", "TenQL");
             return View();
@@ -264,5 +281,6 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
             Session["AdminTK"] = null;
             return RedirectToAction("Login");
         }
+
     }
 }

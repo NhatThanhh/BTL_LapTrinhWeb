@@ -67,6 +67,14 @@
 </style>
 
 <h2 style="text-align: center; font-weight: bold; color: #295e97; padding: 40px ">DANH SÁCH CHIẾN DỊCH</h2>
+<form method="get" action="@Url.Action("ChienDich", "Admin")" style="margin-bottom: 20px; text-align: center;">
+    <label for="namTao" style="margin-right: 10px;">Tìm kiếm dự án:</label>
+    <input type="number" id="namTao" name="namTao" value="@Request.QueryString["namTao"]" placeholder="Nhập năm tạo" />
+    <input type="text" id="tenChienDich" name="tenChienDich" value="@Request.QueryString["tenChienDich"]" placeholder="Nhập tên dự án" />
+    <input type="number" id="minTongQuy" name="minTongQuy" value="@Request.QueryString["minTongQuy"]" placeholder="Tổng quỹ lớn hơn" />
+    <input type="number" id="maxTongQuy" name="maxTongQuy" value="@Request.QueryString["maxTongQuy"]" placeholder="Tổng quỹ bé hơn" />
+    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+</form>
 <table class="table">
     <tr>
         <th>
@@ -90,41 +98,55 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @if (!Model.Any())
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenCD)
-            </td>
-            <td>
-                @Html.Raw(item.MoTa.Length > 100 ? item.MoTa.Substring(0, 100) + "..." : item.MoTa)
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QUANLY.TenQL)
-            </td>
-            <td>
-                <img src="~/Content/images/@item.AnhBia" style="width: 120px; height: auto" />
-            </td>
-            <td>
-                @String.Format("{0:0,0}", item.TongQuy)
-            </td>
-            <td>
-                @(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy") : "N/A")
-            </td>
-            <td>
-                @Html.ActionLink("Sửa", "SuaChienDich", new { id = item.MaCD }) |
-                @Html.ActionLink("Chi Tiết", "ChiTietChienDich", new { id = item.MaCD }) |
-                @Html.ActionLink("Xoá", "XoaChienDich", new { id = item.MaCD })
-            </td>
+            <td colspan="7" style="text-align: center;">Không tìm thấy chiến dịch nào phù hợp.</td>
         </tr>
     }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenCD)
+                </td>
+                <td>
+                    @Html.Raw(item.MoTa.Length > 100 ? item.MoTa.Substring(0, 100) + "..." : item.MoTa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QUANLY.TenQL)
+                </td>
+                <td>
+                    <img src="~/Content/images/@item.AnhBia" style="width: 120px; height: auto" />
+                </td>
+                <td>
+                    @String.Format("{0:0,0}", item.TongQuy)
+                </td>
+                <td>
+                    @(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy") : "N/A")
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "SuaChienDich", new { id = item.MaCD }) |
+                    @Html.ActionLink("Chi Tiết", "ChiTietChienDich", new { id = item.MaCD }) |
+                    @Html.ActionLink("Xoá", "XoaChienDich", new { id = item.MaCD })
+                </td>
+            </tr>
+        }
+    }
+
 </table>
 <p style=" text-align: center">
     @Html.ActionLink("Thêm Mới", "ThemChienDich")
 </p>
 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
 <div class="pagination-container">
-    @Html.PagedListPager(Model, page => Url.Action("ChienDich", new { page = page }))
+    @Html.PagedListPager(Model, page => Url.Action("ChienDich", new { page = page ,
+    namTao = Request.QueryString["namTao"],
+    tenChienDich = Request.QueryString["tenChienDich"],
+    minTongQuy = Request.QueryString["minTongQuy"],
+    maxTongQuy = Request.QueryString["maxTongQuy"]
+}))
 </div>
 

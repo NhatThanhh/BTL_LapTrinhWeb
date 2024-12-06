@@ -13,6 +13,7 @@
         color: #295e97;
         padding: 40px
     }
+
     .image-row {
         display: flex;
         flex-wrap: wrap;
@@ -26,12 +27,14 @@
         width: calc(30% - 10px);
         box-sizing: border-box;
     }
-    .image-item img{
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-    .image-checkbox{
+
+        .image-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+    .image-checkbox {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -96,6 +99,55 @@
             border-radius: 10px;
             padding: 5px 10px;
         }
+
+    .image-item .popup-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,.9);
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+        display: none;
+        margin-top: 20px;
+    }
+
+        .image-item .popup-image span {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 60px;
+            font-weight: bolder;
+            color: #ffff;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .image-item .popup-image img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #fff;
+            width: 750px;
+            object-fit: cover;
+        }
+
+    .popup-image span {
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+        .popup-image span:hover {
+            color: red;
+            cursor: pointer;
+        }
+
+    .pagination-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
 </style>
 
 <h2>@ViewBag.TenCD</h2>
@@ -105,19 +157,41 @@
         @TempData["thongbao"]
     </div>
 }
+<form method="get" action="@Url.Action("ThuVien", "Library")" style="margin-bottom: 20px; text-align: center;">
+    <label for="ngayDang" style="margin-right: 10px;">Tìm kiếm:</label>
+    <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
+    <input type="date" id="ngayDang" name="ngayDang" value="@Request.QueryString["ngayDang"]" placeholder="Ngày đăng ảnh" />
+    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+</form>
+
 @using (Html.BeginForm("XoaAnh", "Library", FormMethod.Post))
 {
     <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
     <div class="image-row">
-        @foreach (var item in Model)
+        @if (!Model.Any())
         {
-            <div class="image-item">
-                <input type="checkbox" name="AnhChon" value="@item.MaHA" class="image-checkbox"/>
-                <img src="~/Content/images/@item.Anh" />
-            </div>
+                <div style="text-align: center; width: 100%; margin-left: -3%">Không tìm thấy hình ảnh nào.</div>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="image-item">
+                    <input type="checkbox" name="AnhChon" value="@item.MaHA" class="image-checkbox" />
+                    <img src="~/Content/images/@item.Anh" />
+                    <div class="popup-image">
+                        <span>&times;</span>
+                        <img src="~/Content/images/@item.Anh" alt="" />
+                    </div>
+                    <p>Ngày đăng: @item.NgayDang</p>
+
+                </div>
+            }
         }
     </div>
-
+    <div class="pagination-container">
+        @Html.PagedListPager(Model, page => Url.Action("ThuVien", new { MaCD = ViewBag.MaCD, page = page }))
+    </div>
     <div class="delete-image">
         <button type="submit" onclick="confirmDelete(event);">Xoá</button>
     </div>
@@ -144,9 +218,7 @@
 <p style="text-align: center">
     @Html.ActionLink("Danh sách chiến dịch", "DanhSachChienDich")
 </p>
-<div class="pagination-container">
-    @Html.PagedListPager(Model, page => Url.Action("ThuVien", new { MaCD = ViewBag.MaCD, page = page }))
-</div>
+
 
 <script>
     function confirmDelete(event) {
@@ -166,5 +238,15 @@
                 event.target.form.submit(); // Gửi form nếu người dùng xác nhận
             }
         });
+    }
+    // Phóng to ảnh
+    document.querySelectorAll('.image-item img').forEach(image => {
+        image.onclick = () => {
+            document.querySelector('.popup-image').style.display = 'block';
+            document.querySelector('.popup-image img').src = image.getAttribute('src');
+        }
+    });
+    document.querySelector('.popup-image span').onclick = () => {
+        document.querySelector('.popup-image').style.display = 'none';
     }
 </script>
