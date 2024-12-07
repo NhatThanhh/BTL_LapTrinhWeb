@@ -173,12 +173,8 @@
     // Chuẩn bị dữ liệu cho biểu đồ
     var labels1 = data1.map(item => `${item.Thang}/${item.Nam}`);
     const counts1 = data1.map(item => Math.round(item.SoLuotQuyenGop));
-
-
-
     // Tạo biểu đồ
     var donationChartctx1 = document.getElementById('donationsChart');
-
     new Chart(donationChartctx1, {
         type: 'line', // Dạng biểu đồ: Line Chart
         data: {

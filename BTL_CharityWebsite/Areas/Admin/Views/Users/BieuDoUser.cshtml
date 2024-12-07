@@ -1,0 +1,55 @@
+﻿@model IEnumerable<dynamic>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<script>
+    // Truyền dữ liệu từ Razor sang JavaScript
+    var userData = @Html.Raw(ViewBag.UserData);
+    // Chuẩn bị dữ liệu cho biểu đồ
+    var labelsUser = userData.map(item => `${item.Thang}/${item.Nam}`);
+    const countsUser = userData.map(item => Math.round(item.SoLuongUser));
+    // Tạo biểu đồ
+    var donationChartctx1 = document.getElementById('userChart');
+    new Chart(donationChartctx1, {
+        type: 'line', // Dạng biểu đồ: Line Chart
+        data: {
+            labels: labelsUser, // Nhãn trục x
+            datasets: [{
+                label: 'Số tài khoản mới',
+                data: countsUser, // Dữ liệu trục y
+                borderColor: 'RGBA( 102, 205, 170, 1 )',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                tension: 0.4 // Làm mượt đường nối
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Biểu đồ số người dùng mới theo tháng'
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1, // Đặt khoảng cách giữa các bước là 1
+                        callback: function (value) {
+                            return value.toLocaleString(); // Hiển thị số nguyên
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Số lượt đăng kí'
+                    }
+                },
+            }
+        }
+
+    });
+</script>

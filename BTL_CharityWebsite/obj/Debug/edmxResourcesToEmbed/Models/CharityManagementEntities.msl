@@ -49,6 +49,7 @@
     <EntitySetMapping Name="NGUOIDUNGs">
       <EntityTypeMapping TypeName="CharityManagementModel.NGUOIDUNG">
         <MappingFragment StoreEntitySet="NGUOIDUNG">
+          <ScalarProperty Name="NgayDangKi" ColumnName="NgayDangKi" />
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
           <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />

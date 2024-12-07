@@ -46,6 +46,7 @@
           <Property Name="SDT" Type="varchar" MaxLength="20" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
           <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="NgayDangKi" Type="datetime" />
         </EntityType>
         <EntityType Name="QUANLY">
           <Key>
@@ -301,6 +302,7 @@
           <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <NavigationProperty Name="QUYENGOPs" Relationship="CharityManagementModel.FK__QUYENGOP__MaND__5DCAEF64" FromRole="NGUOIDUNG" ToRole="QUYENGOP" />
+          <Property Name="NgayDangKi" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK__QUYENGOP__MaND__5DCAEF64">
           <End Type="CharityManagementModel.NGUOIDUNG" Role="NGUOIDUNG" Multiplicity="0..1" />
@@ -404,6 +406,7 @@
           <EntitySetMapping Name="NGUOIDUNGs">
             <EntityTypeMapping TypeName="CharityManagementModel.NGUOIDUNG">
               <MappingFragment StoreEntitySet="NGUOIDUNG">
+                <ScalarProperty Name="NgayDangKi" ColumnName="NgayDangKi" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />

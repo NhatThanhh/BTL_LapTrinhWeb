@@ -28,6 +28,7 @@ namespace BTL_CharityWebsite.Models
         public string SDT { get; set; }
         public string DiaChi { get; set; }
         public Nullable<System.DateTime> NgaySinh { get; set; }
+        public Nullable<System.DateTime> NgayDangKi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QUYENGOP> QUYENGOPs { get; set; }

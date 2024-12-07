@@ -129,6 +129,7 @@
     <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="NgaySinh" Type="DateTime" Precision="3" />
     <NavigationProperty Name="QUYENGOPs" Relationship="CharityManagementModel.FK__QUYENGOP__MaND__5DCAEF64" FromRole="NGUOIDUNG" ToRole="QUYENGOP" />
+    <Property Name="NgayDangKi" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK__QUYENGOP__MaND__5DCAEF64">
     <End Type="CharityManagementModel.NGUOIDUNG" Role="NGUOIDUNG" Multiplicity="0..1" />

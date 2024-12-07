@@ -1,0 +1,157 @@
+﻿@using BTL_CharityWebsite.Models
+@model IEnumerable<BTL_CharityWebsite.Models.NGUOIDUNG>
+@{
+    ViewBag.Title = "ThongKeUser";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ThongKeUser</h2>
+Số người dùng: <span id="tongNguoiDung">@ViewBag.TongNguoiDung</span>
+
+<div class="userChart" style="width: 50%; height: 400px;">
+    <canvas id="userChart"></canvas>
+</div>
+
+<h2>DANH SÁCH NGƯỜI DÙNG</h2>
+<form id="searchForm" style="margin-bottom: 20px; text-align: center;">
+    <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
+    <input type="text" id="tenUser" name="tenUser" value="@Request.QueryString["tenUser"]" placeholder="Nhập tên người dùng" />
+    <input type="date" id="NgayDangKy" name="NgayDangKy" value="@Request.QueryString["NgayDangKy"]" placeholder="" />
+    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+</form>
+<div class="userTable" style="max-height: 400px ;overflow-y: auto">
+    <table class="table">
+        <tr>
+            <th>
+                Họ và tên
+            </th>
+            <th>
+                Tên tài khoản
+            </th>
+            <th>
+                Mật khẩu
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Số điện thoại
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+            <th>
+                Ngày sinh
+            </th>
+            <th>
+                Ngày đăng kí
+            </th>
+            <th></th>
+        </tr>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="7" style="text-align: center;">Không tìm thấy người dùng nào phù hợp.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoTen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TaiKhoan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MatKhau)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SDT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiaChi)
+                        </td>
+                        <td>
+                            @(item.NgaySinh.HasValue ? item.NgaySinh.Value.ToString("dd/MM/yyyy") : "N/A")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayDangKi)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+</table>
+</div>
+
+<script>
+    var userData = @Html.Raw(ViewBag.UserData);
+            var labelsUser = userData.map(item => `${item.Thang}/${item.Nam}`);
+            var countsUser = userData.map(item => Math.round(item.SoLuongUser));
+            var userChart = document.getElementById('userChart').getContext('2d');
+
+    new Chart(userChart, {
+        type: 'line',
+        data: {
+            labels: labelsUser,
+            datasets: [{
+                label: 'Số tài khoản mới',
+                data: countsUser,
+                borderColor: 'RGBA(102, 205, 170, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Biểu đồ số người dùng mới theo tháng'
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    },
+                    title: {
+                        display: true,
+                        text: 'Số lượt đăng ký'
+                    }
+                }
+            }
+        }
+    });
+    //ngăn form tìm kiếm
+        $(document).ready(function () {
+        $('#searchForm').on('submit', function (e) {
+            e.preventDefault(); // Ngăn form submit mặc định
+
+            var tenUser = $('#tenUser').val();
+            var NgayDangKy = $('#NgayDangKy').val();
+
+            $.ajax({
+                url: '@Url.Action("ThongKeUser", "Users")',
+                type: 'GET',
+                data: { tenUser: tenUser, NgayDangKy: NgayDangKy },
+                success: function (response) {
+                    // Cập nhật nội dung của container
+                    $('.table tbody').html($(response).find('.table tbody').html());
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi, vui lòng thử lại!");
+                }
+            });
+        });
+    });
+</script>

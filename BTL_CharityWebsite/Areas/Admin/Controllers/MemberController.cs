@@ -10,6 +10,7 @@ using System.IO;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using System.Web.UI;
+using BTL_CharityWebsite.ViewModel;
 
 namespace BTL_CharityWebsite.Areas.Admin.Controllers
 {
@@ -228,6 +229,6 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
 
             return View(model);
         }
-        
+
     }
 }

@@ -132,6 +132,7 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LibraryController.cs" />
     <Compile Include="Areas\Admin\Controllers\MemberController.cs" />
+    <Compile Include="Areas\Admin\UsersController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\DonateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -295,6 +296,13 @@
     <Content Include="Areas\Admin\Views\Member\SuaThanhVien.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\ChiTietQuyenGop.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\DanhSachNguoiDung.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ChiTietUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ThemUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\SuaUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\XoaUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\BieuDoUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ThongKeUser.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

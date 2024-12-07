@@ -1,0 +1,101 @@
+﻿@using BTL_CharityWebsite.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<BTL_CharityWebsite.Models.NGUOIDUNG>
+
+@{
+    ViewBag.Title = "DanhSachNguoiDung";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>DANH SÁCH NGƯỜI DÙNG</h2>
+<form method="get" action="@Url.Action("DanhSachNguoiDung", "Users")" style="margin-bottom: 20px; text-align: center;">
+    <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
+    <input type="text" id="tenUser" name="tenUser" value="@Request.QueryString["tenUser"]" placeholder="Nhập tên người dùng" />
+    <input type="date" id="NgayDangKy" name="NgayDangKy" value="@Request.QueryString["NgayDangKy"]" placeholder="" />
+    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+</form>
+<table class="table">
+    <tr>
+        <th>
+            Họ và tên
+        </th>
+        <th>
+            Tên tài khoản
+        </th>
+        <th>
+            Mật khẩu
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th>
+            Ngày đăng kí
+        </th>
+        <th></th>
+    </tr>
+
+    @if (!Model.Any())
+    {
+        <tr>
+            <td colspan="7" style="text-align: center;">Không tìm thấy người dùng nào phù hợp.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaiKhoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatKhau)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td>
+                    @(item.NgaySinh.HasValue ? item.NgaySinh.Value.ToString("dd/MM/yyyy") : "N/A")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayDangKi)
+                </td>
+                <td>
+                    @Html.ActionLink("Chỉnh sửa", "SuaUser", new { id = item.MaND }) |
+                    @Html.ActionLink("Chi tiết", "ChiTietUser", new { id = item.MaND }) |
+                    @Html.ActionLink("Xoá", "XoaUser", new { id = item.MaND })
+                </td>
+            </tr>
+        }
+    }
+</table>
+<p>
+    @Html.ActionLink("Thêm mới", "ThemUser")
+</p>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="pagination-container">
+    @Html.PagedListPager(Model, page => Url.Action("DanhSachNguoiDung", new
+    {
+        page = page,
+    tenUser = Request.QueryString["tenUser"],
+    NgayDangKy = Request.QueryString["NgayDangKy"]
+}))
+</div>

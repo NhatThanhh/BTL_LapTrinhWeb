@@ -58,7 +58,8 @@ namespace BTL_CharityWebsite.Controllers
                 Email = nd.Email,
                 DiaChi = nd.DiaChi,
                 SDT = nd.SDT,
-                NgaySinh = nd.NgaySinh
+                NgaySinh = nd.NgaySinh,
+                NgayDangKi = DateTime.Now
             };
 
             try
