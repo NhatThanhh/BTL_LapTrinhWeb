@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BTL_CharityWebsite.Models.NGUOIDUNG>
+
+
+<tbody>
+    @if (!Model.Any())
+    {
+        <tr>
+            <td colspan="8" style="text-align: center;">Không tìm thấy dữ liệu.</td>
+        </tr>
+    }
+    else
+    {
+        int index = 1;
+        foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@index</td>
+                <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                <td>@Html.DisplayFor(modelItem => item.TaiKhoan)</td>
+                <td>@Html.DisplayFor(modelItem => item.MatKhau)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.SDT)</td>
+                <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                <td>@(item.NgaySinh.HasValue ? item.NgaySinh.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayDangKi)</td>
+            </tr>
+            index++;
+        }
+
+    }
+</tbody>

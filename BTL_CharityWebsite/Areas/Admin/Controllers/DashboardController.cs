@@ -48,7 +48,6 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                     NgayQuyenGop = combined.combined.qg.NgayQuyenGop.Value
                 })
                 .OrderByDescending(x => x.NgayQuyenGop)
-                /*.Take(10)*/ // Giới hạn số lượng dữ liệu ban đầu
                 .ToList();
 
             ViewBag.ChiTietQuyenGopData = chiTietQuyenGopData.ToList();
@@ -60,44 +59,74 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         {
             var data = (from item in qg
                         where (ngay == null || item.NgayQuyenGop.Date == ngay.Value.Date)
-                        && (string.IsNullOrEmpty(tuKhoa) == true || item.TenChienDich.ToLower().Contains(tuKhoa.ToLower()) == true)
+                        && (string.IsNullOrEmpty(tuKhoa) == true || item.TenChienDich.ToLower().Contains(tuKhoa.ToLower()) == true || item.HoTenNguoiDung.ToLower().Contains(tuKhoa.ToLower()) == true)
                         select item).ToList();
             return data;
         }
 
-        public ActionResult ChiTietQuyenGop(DateTime? ngay, string tuKhoa )
+        public ActionResult ChiTietQuyenGop(DateTime? ngay, string tuKhoa, string sortBy)
         {
-            var data = db.CHITIETQUYENGOPs
-                .Join(
-                    db.QUYENGOPs,
-                    ctqg => ctqg.MaQG,
-                    qg => qg.MaQG,
-                    (ctqg, qg) => new { ctqg, qg }
-                )
-                .Join(
-                    db.NGUOIDUNGs,
-                    combined => combined.qg.MaND,
-                    nd => nd.MaND,
-                    (combined, nd) => new { combined, nd }
-                )
-                .Join(
-                    db.CHIENDICHes,
-                    combined => combined.combined.ctqg.MaCD,
-                    cd => cd.MaCD,
-                    (combined, cd) => new ChiTietQuyenGopVM
-                    {
-                        HoTenNguoiDung = combined.nd.HoTen,
-                        TenChienDich = cd.TenCD,
-                        SoTienQuyenGop = (decimal)combined.combined.ctqg.SoTienQG,
-                        NgayQuyenGop = combined.combined.qg.NgayQuyenGop.Value
-                    }
-                )
-                .OrderByDescending(x => x.NgayQuyenGop)
-                .ToList();
+            var data = db.CHITIETQUYENGOPs.Join(db.QUYENGOPs,ctqg => ctqg.MaQG,qg => qg.MaQG,(ctqg, qg) => new { ctqg, qg })
+                                        .Join(db.NGUOIDUNGs,combined => combined.qg.MaND,nd => nd.MaND,(combined, nd) => new { combined, nd })
+                                        .Join(db.CHIENDICHes,combined => combined.combined.ctqg.MaCD,cd => cd.MaCD,(combined, cd) => new ChiTietQuyenGopVM
+                                            {
+                                                HoTenNguoiDung = combined.nd.HoTen,
+                                                TenChienDich = cd.TenCD,
+                                                SoTienQuyenGop = (decimal)combined.combined.ctqg.SoTienQG,
+                                                NgayQuyenGop = combined.combined.qg.NgayQuyenGop.Value
+                                            }).ToList();
+
+
             var ketQua = TimKiem(data, ngay, tuKhoa);
-            return PartialView("ChiTietQuyenGop",ketQua);
+            if (sortBy == "asc")
+            {
+                ketQua = ketQua.OrderBy(x => x.SoTienQuyenGop).ToList();
+            }
+            else if (sortBy == "desc")
+            {
+                ketQua = ketQua.OrderByDescending(x => x.SoTienQuyenGop).ToList();
+            }else if(sortBy == "ascDate")
+            {
+                ketQua = ketQua.OrderBy(x => x.NgayQuyenGop).ToList();
+            }
+            else if (sortBy == "descDate")
+            {
+                ketQua = ketQua.OrderByDescending(x => x.NgayQuyenGop).ToList();
+            }
+            return PartialView("ChiTietQuyenGop", ketQua);
         }
 
+        public ActionResult ThongKeQuyenGop(DateTime? ngay, string tuKhoa)
+        {
+            ViewBag.TongQuyenGop = db.QUYENGOPs.Select(x => x.MaQG).Count();
+            var yearList = db.QUYENGOPs.Select(x => x.NgayQuyenGop.Value.Year)
+                   .Distinct()
+                   .OrderByDescending(x => x)
+                   .ToList();
+            ViewBag.YearList = yearList;
+            var chiTietQuyenGopData = db.CHITIETQUYENGOPs
+                .Join(db.QUYENGOPs, ctqg => ctqg.MaQG, qg => qg.MaQG, (ctqg, qg) => new { ctqg, qg })
+                .Join(db.NGUOIDUNGs, combined => combined.qg.MaND, nd => nd.MaND, (combined, nd) => new { combined, nd })
+                .Join(db.CHIENDICHes, combined => combined.combined.ctqg.MaCD, cd => cd.MaCD, (combined, cd) => new ChiTietQuyenGopVM
+                {
+                    HoTenNguoiDung = combined.nd.HoTen,
+                    TenChienDich = cd.TenCD,
+                    SoTienQuyenGop = (decimal)combined.combined.ctqg.SoTienQG,
+                    NgayQuyenGop = combined.combined.qg.NgayQuyenGop.Value
+                })
+                .ToList();
+            return View(chiTietQuyenGopData.OrderByDescending(x => x.NgayQuyenGop));
+        }
+
+        public ActionResult GetDonationByYear(int year)
+        {
+            var quyenGop = db.QUYENGOPs.Where(x =>x.NgayQuyenGop.Value.Year == year)
+                .GroupBy(x => new { thang = x.NgayQuyenGop.Value.Month, nam = x.NgayQuyenGop.Value.Year })
+                                    .Select(y => new { Thang = y.Key.thang, Nam = y.Key.nam, SoLuotQuyenGop = y.Count() })
+                                    .OrderBy(y => y.Nam).ThenBy(y => y.Thang)
+                                    .ToList();
+            return Json(quyenGop, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

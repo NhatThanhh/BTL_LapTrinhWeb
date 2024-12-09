@@ -9,7 +9,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace BTL_CharityWebsite.Areas.Admin
+
+namespace BTL_CharityWebsite.Areas.Admin.Controllers
 {
     public class UsersController : Controller
     {
@@ -28,7 +29,7 @@ namespace BTL_CharityWebsite.Areas.Admin
         {
             var data = (from item in user
                         where (string.IsNullOrEmpty(tenUser) == true || item.HoTen.ToLower().Contains(tenUser.ToLower()) == true)
-                        && (NgayDangKy == null || item.NgayDangKi == NgayDangKy)
+                        && (NgayDangKy == null || item.NgayDangKi.Value.Date == NgayDangKy.Value.Date)
                         select item).ToList();
             return data;
         }
@@ -137,7 +138,7 @@ namespace BTL_CharityWebsite.Areas.Admin
                     model.MatKhau = user.MatKhau;
                     model.Email = user.Email;
                     model.NgaySinh = user.NgaySinh;
-                    model.NgayDangKi =  model.NgayDangKi;
+                    model.NgayDangKi = model.NgayDangKi;
                     db.SaveChanges();
                 }
 
@@ -183,23 +184,30 @@ namespace BTL_CharityWebsite.Areas.Admin
         public ActionResult ThongKeUser(string tenUser, DateTime? NgayDangKy, int? year)
         {
             ViewBag.TongNguoiDung = db.NGUOIDUNGs.Select(x => x.MaND).Count();
-            var newUser = db.NGUOIDUNGs
-                           .GroupBy(x => new { thang = x.NgayDangKi.Value.Month, nam = x.NgayDangKi.Value.Year })
-                           .Select(y => new { Thang = y.Key.thang, Nam = y.Key.nam, SoLuongUser = y.Count() })
-                           .OrderBy(y => y.Nam).ThenBy(y => y.Thang)
-                           .ToList();
-            ViewBag.UserData = Newtonsoft.Json.JsonConvert.SerializeObject(newUser);
+            var yearList = db.NGUOIDUNGs.Select(x => x.NgayDangKi.Value.Year)
+                               .Distinct()
+                               .OrderByDescending(x => x)
+                               .ToList();
+            ViewBag.YearList = yearList;
+            // Lấy dữ liệu người dùng theo tháng và năm đã chọn
             var userList = db.NGUOIDUNGs.ToList();
             var ketQua = TimKiem(userList, tenUser, NgayDangKy);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("UserTable", ketQua.OrderByDescending(x => x.NgayDangKi));
+            }
             return View(ketQua.OrderByDescending(x => x.NgayDangKi));
         }
-        public ActionResult getUserByYear(int year)
+
+        public ActionResult GetUserDataByYear(int year)
         {
-            var yearList = db.NGUOIDUNGs.Select(x => x.NgayDangKi.Value.Year)
-               .Distinct()
-               .OrderBy(x => x)
-               .ToList();
-            return Json(yearList, JsonRequestBehavior.AllowGet);
+            var userData = db.NGUOIDUNGs
+                              .Where(x => x.NgayDangKi.Value.Year == year)
+                              .GroupBy(x => new { thang = x.NgayDangKi.Value.Month, nam = x.NgayDangKi.Value.Year })
+                              .Select(y => new { Thang = y.Key.thang, Nam = y.Key.nam, SoLuongUser = y.Count() })
+                              .ToList();
+            return Json(userData, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

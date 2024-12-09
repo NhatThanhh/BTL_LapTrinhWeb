@@ -1,0 +1,195 @@
+﻿@using BTL_CharityWebsite.ViewModel
+@model IEnumerable<BTL_CharityWebsite.ViewModel.ChiTietQuyenGopVM>
+@{
+    ViewBag.Title = "ThongKeQuyenGop";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Định dạng tổng thể */
+    .dashboard-content {
+        padding: 40px 20px;
+    }
+
+    /* Phần thông tin thống kê */
+    .static-dashboard {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Container chứa biểu đồ */
+    .chart-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Định dạng mỗi biểu đồ */
+    .chart-item canvas {
+        flex: 1;
+        padding: 10px;
+        width: 100%; /* Đảm bảo canvas chiếm toàn bộ chiều rộng */
+        height: 500px; /* Tăng chiều cao biểu đồ */
+    }
+
+    /* Thống kê chi tiết */
+    .thongke {
+        margin-top: 20px;
+    }
+
+    .detail-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .thongke {
+        text-align: center;
+        padding-top: 50px;
+    }
+    h2{
+        text-align: center;
+        padding-top: 40px;
+        font-weight: bold;
+        color: #295e97;
+    }
+</style>
+
+<h2>THỐNG KÊ DỮ LIỆU QUYÊN GÓP</h2>
+<div class="dashboard-content" style="text-align: center">
+
+    <select id="filterYear">
+        @foreach (var item in ViewBag.YearList)
+        {
+            <option value="@item">@item</option>
+        }
+    </select>
+    <!-- Biểu đồ -->
+    <div class="chart-container">
+        <div class="chart-item">
+            @Html.Partial("donationChart", Model)
+        </div>
+
+    </div>
+    <div class="static-dashboard">
+        <p><strong>Tổng số lượt quyên góp: </strong>@ViewBag.TongQuyenGop</p>
+    </div>
+    <!-- Thống kê chi tiết -->
+    <div class="thongke">
+        <h3>Danh sách quyên góp</h3>
+        <form id="searchForm" style="margin-bottom: 20px; text-align: center;">
+            <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
+            <input type="date" id="ngay" name="ngay" value="@Request.QueryString["ngay"]" placeholder="" />
+            <input type="text" id="tuKhoa" name="tuKhoa" placeholder="Tên dự án, tên người dùng" style="width: 250px" />
+            <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+        </form>
+        <div id="chiTietQuyenGopContainer" style="height: 400px; overflow-y: auto">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Họ tên người dùng</th>
+                        <th>Tên dự án</th>
+                        <th>
+                            Số tiền
+                            <select class="sortByAmount form-control" style="width: auto; display: inline-block;">
+                                <option value="none">Sắp xếp </option>
+                                <option value="asc">Tăng dần</option>
+                                <option value="desc">Giảm dần</option>
+                            </select>
+                        </th>
+                        <th>
+                            Ngày
+                            <select class="sortByAmount form-control" style="width: auto; display: inline-block;">
+                                <option value="descDate">Sắp xếp </option>
+                                <option value="ascDate">Tăng dần</option>
+                                <option value="descDate">Giảm dần</option>
+                            </select>
+                        </th>
+                    </tr>
+                </thead>
+                @Html.Partial("ChiTietQuyenGop", Model)
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Tìm kiếm
+    $(document).ready(function () {
+        // Khi người dùng nhấn vào nút tìm kiếm
+        $('#searchForm').on('submit', function (e) {
+            e.preventDefault(); // Ngăn form submit mặc định
+            var ngay = $('#ngay').val(); // Lấy giá trị từ ô tìm kiếm tên người dùng
+            var tuKhoa = $('#tuKhoa').val(); // Lấy giá trị từ ô tìm kiếm ngày đăng ký
+            console.log({ ngay, tuKhoa }); // Xác nhận giá trị trước khi gửi
+
+            $.ajax({
+                url: '@Url.Action("ChiTietQuyenGop", "Dashboard", new { area = "Admin" })',  // Gọi action trong controller
+                type: 'GET', // Gửi yêu cầu GET
+                data: { ngay: ngay, tuKhoa: tuKhoa }, // Gửi tham số tìm kiếm
+                success: function (response) {
+                    //console.log(response);
+                    $('#chiTietQuyenGopContainer tbody').html($(response).html());
+                }
+            });
+        });
+    });
+    //Sắp xếp
+    $(document).ready(function() {
+        // Khi người dùng thay đổi dropdown sắp xếp theo số tiền quyên góp
+        $('.sortByAmount').change(function() {
+            var sortByAmount = $(this).val();
+            var ngay = $('#ngay').val(); // Lấy giá trị từ ô tìm kiếm tên người dùng
+            var tuKhoa = $('#tuKhoa').val(); // Lấy giá trị từ ô tìm kiếm ngày đăng ký
+            console.log({sortByAmount});
+            $.ajax({
+                url: '@Url.Action("ChiTietQuyenGop", "Dashboard", new { area = "Admin" })',
+                data: {
+                    ngay: ngay,
+                    tuKhoa: tuKhoa,
+                    sortBy: sortByAmount // Gửi giá trị của dropdown (asc, desc, none)
+                },
+                success: function (response) {
+                    console.log(response);
+                    // Cập nhật lại bảng trong partial view
+                    $('#chiTietQuyenGopContainer tbody').html($(response).html());  // Cập nhật nội dung bảng
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Tạo biểu đồ lần đầu với dữ liệu mặc định (năm hiện tại)
+        var defaultYear = new Date().getFullYear();
+        $.ajax({
+            url: '@Url.Action("GetDonationByYear", "Dashboard", new { area = "Admin" })',
+            type: 'GET',
+            data: { year: defaultYear },
+            success: function (response) {
+               updateChart(response);
+            }
+        });
+    });
+    $(document).ready(function () {
+        // Khi người dùng thay đổi năm
+        $('#filterYear').on('change', function () {
+            var selectedYear = $(this).val(); // Lấy giá trị năm được chọn
+            $.ajax({
+                url: '@Url.Action("GetDonationByYear", "Dashboard", new { area = "Admin" })',
+                type: 'GET',
+                data: { year: selectedYear },
+                success: function (response) { // Cập nhật biểu đồ nếu đã tồn tại
+                    updateChart(response); // Tạo biểu đồ mới nếu chưa có               
+                }
+            });
+        });
+    });
+
+</script>

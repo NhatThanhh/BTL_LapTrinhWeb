@@ -1,4 +1,4 @@
-﻿@model BTL_CharityWebsite.Models.NGUOIDUNG
+﻿﻿@model BTL_CharityWebsite.Models.NGUOIDUNG
 
 @{
     ViewBag.Title = "XoaUser";
@@ -78,7 +78,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

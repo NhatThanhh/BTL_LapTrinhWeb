@@ -9,6 +9,7 @@
     /* Định dạng tổng thể */
     .dashboard-content {
         padding: 40px 20px;
+        margin-bottom: 100px;
     }
 
     /* Phần thông tin thống kê */
@@ -71,49 +72,10 @@
             <canvas id="totalChart"></canvas>
         </div>
         <div class="chart-item">
-            <canvas id="donationsChart"></canvas>
-        </div>
-    </div>
-
-    <!-- Thống kê chi tiết -->
-    <div class="thongke">
-        <h3>Chi tiết quyên góp</h3>
-        <form id="searchForm" style="margin-bottom: 20px; text-align: center;">
-            <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
-            <input type="date" id="ngay" name="ngay" value="@Request.QueryString["ngay"]" placeholder="Nhập năm tạo" />
-            <input type="text" id="tuKhoa" name="tuKhoa" placeholder="Nhập tên dự án" />
-            <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
-        </form>
-        <div class="detail-container" id="chiTietQuyenGopContainer">
-            @Html.Partial("ChiTietQuyenGop", ViewBag.ChiTietQuyenGopData as List<BTL_CharityWebsite.ViewModel.ChiTietQuyenGopVM>)
+            @Html.Partial("donationChart", Model)
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('#searchForm').on('submit', function (e) {
-            e.preventDefault(); // Ngăn form submit mặc định
-
-            var ngay = $('#ngay').val();
-            var tuKhoa = $('#tuKhoa').val();
-
-            $.ajax({
-                url: '@Url.Action("ChiTietQuyenGop", "Dashboard")',
-                type: 'GET',
-                data: { ngay: ngay, tuKhoa: tuKhoa },
-                success: function (response) {
-                    // Cập nhật nội dung của container
-                    $('#chiTietQuyenGopContainer').html(response);
-                },
-                error: function () {
-                    alert("Đã xảy ra lỗi, vui lòng thử lại!");
-                }
-            });
-        });
-    });
-</script>
-
 <script>
     var chartData = @Html.Raw(ViewBag.ChartData);
     var labels = chartData.map(x => x.TenCD);
@@ -169,51 +131,17 @@
 
 
 
-    var data1 = @Html.Raw(ViewBag.QuyenGopTheoThang);
-    // Chuẩn bị dữ liệu cho biểu đồ
-    var labels1 = data1.map(item => `${item.Thang}/${item.Nam}`);
-    const counts1 = data1.map(item => Math.round(item.SoLuotQuyenGop));
-    // Tạo biểu đồ
-    var donationChartctx1 = document.getElementById('donationsChart');
-    new Chart(donationChartctx1, {
-        type: 'line', // Dạng biểu đồ: Line Chart
-        data: {
-            labels: labels1, // Nhãn trục x
-            datasets: [{
-                label: 'Số lượt quyên góp',
-                data: counts1, // Dữ liệu trục y
-                borderColor: 'RGBA( 102, 205, 170, 1 )',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 2,
-                tension: 0.4 // Làm mượt đường nối
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Biểu đồ số lượt quyên góp theo tháng'
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 5, // Đặt khoảng cách giữa các bước là 1
-                        callback: function (value) {
-                            return value.toLocaleString(); // Hiển thị số nguyên
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Số lượt quyên góp'
-                    }
-                },
+    $(document).ready(function () {
+        // Tạo biểu đồ lần đầu với dữ liệu mặc định (năm hiện tại)
+        var defaultYear = new Date().getFullYear();
+        $.ajax({
+            url: '@Url.Action("GetDonationByYear", "Dashboard", new { area = "Admin" })',
+            type: 'GET',
+            data: { year: defaultYear },
+            success: function (response) {
+               updateChart(response);
             }
-        }
-
+        });
     });
     //Partial view
-</script>
+    </script>

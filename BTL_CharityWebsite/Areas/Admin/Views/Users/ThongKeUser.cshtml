@@ -1,157 +1,164 @@
-﻿@using BTL_CharityWebsite.Models
+﻿﻿@using BTL_CharityWebsite.Models
 @model IEnumerable<BTL_CharityWebsite.Models.NGUOIDUNG>
 @{
     ViewBag.Title = "ThongKeUser";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>ThongKeUser</h2>
-Số người dùng: <span id="tongNguoiDung">@ViewBag.TongNguoiDung</span>
+<style>
+    /* Định dạng tổng thể */
+    .user-content {
+        text-align: center;
+        padding: 40px 20px;
+    }
 
-<div class="userChart" style="width: 50%; height: 400px;">
-    <canvas id="userChart"></canvas>
-</div>
+    /* Phần thông tin thống kê */
+    .static-dashboard {
+        display: flex;
+        justify-content: center;
+    }
 
-<h2>DANH SÁCH NGƯỜI DÙNG</h2>
-<form id="searchForm" style="margin-bottom: 20px; text-align: center;">
-    <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
-    <input type="text" id="tenUser" name="tenUser" value="@Request.QueryString["tenUser"]" placeholder="Nhập tên người dùng" />
-    <input type="date" id="NgayDangKy" name="NgayDangKy" value="@Request.QueryString["NgayDangKy"]" placeholder="" />
-    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
-</form>
-<div class="userTable" style="max-height: 400px ;overflow-y: auto">
-    <table class="table">
-        <tr>
-            <th>
-                Họ và tên
-            </th>
-            <th>
-                Tên tài khoản
-            </th>
-            <th>
-                Mật khẩu
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Số điện thoại
-            </th>
-            <th>
-                Địa chỉ
-            </th>
-            <th>
-                Ngày sinh
-            </th>
-            <th>
-                Ngày đăng kí
-            </th>
-            <th></th>
-        </tr>
-        <tbody>
-            @if (!Model.Any())
-            {
-                <tr>
-                    <td colspan="7" style="text-align: center;">Không tìm thấy người dùng nào phù hợp.</td>
-                </tr>
-            }
-            else
-            {
-                foreach (var item in Model)
-                {
+    /* Container chứa biểu đồ */
+    .chart-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Định dạng mỗi biểu đồ */
+    .chart-item canvas {
+        flex: 1;
+        padding: 10px;
+        width: 100%; /* Đảm bảo canvas chiếm toàn bộ chiều rộng */
+        height: 500px; /* Tăng chiều cao biểu đồ */
+    }
+
+    /* Thống kê chi tiết */
+    .thongke {
+        margin-top: 20px;
+    }
+
+    .detail-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .thongke {
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        color: #295e97;
+    }
+</style>
+<h2>THỐNG KÊ NGƯỜI DÙNG</h2>
+<div class="user-content">
+    <strong>Năm</strong>
+    <select id="addYear">
+        @foreach (var item in ViewBag.YearList)
+        {
+            <option value="@item">@item</option>
+        }
+    </select>
+
+    <!-- Gọi partial view chứa biểu đồ -->
+    <div id="userChartContainer" class="chart-container">
+        <div class="chart-item">
+            @Html.Partial("UserChart")
+        </div>
+
+    </div>
+    <div class="thongke">
+        <h2>DANH SÁCH NGƯỜI DÙNG</h2>
+        <div class="static-dashboard">
+            <p><strong>Tổng số người dùng: </strong>@ViewBag.TongNguoiDung</p>
+        </div>
+        <form id="searchForm" style="margin-bottom: 20px; text-align: center;">
+            <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
+            <input type="text" id="tenUser" name="tenUser" value="@Request.QueryString["tenUser"]" placeholder="Nhập tên người dùng" />
+            <input type="date" id="NgayDangKy" name="NgayDangKy" value="@Request.QueryString["NgayDangKy"]" placeholder="" />
+            <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+        </form>
+        <div id="userContainer" style="height: 400px; overflow-y: auto">
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.HoTen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TaiKhoan)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MatKhau)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SDT)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DiaChi)
-                        </td>
-                        <td>
-                            @(item.NgaySinh.HasValue ? item.NgaySinh.Value.ToString("dd/MM/yyyy") : "N/A")
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NgayDangKi)
-                        </td>
+                        <th></th>
+                        <th>Họ và tên</th>
+                        <th>Tên tài khoản</th>
+                        <th>Mật khẩu</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày sinh</th>
+                        <th>Ngày đăng kí</th>
                     </tr>
-                }
-            }
-        </tbody>
-</table>
+                </thead>
+                @Html.Partial("UserTable", Model)
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
-    var userData = @Html.Raw(ViewBag.UserData);
-            var labelsUser = userData.map(item => `${item.Thang}/${item.Nam}`);
-            var countsUser = userData.map(item => Math.round(item.SoLuongUser));
-            var userChart = document.getElementById('userChart').getContext('2d');
-
-    new Chart(userChart, {
-        type: 'line',
-        data: {
-            labels: labelsUser,
-            datasets: [{
-                label: 'Số tài khoản mới',
-                data: countsUser,
-                borderColor: 'RGBA(102, 205, 170, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 2,
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Biểu đồ số người dùng mới theo tháng'
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1
-                    },
-                    title: {
-                        display: true,
-                        text: 'Số lượt đăng ký'
-                    }
-                }
-            }
-        }
-    });
-    //ngăn form tìm kiếm
-        $(document).ready(function () {
+    $(document).ready(function () {
+        // Khi người dùng nhấn vào nút tìm kiếm
         $('#searchForm').on('submit', function (e) {
             e.preventDefault(); // Ngăn form submit mặc định
-
-            var tenUser = $('#tenUser').val();
-            var NgayDangKy = $('#NgayDangKy').val();
-
+            var tenUser = $('#tenUser').val(); // Lấy giá trị từ ô tìm kiếm tên người dùng
+            var NgayDangKy = $('#NgayDangKy').val(); // Lấy giá trị từ ô tìm kiếm ngày đăng ký
             $.ajax({
-                url: '@Url.Action("ThongKeUser", "Users")',
-                type: 'GET',
-                data: { tenUser: tenUser, NgayDangKy: NgayDangKy },
+                url: '@Url.Action("ThongKeUser", "Users", new { area = "Admin" })',  // Gọi action trong controller
+                type: 'GET', // Gửi yêu cầu GET
+                data: { tenUser: tenUser, NgayDangKy: NgayDangKy }, // Gửi tham số tìm kiếm
                 success: function (response) {
-                    // Cập nhật nội dung của container
-                    $('.table tbody').html($(response).find('.table tbody').html());
-                },
-                error: function () {
-                    alert("Đã xảy ra lỗi, vui lòng thử lại!");
+                    $('#userContainer tbody').html($(response).html());
                 }
             });
         });
     });
+
+    $(document).ready(function () {
+        // Tạo biểu đồ lần đầu với dữ liệu mặc định (năm hiện tại)
+        var defaultYear = new Date().getFullYear();
+        $.ajax({
+            url: '@Url.Action("GetUserDataByYear", "Users", new { area = "Admin" })',
+            type: 'GET',
+            data: { year: defaultYear },
+            success: function (response) {
+               updateChart(response);
+            }
+        });
+    });
+        $(document).ready(function () {
+            // Khi người dùng thay đổi năm
+            $('#addYear').on('change', function () {
+                var selectedYear = $(this).val(); // Lấy giá trị năm được chọn
+                $.ajax({
+                    url: '@Url.Action("GetUserDataByYear", "Users", new { area = "Admin" })',
+                    type: 'GET',
+                    data: { year: selectedYear },
+                    success: function (response) { // Cập nhật biểu đồ nếu đã tồn tại
+                        updateChart(response); // Tạo biểu đồ mới nếu chưa có
+                    }
+                });
+            });
+        });
+
 </script>
+
+
+
+
+
+
+
+
