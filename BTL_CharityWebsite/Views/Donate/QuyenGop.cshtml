@@ -8,77 +8,77 @@
 <style>
     .donate_section {
         display: flex;
-        justify-content: center; /* Căn giữa nội dung */
+        justify-content: center;
         padding: 20px;
-        background-color: #f5f5f5; /* Màu nền nhẹ nhàng */
+        background-color: #f5f5f5; 
     }
 
     .donate_container {
-        width: 90%; /* Đặt độ rộng chiếm 90% màn hình */
-        max-width: 1200px; /* Giới hạn chiều rộng tối đa */
-        background-color: #fff; /* Màu nền trắng cho container */
-        border-radius: 10px; /* Bo góc container */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
-        padding: 20px; /* Khoảng cách bên trong */
-        overflow-y: auto; /* Cuộn ngang nếu nội dung quá rộng */
+        width: 90%; 
+        max-width: 1200px;
+        background-color: #fff; 
+        border-radius: 10px; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        padding: 20px;
+        overflow-y: auto;
     }
 
         .donate_container h2 {
-            font-size: 24px; /* Kích thước chữ tiêu đề */
+            font-size: 24px; 
             font-weight: bold;
             color: #333;
             margin-bottom: 20px;
-            text-transform: uppercase; /* Viết hoa toàn bộ chữ */
+            text-transform: uppercase;
         }
 
         .donate_container table {
-            width: 100%; /* Bảng chiếm toàn bộ chiều rộng container */
-            border-collapse: collapse; /* Gộp viền giữa các ô */
+            width: 100%; 
+            border-collapse: collapse; 
             margin-top: 20px;
         }
 
         .donate_container th,
         .donate_container td {
-            padding: 15px; /* Khoảng cách bên trong ô */
-            text-align: center; /* Căn giữa nội dung ô */
-            border: 1px solid #ddd; /* Viền mỏng giữa các ô */
+            padding: 15px; 
+            text-align: center; 
+            border: 1px solid #ddd; 
         }
 
         .donate_container th {
-            background-color: #5ea0a0; /* Màu nền cho tiêu đề cột */
-            color: #fff; /* Màu chữ trắng */
-            text-transform: uppercase; /* Viết hoa chữ */
-            font-weight: bold; /* Chữ đậm */
+            background-color: #5ea0a0;
+            color: #fff; 
+            text-transform: uppercase;
+            font-weight: bold; 
         }
 
         .donate_container td img {
-            max-width: 100px; /* Đặt chiều rộng tối đa cho hình ảnh */
-            height: auto; /* Tự động giữ tỉ lệ hình ảnh */
-            border-radius: 5px; /* Bo góc hình ảnh */
+            max-width: 100px; 
+            height: auto; 
+            border-radius: 5px; 
         }
 
         .donate_container td input[type="number"] {
-            width: 100%; /* Ô nhập chiếm toàn bộ chiều rộng ô */
-            padding: 10px; /* Khoảng cách bên trong ô */
-            border: 1px solid #ddd; /* Viền mỏng */
-            border-radius: 5px; /* Bo góc ô nhập */
-            box-sizing: border-box; /* Bao gồm padding và viền trong kích thước */
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
         }
 
     .quyengop_btn {
-        background-color: #5ea0a0; /* Màu nền nút */
-        color: #fff; /* Màu chữ nút */
-        padding: 10px 20px; /* Khoảng cách trong nút */
-        border: none; /* Xóa viền mặc định */
-        border-radius: 5px; /* Bo góc nút */
-        cursor: pointer; /* Thay đổi con trỏ khi hover */
-        font-weight: bold; /* Chữ đậm */
-        transition: background-color 0.3s, box-shadow 0.3s; /* Hiệu ứng hover */
+        background-color: #5ea0a0;
+        color: #fff; 
+        padding: 10px 20px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        transition: background-color 0.3s, box-shadow 0.3s; 
     }
 
         .quyengop_btn:hover {
-            background-color: #4c8c8c; /* Màu nền khi hover */
-            box-shadow: 0 0 10px rgba(94, 160, 160, 0.8); /* Hiệu ứng đổ bóng khi hover */
+            background-color: #4c8c8c; 
+            box-shadow: 0 0 10px rgba(94, 160, 160, 0.8); 
         }
 
     .quyengop_link {
@@ -112,8 +112,8 @@ else {
 
         <table>
             <tr>
-                <th>Mã chiến dịch</th>
-                <th>Tên chiến dịch</th>
+                <th>Mã dự án</th>
+                <th>Tên dự án</th>
                 <th>Ảnh bìa</th>
                 <th>Tổng quỹ</th>
                 <th>Số tiền bạn muốn quyên góp</th>
@@ -128,7 +128,6 @@ else {
                     <td>@item.iTenCD</td>
                     <td><img src="~/Content/images/@item.iAnhbia" /></td>
                     <td>@String.Format("{0:0,0}", item.iTongquy)</td>
-                    <!-- Form riêng cho mỗi chiến dịch -->
                     @using (Html.BeginForm("capNhatQuyenGop", "Donate", new { iMaCDich = item.iMaCD }))
                     {
                         <td>

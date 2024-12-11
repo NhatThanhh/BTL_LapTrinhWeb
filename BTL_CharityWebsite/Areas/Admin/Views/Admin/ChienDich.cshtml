@@ -8,21 +8,24 @@
 }
 
 <style>
-    table td, th{
+    table td, th {
         text-align: center;
         border: 1px solid;
     }
-    td a{
+
+    td a {
         text-decoration: none;
         color: #fff;
         background-color: #428ddd;
         padding: 5px 10px;
         border-radius: 6px;
     }
-    td a:hover{
-        background-color: #326ba8;
-        color: #fff;
-    }
+
+        td a:hover {
+            background-color: #326ba8;
+            color: #fff;
+        }
+
     p a {
         text-decoration: none;
         color: #fff;
@@ -30,10 +33,11 @@
         padding: 5px 10px;
         border-radius: 6px;
     }
-    p a:hover {
-        background-color: #326ba8;
-        color: #fff;
-    }
+
+        p a:hover {
+            background-color: #326ba8;
+            color: #fff;
+        }
 
     .pagination-container {
         margin-top: 10px;
@@ -67,14 +71,16 @@
 </style>
 
 <h2 style="text-align: center; font-weight: bold; color: #295e97; padding: 40px ">DANH SÁCH CHIẾN DỊCH</h2>
-<form method="get" action="@Url.Action("ChienDich", "Admin")" style="margin-bottom: 20px; text-align: center;">
+@using (Html.BeginForm("ChienDich", "Admin", FormMethod.Get, new { style = "margin-bottom: 20px; text-align: center;" }))
+{
     <label for="namTao" style="margin-right: 10px;">Tìm kiếm dự án:</label>
     <input type="number" id="namTao" name="namTao" value="@Request.QueryString["namTao"]" placeholder="Nhập năm tạo" />
     <input type="text" id="tenChienDich" name="tenChienDich" value="@Request.QueryString["tenChienDich"]" placeholder="Nhập tên dự án" />
     <input type="number" id="minTongQuy" name="minTongQuy" value="@Request.QueryString["minTongQuy"]" placeholder="Tổng quỹ lớn hơn" />
     <input type="number" id="maxTongQuy" name="maxTongQuy" value="@Request.QueryString["maxTongQuy"]" placeholder="Tổng quỹ bé hơn" />
     <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
-</form>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -145,11 +151,13 @@
 </p>
 
 <div class="pagination-container">
-        @Html.PagedListPager(Model, page => Url.Action("ChienDich", new { page = page ,
-        namTao = Request.QueryString["namTao"],
-        tenChienDich = Request.QueryString["tenChienDich"],
-        minTongQuy = Request.QueryString["minTongQuy"],
-        maxTongQuy = Request.QueryString["maxTongQuy"]
-    }))
+    @Html.PagedListPager(Model, page => Url.Action("ChienDich", new
+    {
+        page = page,
+    namTao = Request.QueryString["namTao"],
+    tenChienDich = Request.QueryString["tenChienDich"],
+    minTongQuy = Request.QueryString["minTongQuy"],
+    maxTongQuy = Request.QueryString["maxTongQuy"]
+}))
 </div>
 

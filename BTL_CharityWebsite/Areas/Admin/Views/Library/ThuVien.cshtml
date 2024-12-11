@@ -157,12 +157,13 @@
         @TempData["thongbao"]
     </div>
 }
-<form method="get" action="@Url.Action("ThuVien", "Library")" style="margin-bottom: 20px; text-align: center;">
+@using (Html.BeginForm("ThuVien", "Library", FormMethod.Get, new { style = "margin-bottom: 20px; text-align: center;" }))
+{
     <label for="ngayDang" style="margin-right: 10px;">Tìm kiếm:</label>
     <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
     <input type="date" id="ngayDang" name="ngayDang" value="@Request.QueryString["ngayDang"]" placeholder="Ngày đăng ảnh" />
     <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
-</form>
+}
 
 @using (Html.BeginForm("XoaAnh", "Library", FormMethod.Post))
 {
@@ -170,7 +171,7 @@
     <div class="image-row">
         @if (!Model.Any())
         {
-                <div style="text-align: center; width: 100%; margin-left: -3%">Không tìm thấy hình ảnh nào.</div>
+            <div style="text-align: center; width: 100%; margin-left: -3%">Không tìm thấy hình ảnh nào.</div>
         }
         else
         {

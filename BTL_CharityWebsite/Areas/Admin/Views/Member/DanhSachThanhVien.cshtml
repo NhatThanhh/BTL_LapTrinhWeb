@@ -87,12 +87,14 @@
 </style>
 
 <h2>DANH SÁCH THÀNH VIÊN</h2>
-<form method="get" action="@Url.Action("DanhSachThanhVien", "Member")" style="margin-bottom: 20px; text-align: center;">
-    <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
+@using (Html.BeginForm("DanhSachThanhVien", "Member", FormMethod.Get, new { style = "margin-bottom: 20px; text-align: center;" }))
+{
+    <label for="tenThanhVien" style="margin-right: 10px;">Tìm kiếm:</label>
     <input type="text" id="tenThanhVien" name="tenThanhVien" value="@Request.QueryString["tenThanhVien"]" placeholder="Nhập tên thành viên" />
     <input type="text" id="chucVu" name="chucVu" value="@Request.QueryString["chucVu"]" placeholder="Chức vụ" />
     <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
-</form>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -162,7 +164,9 @@
 </div>
 <p style="text-align: center; margin-top: 30px">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount</p>
 <div class="pagination-container">
-    @Html.PagedListPager(Model, page => Url.Action("DanhSachThanhVien", new { page = page ,
+    @Html.PagedListPager(Model, page => Url.Action("DanhSachThanhVien", new
+    {
+        page = page,
     tenThanhVien = Request.QueryString["tenThanhVien"],
     chucVu = Request.QueryString["chucVu"]
 }))

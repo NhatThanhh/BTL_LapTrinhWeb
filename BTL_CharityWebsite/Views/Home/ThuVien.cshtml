@@ -5,8 +5,8 @@
 @{
     ViewBag.Title = "ThuVien";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var listCD = Model.Item1; // Danh sách chiến dịch
-    var listTV = Model.Item2; // Danh sách hình ảnh
+    var listCD = Model.Item1; 
+    var listTV = Model.Item2; 
 }
 
 <style>
@@ -56,7 +56,7 @@
     .image-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px; /* Khoảng cách giữa các hình */
+        gap: 10px; 
     }
 
     .image-item {
@@ -110,9 +110,8 @@
 
 <div class="gallery-section">
     <div class="row">
-        <!-- Danh sách chiến dịch bên trái -->
         <div class="col-md-3">
-            <h4 style="color: #8b0000; font-weight: bold">Danh mục chiến dịch</h4>
+            <h4 style="color: #8b0000; font-weight: bold">Danh mục dự án</h4>
             <ul class="list-group">
                 @foreach (var cd in listCD)
                 {
@@ -125,7 +124,6 @@
             </ul>
         </div>
 
-        <!-- Hình ảnh của chiến dịch được chọn -->
         <div class="col-md-9">
             <div class="image-row">
                 @foreach (var item in listTV)

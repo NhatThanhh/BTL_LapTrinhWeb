@@ -39,10 +39,14 @@ namespace BTL_CharityWebsite.Controllers
             return View(Tuple.Create(listCD, listTV, MaCD));
         }
 
-
+        private List<CHIENDICH> listCD(int count)
+        {
+            return db.CHIENDICHes.OrderByDescending(cd => cd.TongQuy).Take(count).ToList();
+        }
         public ActionResult Index()
         {
-            return View();
+            var CDList = listCD(3);
+            return View(CDList);
         }
 
         [HttpGet]
@@ -73,7 +77,6 @@ namespace BTL_CharityWebsite.Controllers
             }
             catch (Exception ex)
             {
-                TempData["SuccessMessage"] = "Lỗi";
                 ModelState.AddModelError("", "Đã có lỗi xảy ra, vui lòng thử lại.");
                 return RedirectToAction("Contact");
             }

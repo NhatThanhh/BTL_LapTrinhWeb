@@ -24,12 +24,6 @@ namespace BTL_CharityWebsite.Controllers
             return db.CHIENDICHes.Take(count).ToList();
         }
         // GET: Campaign
-        public List<CHIENDICH> TimKiem(List<CHIENDICH> chiendich, string tenChienDich)
-        {
-            var data = (from item in chiendich where(string.IsNullOrEmpty(tenChienDich) == true || item.TenCD.ToLower().Contains(tenChienDich.ToLower()) == true)
-                        select item).ToList();
-            return data;
-        }
         public ActionResult Index(int? page, string tenChienDich)
         {
             int pageSize = 8;

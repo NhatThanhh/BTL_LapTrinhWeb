@@ -95,18 +95,16 @@
 <section class="chiTietCDl_section layout_padding" style="display: flex;">
     <div class="chiTietCD_container">
         <div class="chiTietCD_row">
-            <!-- Cột ảnh -->
             <div class="col-md-6">
                 <img src="~/Content/images/@Model.AnhBia" alt="@Model.TenCD" class="img_CD" />
             </div>
-            <!-- Cột thông tin -->
             <div class="col-md-6">
                 <h2 style="font-size: 20px; padding-top: 20px; font-weight: bold;">
                     @Model.TenCD
                 </h2>
                 <p><strong>Chịu trách nhiệm bởi: </strong>@ViewBag.TenQL</p>
-                <p><strong>Thông tin chiến dịch: </strong>@Html.Raw(Model.MoTa)</p>
-                <p><strong>Ngày khởi động chiến dịch:</strong> @ViewBag.NgayTao</p>
+                <p><strong>Thông tin dự án: </strong>@Html.Raw(Model.MoTa)</p>
+                <p><strong>Ngày khởi động dự án:</strong> @ViewBag.NgayTao</p>
                 <p style="color: red; font-weight: bold;">
                     Tổng quỹ: @String.Format("{0:0,0}", Model.TongQuy) VND
                 </p>

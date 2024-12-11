@@ -1,14 +1,14 @@
-﻿
+﻿@model List<BTL_CharityWebsite.Models.CHIENDICH>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
-    .home-content{
+    .home-content {
         padding: 20px 30px;
     }
-    /* Style cho tiêu đề */
+
     h3 {
         text-align: center;
         color: #333;
@@ -17,41 +17,36 @@
         font-weight: bold;
     }
 
-    /* Style cho các cột */
     .row {
         display: flex;
         flex-wrap: wrap;
         margin: 0 auto;
     }
 
-    /* Mỗi cột chiếm 50% chiều rộng trên màn hình lớn */
     .col-md-6 {
         display: inline-block;
         align-items: center;
-        margin-bottom: 20px; /* Khoảng cách giữa các cột */
-        width: 48%; /* Sử dụng width 48% để tạo khoảng trống giữa các cột */
-        box-sizing: border-box; /* Đảm bảo không bị tràn */
+        margin-bottom: 20px;
+        width: 48%;
+        box-sizing: border-box;
         transition: font-weight 0.3s ease-in-out;
     }
-    .col-md-6:hover{
-        cursor: pointer;
-        font-weight: bold;
 
-    }
+        .col-md-6:hover {
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-    /* Style cho icon */
     .icon {
         font-size: 50px;
-        margin-bottom: 10px; /* Khoảng cách giữa biểu tượng và văn bản */
+        margin-bottom: 10px;
         transition: transform 0.4s ease-in-out;
     }
 
-        /* Thêm hiệu ứng hover cho icon */
         .icon:hover {
-            transform: scale(1.1); /* Phóng to biểu tượng khi hover */
+            transform: scale(1.1);
         }
 
-    /* Style cho văn bản */
     span {
         font-size: 18px;
         color: #555;
@@ -59,75 +54,163 @@
         display: block;
     }
 
-    /* Cải thiện sự căn chỉnh giữa các phần tử */
     .col-md-6 {
         text-align: center;
     }
-    .title{
-        text-align:center;
+
+    .title {
+        text-align: center;
     }
-    .title-img{
+
+    .title-img {
         width: 30%;
         height: auto;
     }
+
     .title-content {
         width: 70%;
         margin: 0 auto;
         padding-top: 50px;
         padding-bottom: 50px;
         display: flex;
-        justify-content: center; /* Căn hàng ngang bắt đầu từ trên cùng */
-        gap: 50px; /* Khoảng cách giữa hình ảnh và nội dung */
+        justify-content: center;
+        gap: 50px;
     }
 
         .title-content img {
-            width: 45%; /* Điều chỉnh kích thước tối đa của hình ảnh */
+            width: 45%;
             height: auto;
             border-radius: 5px;
         }
 
-    .title-content p {
-        text-align: justify;
-        font-size: 17px;
-        line-height: 1.6;
-        color: #000;
-    }
+        .title-content p {
+            text-align: justify;
+            font-size: 17px;
+            line-height: 1.6;
+            color: #000;
+        }
 
     .introduce-content1 {
         width: 70%;
         margin: 0 auto;
         display: flex;
-        justify-content: center; /* Căn hàng ngang bắt đầu từ trên cùng */
-        gap: 50px; /* Khoảng cách giữa hình ảnh và nội dung */
+        justify-content: center;
+        gap: 50px;
     }
 
         .introduce-content1 img {
-            width: 45%; /* Điều chỉnh kích thước tối đa của hình ảnh */
+            width: 45%;
             height: auto;
             border-radius: 5px;
         }
 
     .content {
-        flex-grow: 1; /* Để nội dung có thể mở rộng và chiếm phần còn lại của không gian */
+        flex-grow: 1;
     }
 
-    .introduce-content1 p{
+    .introduce-content1 p {
         text-align: justify;
-        font-size:  17px;
+        font-size: 17px;
         line-height: 1.6;
     }
+
     .introduce-content2 {
         text-align: center;
         padding: 100px 20px;
         background-color: #8080806f;
     }
+
         .introduce-content2 h3 {
             color: #5187af;
             font-size: 30px;
         }
 
-</style>
+    .campaign-list-container {
+        margin-top: 50px;
+        padding: 50px;
+    }
 
+        .campaign-list-container .campaign-list-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .campaign-list-container .campaign-card {
+            flex: 0 0 23%;
+            max-width: 20%;
+            margin-bottom: 64px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            text-align: center;
+            background-color: #ffffff86;
+        }
+
+            .campaign-list-container .campaign-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                cursor: pointer;
+            }
+
+
+            .campaign-list-container .campaign-card img {
+                width: 100%;
+                height: auto;
+            }
+
+            .campaign-list-container .campaign-card .campaign-body {
+                padding: 20px;
+            }
+
+            .campaign-list-container .campaign-card .campaign-title {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            .campaign-list-container .campaign-card .campaign-total {
+                font-size: 16px;
+                color: red;
+                padding-bottom: 10px;
+            }
+
+        .campaign-list-container .pagination-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+    .campaignlist-title {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+        .campaignlist-title h2 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #8b0000;
+            margin-bottom: 10px;
+        }
+        .campaign-list-container .more-btn{
+            text-align:center;
+        }
+            .campaign-list-container .more-btn a{
+                background-color: #67cece;
+                padding: 10px 20px;
+                border-radius: 10px;
+                color: #fff;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .campaign-list-container .more-btn a:hover{
+                background-color: #49adad;
+            }
+</style>
 
 <div class="home-content">
     <div class="title">
@@ -136,11 +219,11 @@
             <div class="title-detail">
                 <p style="font-size: 20px"><strong>Charity Life là gì ?</strong> </p>
                 <p>
-                    Charity Life là một tổ chức quyên góp trực tuyến với sứ mệnh mang đến hi vọng và hỗ trợ cho những người đang gặp khó khăn. Thông qua nền tảng trực tuyến tiện lợi và an toàn, chúng tôi kết nối những tấm lòng nhân ái với các cộng đồng cần giúp đỡ trên khắp thế giới. <br/>
+                    Charity Life là một tổ chức quyên góp trực tuyến với sứ mệnh mang đến hi vọng và hỗ trợ cho những người đang gặp khó khăn. Thông qua nền tảng trực tuyến tiện lợi và an toàn, chúng tôi kết nối những tấm lòng nhân ái với các cộng đồng cần giúp đỡ trên khắp thế giới. <br />
 
-                    Tại Charity Life, chúng tôi tin rằng mỗi sự đóng góp, dù nhỏ bé, đều có thể tạo nên sự khác biệt lớn. Chúng tôi nỗ lực không ngừng để đảm bảo rằng mọi khoản quyên góp đều được sử dụng một cách minh bạch và hiệu quả, hướng đến các dự án thiết thực như cung cấp thực phẩm, giáo dục, y tế và hỗ trợ khẩn cấp.<br/>
+                    Tại Charity Life, chúng tôi tin rằng mỗi sự đóng góp, dù nhỏ bé, đều có thể tạo nên sự khác biệt lớn. Chúng tôi nỗ lực không ngừng để đảm bảo rằng mọi khoản quyên góp đều được sử dụng một cách minh bạch và hiệu quả, hướng đến các dự án thiết thực như cung cấp thực phẩm, giáo dục, y tế và hỗ trợ khẩn cấp.<br />
 
-                    Chúng tôi không chỉ là cầu nối giữa những người muốn giúp đỡ và những người cần được giúp đỡ, mà còn là một cộng đồng những người yêu thương, chia sẻ và đồng hành cùng nhau trong hành trình xây dựng một thế giới tốt đẹp hơn.<br/>
+                    Chúng tôi không chỉ là cầu nối giữa những người muốn giúp đỡ và những người cần được giúp đỡ, mà còn là một cộng đồng những người yêu thương, chia sẻ và đồng hành cùng nhau trong hành trình xây dựng một thế giới tốt đẹp hơn.<br />
 
                     Hãy cùng Charity Life lan tỏa tình yêu thương và mang lại hi vọng cho những mảnh đời bất hạnh.
                 </p>
@@ -152,11 +235,47 @@
         <img src="~/Content/images/sumenhcuachungtoi.jpg" />
         <div class="content">
             <p style="font-size: 20px"><strong>Sứ mệnh của chúng tôi</strong> </p>
-            <p> Charity Life là tổ chức từ thiện với sứ mệnh đầy tình yêu thương: mang đến hy vọng và sự hỗ trợ cho những người đang gặp
-            khó khăn. Chúng tôi nỗ lực không ngừng để cải thiện chất lượng cuộc sống của những người cần được giúp đỡ, từ cung cấp các nhu
-            cầu thiết yếu như thực phẩm, quần áo, và chỗ ở, đến tạo ra các cơ hội giáo dục và việc làm.<br/> Charity Life không chỉ đơn thuần 
-            là việc trao tặng mà còn là kết nối, lắng nghe và cùng nhau xây dựng một cộng đồng mạnh mẽ, nơi mọi người đều có cơ hội 
-            để phát triển và sống một cuộc sống trọn vẹn. </p>
+            <p>
+                Charity Life là tổ chức từ thiện với sứ mệnh đầy tình yêu thương: mang đến hy vọng và sự hỗ trợ cho những người đang gặp
+                khó khăn. Chúng tôi nỗ lực không ngừng để cải thiện chất lượng cuộc sống của những người cần được giúp đỡ, từ cung cấp các nhu
+                cầu thiết yếu như thực phẩm, quần áo, và chỗ ở, đến tạo ra các cơ hội giáo dục và việc làm.<br /> Charity Life không chỉ đơn thuần
+                là việc trao tặng mà còn là kết nối, lắng nghe và cùng nhau xây dựng một cộng đồng mạnh mẽ, nơi mọi người đều có cơ hội
+                để phát triển và sống một cuộc sống trọn vẹn.
+            </p>
+        </div>
+    </div>
+
+    <div class="campaign-list-container">
+        <div class="campaignlist-title">
+            <h2>CÁC DỰ ÁN NỔI BẬT</h2>
+        </div>
+
+
+        <div class="campaign-list-row">
+            @if (!Model.Any())
+            {
+                <p>Không tìm thấy dự án nào phù hợp.</p>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <div class="campaign-card">
+                        <a href="@Url.Action("chiTietCD", "Campaign", new { id = item.MaCD})" style="text-decoration: none;">
+                            <img src="~/Content/images/@item.AnhBia" alt="@item.TenCD" />
+                            <div class="campaign-body">
+                                <h4 class="campaign-title">@item.TenCD</h4>
+                            </div>
+                            <div class="campaign-total">
+                                <p style="padding-bottom: 20px">Tổng quỹ: @String.Format("{0:0,0}", item.TongQuy) VND</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+        <div class="more-btn">
+            <a href="@Url.Action("Index", "Campaign")">Xem Thêm</a>
         </div>
     </div>
 </div>

@@ -7,45 +7,43 @@
 }
 
 <style>
-    /* Container chung */
+
     .campaign-list-container {
         padding: 50px;
     }
 
-        /* Hàng chứa các chiến dịch */
         .campaign-list-container .campaign-list-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: left;
         }
 
-        /* Thẻ card chứa chiến dịch */
         .campaign-list-container .campaign-card {
-            flex: 0 0 23%; /* Mỗi thẻ chiếm 23% chiều rộng */
-            max-width: 20%; /* Giới hạn tối đa chiều rộng */
+            background-color:#ffffff86;
+            flex: 0 0 23%; 
+            max-width: 20%; 
             margin-bottom: 64px;
             margin-left: 64px;
-            border: 1px solid #e0e0e0; /* Viền nhẹ */
-            border-radius: 8px; /* Bo góc thẻ */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
-            overflow: hidden; /* Ẩn các nội dung tràn */
+            border: 1px solid #e0e0e0; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            overflow: hidden; 
             text-align: center;
         }
 
             .campaign-list-container .campaign-card:hover {
-                transform: translateY(-5px); /* Hiệu ứng nổi lên */
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Đổ bóng đậm hơn */
+                transform: translateY(-5px); 
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
                 cursor: pointer;
             }
 
-            /* Hình ảnh trong thẻ */
+            
             .campaign-list-container .campaign-card img {
                 width: 100%;
                 height: auto;
             }
 
-            /* Nội dung chiến dịch */
             .campaign-list-container .campaign-card .campaign-body {
                 padding: 20px;
             }
@@ -53,17 +51,16 @@
             .campaign-list-container .campaign-card .campaign-title {
                 font-size: 16px;
                 font-weight: bold;
-                color: #333; /* Màu chữ đậm */
+                color: #333; 
                 margin-bottom: 10px;
             }
 
             .campaign-list-container .campaign-card .campaign-total {
                 font-size: 16px;
-                color: red; /* Màu đỏ cho tổng quỹ */
+                color: red; 
                 padding-bottom: 10px;
             }
 
-        /* Phân trang */
         .campaign-list-container .pagination-container {
             margin-top: 20px;
             display: flex;
