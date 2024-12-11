@@ -105,6 +105,13 @@
                 @Html.Partial("UserTable", Model)
             </table>
         </div>
+        @using (Html.BeginForm("ExportToExcel", "Users", FormMethod.Post, new { id = "exportForm" }))
+        {
+            <button id="exportExcel" style="margin: 10px; padding: 5px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">
+                Tải File Excel
+            </button>
+        }
+
     </div>
 </div>
 
@@ -121,6 +128,7 @@
                 data: { tenUser: tenUser, NgayDangKy: NgayDangKy }, // Gửi tham số tìm kiếm
                 success: function (response) {
                     $('#userContainer tbody').html($(response).html());
+                    attachExportEvent();
                 }
             });
         });
@@ -156,9 +164,23 @@
 </script>
 
 
-
-
-
-
-
+<script>
+    $(document).ready(function () {
+        $('#exportExcel').on('click', function () {
+            // Tạo form
+            var form = $('#exportForm');
+            form.find('input[type="hidden"]').remove();
+            // Lấy dữ liệu từ bảng
+            $('.table tbody tr').each(function () {
+                var row = $(this).index();
+                $(this).find('td').each(function (column) {
+                    var input = $('<input type="hidden" name="data[' + row + '][' + column + ']" />');
+                    input.val($(this).text().trim());
+                    form.append(input);
+                });
+            });
+            form.submit(); // Gửi form
+        });
+    });
+</script>
 

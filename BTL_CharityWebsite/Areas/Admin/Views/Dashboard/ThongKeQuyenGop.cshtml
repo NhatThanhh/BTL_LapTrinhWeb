@@ -115,6 +115,13 @@
                 @Html.Partial("ChiTietQuyenGop", Model)
             </table>
         </div>
+        @using (Html.BeginForm("ExportToExcel", "Dashboard", FormMethod.Post, new { id = "exportForm" }))
+        {
+            <button id="exportExcel" style="margin: 10px; padding: 5px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">
+                Tải File Excel
+            </button>
+        }
+
     </div>
 </div>
 
@@ -192,4 +199,25 @@
         });
     });
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#exportExcel').on('click', function () {
+            // Tạo form
+            var form = $('#exportForm');
+            form.find('input[type="hidden"]').remove();
+            // Lấy dữ liệu từ bảng
+            $('.table tbody tr').each(function () {
+                var row = $(this).index();
+                $(this).find('td').each(function (column) {
+                    var input = $('<input type="hidden" name="data[' + row + '][' + column + ']" />');
+                    input.val($(this).text().trim());
+                    form.append(input);
+                });
+            });
+            // Gửi form
+            form.submit(); // Gửi form
+        });
+    });
 </script>

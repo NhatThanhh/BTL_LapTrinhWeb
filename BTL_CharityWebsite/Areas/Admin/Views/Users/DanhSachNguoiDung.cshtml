@@ -7,13 +7,91 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<style>
+    h2 {
+        text-align: center;
+        color: #295e97;
+        font-weight: bold;
+        margin-bottom: 30px;
+        padding-top: 50px;
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+    }
+
+        .pagination-container .pagination {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .pagination-container .pagination li a {
+                display: block;
+                padding: 8px 12px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                color: #007bff;
+                background-color: #f8f9fa;
+                transition: all 0.3s ease;
+            }
+
+                .pagination-container .pagination li a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                }
+
+    table td, th {
+        border: 1px solid;
+    }
+
+    td a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #428ddd;
+        padding: 5px 10px;
+        border-radius: 6px;
+    }
+
+    table td, th {
+        text-align: center;
+    }
+
+    td a:hover {
+        background-color: #326ba8;
+        color: #fff;
+    }
+
+    p a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #428ddd;
+        padding: 5px 10px;
+        border-radius: 6px;
+    }
+
+        p a:hover {
+            background-color: #326ba8;
+            color: #fff;
+        }
+
+    .add-btn {
+        text-align: center;
+    }
+</style>
 <h2>DANH SÁCH NGƯỜI DÙNG</h2>
-<form method="get" action="@Url.Action("DanhSachNguoiDung", "Users")" style="margin-bottom: 20px; text-align: center;">
-    <label for="namTao" style="margin-right: 10px;">Tìm kiếm:</label>
+@using (Html.BeginForm("DanhSachNguoiDung", "Users", FormMethod.Get, new { style = "margin-bottom: 20px; text-align: center;" }))
+{
+    <label for="tenUser" style="margin-right: 10px;">Tìm kiếm:</label>
     <input type="text" id="tenUser" name="tenUser" value="@Request.QueryString["tenUser"]" placeholder="Nhập tên người dùng" />
     <input type="date" id="NgayDangKy" name="NgayDangKy" value="@Request.QueryString["NgayDangKy"]" placeholder="" />
     <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
-</form>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -40,7 +118,7 @@
         <th>
             Ngày đăng kí
         </th>
-        <th></th>
+        <th>Chức năng</th>
     </tr>
 
     @if (!Model.Any())
@@ -87,15 +165,17 @@
         }
     }
 </table>
-<p>
+<p style="text-align: center">
     @Html.ActionLink("Thêm mới", "ThemUser")
 </p>
-Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<p style="text-align: center">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+</p>
 <div class="pagination-container">
     @Html.PagedListPager(Model, page => Url.Action("DanhSachNguoiDung", new
     {
         page = page,
-    tenUser = Request.QueryString["tenUser"],
-    NgayDangKy = Request.QueryString["NgayDangKy"]
-}))
+        tenUser = Request.QueryString["tenUser"],
+        NgayDangKy = Request.QueryString["NgayDangKy"]
+    }))
 </div>

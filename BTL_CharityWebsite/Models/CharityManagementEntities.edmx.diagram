@@ -17,6 +17,7 @@
         <EntityTypeShape EntityType="CharityManagementModel.THUVIEN" Width="1.5" PointX="8.625" PointY="0.75" />
         <AssociationConnector Association="CharityManagementModel.fk_CD" />
         <EntityTypeShape EntityType="CharityManagementModel.ADMIN" Width="1.5" PointX="11" PointY="5.625" />
+        <EntityTypeShape EntityType="CharityManagementModel.LIENHE" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -8,7 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using Newtonsoft.Json;
 
 namespace BTL_CharityWebsite.Areas.Admin.Controllers
 {
@@ -208,6 +210,51 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                               .ToList();
             return Json(userData, JsonRequestBehavior.AllowGet);
         }
+
+
+
+        //Xuất excel
+        [HttpPost]
+        public ActionResult ExportToExcel(List<List<string>> data)
+        {          
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Users");
+                int row = 1;
+
+                // Header
+                worksheet.Cells[row, 1].Value = "STT";
+                worksheet.Cells[row, 2].Value = "Họ và Tên";
+                worksheet.Cells[row, 3].Value = "Tên Tài Khoản";
+                worksheet.Cells[row, 4].Value = "Mật Khẩu";
+                worksheet.Cells[row, 5].Value = "Email";
+                worksheet.Cells[row, 6].Value = "Số Điện Thoại";
+                worksheet.Cells[row, 7].Value = "Địa Chỉ";
+                worksheet.Cells[row, 8].Value = "Ngày Sinh";
+                worksheet.Cells[row, 9].Value = "Ngày Đăng Ký";
+
+                // Style Header
+                for (int col = 1; col <= 9; col++)
+                {
+                    worksheet.Cells[row, col].Style.Font.Bold = true;
+                    worksheet.Cells[row, col].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row, col].AutoFitColumns();
+                }
+
+                foreach (var rowData in data)
+                {
+                    row++;
+                    for (int col = 0; col < rowData.Count; col++)
+                    {
+                        worksheet.Cells[row, col + 1].Value = rowData[col];
+                    }
+                }
+                // Tạo file Excel
+                var excelData = package.GetAsByteArray();
+                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Users.xlsx");
+            }
+        }
+
 
     }
 }

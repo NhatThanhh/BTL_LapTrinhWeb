@@ -34,6 +34,7 @@ namespace BTL_CharityWebsite.Models
         public virtual DbSet<NGUOIDUNG> NGUOIDUNGs { get; set; }
         public virtual DbSet<THUVIEN> THUVIENs { get; set; }
         public virtual DbSet<ADMIN> ADMINs { get; set; }
+        public virtual DbSet<LIENHE> LIENHEs { get; set; }
     
         public virtual ObjectResult<sp_QuyenGopTheoThang_Result> sp_QuyenGopTheoThang()
         {

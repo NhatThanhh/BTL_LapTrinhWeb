@@ -10,11 +10,13 @@
 }
 
 <style>
+
     .row {
-        margin: 50px;
         height: 100%;
         display: flex;
         justify-content: center;
+        padding-top: 50px;
+        padding-left: 90px;
     }
 
     .col-md-3 {
@@ -106,40 +108,40 @@
     }
 </style>
 
+<div class="gallery-section">
+    <div class="row">
+        <!-- Danh sách chiến dịch bên trái -->
+        <div class="col-md-3">
+            <h4 style="color: #8b0000; font-weight: bold">Danh mục chiến dịch</h4>
+            <ul class="list-group">
+                @foreach (var cd in listCD)
+                {
+                    <li class="list-group-item">
+                        <a href="@Url.Action("ThuVien", "Home", new { MaCD = cd.MaCD })">
+                            @cd.TenCD
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
 
-<div class="row">
-    <!-- Danh sách chiến dịch bên trái -->
-    <div class="col-md-3">
-        <h4 style="color: #8b0000; font-weight: bold">Danh mục chiến dịch</h4>
-        <ul class="list-group">
-            @foreach (var cd in listCD)
-            {
-                <li class="list-group-item">
-                    <a href="@Url.Action("ThuVien", "Home", new { MaCD = cd.MaCD })">
-                        @cd.TenCD
-                    </a>
-                </li>
-            }
-        </ul>
-    </div>
-
-    <!-- Hình ảnh của chiến dịch được chọn -->
-    <div class="col-md-9">
-        <div class="image-row">
-            @foreach (var item in listTV)
-            {
-                <div class="image-item">
-                    <img src="~/Content/images/@item.Anh" alt="Image" class="img-fluid" />
-                </div>
-                <div class="popup-image">
-                    <span>&times;</span>
-                    <img src="~/Content/images/@item.Anh" alt="" />
-                </div>
-            }
+        <!-- Hình ảnh của chiến dịch được chọn -->
+        <div class="col-md-9">
+            <div class="image-row">
+                @foreach (var item in listTV)
+                {
+                    <div class="image-item">
+                        <img src="~/Content/images/@item.Anh" alt="Image" class="img-fluid" />
+                    </div>
+                    <div class="popup-image">
+                        <span>&times;</span>
+                        <img src="~/Content/images/@item.Anh" alt="" />
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
-
 @*Phân trang*@
 <div class="pagination-container">
     @Html.PagedListPager(Model.Item2, page => Url.Action("ThuVien", new { page = page, MaCD = Model.Item3}))

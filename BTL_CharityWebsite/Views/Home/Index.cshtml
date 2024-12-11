@@ -5,6 +5,9 @@
 }
 
 <style>
+    .home-content{
+        padding: 20px 30px;
+    }
     /* Style cho tiêu đề */
     h3 {
         text-align: center;
@@ -40,7 +43,7 @@
     .icon {
         font-size: 50px;
         margin-bottom: 10px; /* Khoảng cách giữa biểu tượng và văn bản */
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.4s ease-in-out;
     }
 
         /* Thêm hiệu ứng hover cho icon */
@@ -61,33 +64,62 @@
         text-align: center;
     }
     .title{
-        text-align: center;
-        padding: 100px;
-        color: #5187af;
-    }
-    .title h2{
-        font-weight: bold;
-        font-size: 50px;
+        text-align:center;
     }
     .title-img{
         width: 30%;
         height: auto;
     }
-    .introduce-content1{
-        text-align: center;
-        padding: 50px 20px;
-        background-color: #bde1e2;
+    .title-content {
+        width: 70%;
+        margin: 0 auto;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        display: flex;
+        justify-content: center; /* Căn hàng ngang bắt đầu từ trên cùng */
+        gap: 50px; /* Khoảng cách giữa hình ảnh và nội dung */
     }
-    .introduce-content1 h3{
-        color: #5187af;
-        font-size: 30px;
+
+        .title-content img {
+            width: 45%; /* Điều chỉnh kích thước tối đa của hình ảnh */
+            height: auto;
+            border-radius: 5px;
+        }
+
+    .title-content p {
+        text-align: justify;
+        font-size: 17px;
+        line-height: 1.6;
+        color: #000;
     }
+
+    .introduce-content1 {
+        width: 70%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center; /* Căn hàng ngang bắt đầu từ trên cùng */
+        gap: 50px; /* Khoảng cách giữa hình ảnh và nội dung */
+    }
+
+        .introduce-content1 img {
+            width: 45%; /* Điều chỉnh kích thước tối đa của hình ảnh */
+            height: auto;
+            border-radius: 5px;
+        }
+
+    .content {
+        flex-grow: 1; /* Để nội dung có thể mở rộng và chiếm phần còn lại của không gian */
+    }
+
     .introduce-content1 p{
-        font-size: 24px;
+        text-align: justify;
+        font-size:  17px;
+        line-height: 1.6;
     }
     .introduce-content2 {
         text-align: center;
         padding: 100px 20px;
+        background-color: #8080806f;
     }
         .introduce-content2 h3 {
             color: #5187af;
@@ -97,49 +129,34 @@
 </style>
 
 
+<div class="home-content">
+    <div class="title">
+        <img src="~/Content/images/CFlogo.png" alt="Charity Life" class="title-img" />
+        <div class="title-content">
+            <div class="title-detail">
+                <p style="font-size: 20px"><strong>Charity Life là gì ?</strong> </p>
+                <p>
+                    Charity Life là một tổ chức quyên góp trực tuyến với sứ mệnh mang đến hi vọng và hỗ trợ cho những người đang gặp khó khăn. Thông qua nền tảng trực tuyến tiện lợi và an toàn, chúng tôi kết nối những tấm lòng nhân ái với các cộng đồng cần giúp đỡ trên khắp thế giới. <br/>
 
-<div class="title">
-    <h2>CHÀO MỪNG BẠN ĐẾN VỚI CHARITY LIFE</h2>
-    <img src="~/Content/images/preview-removebg-preview.png" alt="Charity Life" class="title-img" />
-</div>
-<div class="introduce-content1">
-    <h3>SỨ MỆNH CỦA CHÚNG TÔI</h3>
-    <p>Charity Life là tổ chức từ thiện với sứ mệnh đầy tình yêu thương: mang đến hy vọng và sự hỗ trợ cho những người đang gặp<br />
-    khó khăn. Chúng tôi nỗ lực không ngừng để cải thiện chất lượng cuộc sống của những người cần được giúp đỡ, từ cung cấp các nhu<br />
-    cầu thiết yếu như thực phẩm, quần áo, và chỗ ở, đến tạo ra các cơ hội giáo dục và việc làm. Charity Life không chỉ đơn thuần <br />
-    là việc trao tặng mà còn là kết nối, lắng nghe và cùng nhau xây dựng một cộng đồng mạnh mẽ, nơi mọi người đều có cơ hội <br />
-    để phát triển và sống một cuộc sống trọn vẹn.</p>
-</div>
-<div class="introduce-content2">
-    <h3>Những việc Charity Life làm</h3>
-    <div class="row">
-        <!-- Cột 1 -->
-        <div class="col-md-6">
-            <div class="icon">
-                 <i class="fa-solid fa-house" style="color: #64a3d3;"></i>
-            </div>
-            <span>Xây nhà tình thương</span>
-        </div>
-        <div class="col-md-6">
-            <div class="icon">
-                <i class="fa-solid fa-school" style="color: #64a3d3;"></i>
-            </div>
-            <span>Xây trường học</span>
-        </div>
+                    Tại Charity Life, chúng tôi tin rằng mỗi sự đóng góp, dù nhỏ bé, đều có thể tạo nên sự khác biệt lớn. Chúng tôi nỗ lực không ngừng để đảm bảo rằng mọi khoản quyên góp đều được sử dụng một cách minh bạch và hiệu quả, hướng đến các dự án thiết thực như cung cấp thực phẩm, giáo dục, y tế và hỗ trợ khẩn cấp.<br/>
 
-        <!-- Cột 2 -->
-        <div class="col-md-6">
-            <div class="icon">
-                <i class="fa-solid fa-book-open" style="color: #64a3d3;"></i>
+                    Chúng tôi không chỉ là cầu nối giữa những người muốn giúp đỡ và những người cần được giúp đỡ, mà còn là một cộng đồng những người yêu thương, chia sẻ và đồng hành cùng nhau trong hành trình xây dựng một thế giới tốt đẹp hơn.<br/>
+
+                    Hãy cùng Charity Life lan tỏa tình yêu thương và mang lại hi vọng cho những mảnh đời bất hạnh.
+                </p>
             </div>
-            <span>Tặng học bổng</span>
-        </div>
-        <div class="col-md-6">
-            <div class="icon">
-                <i class="fa-solid fa-fish" style="color: #64a3d3;"></i>
-            </div>
-            <span>Nấu ăn cho em</span>
+            <img src="~/Content/images/charity-donation.jpg" />
         </div>
     </div>
-
+    <div class="introduce-content1">
+        <img src="~/Content/images/sumenhcuachungtoi.jpg" />
+        <div class="content">
+            <p style="font-size: 20px"><strong>Sứ mệnh của chúng tôi</strong> </p>
+            <p> Charity Life là tổ chức từ thiện với sứ mệnh đầy tình yêu thương: mang đến hy vọng và sự hỗ trợ cho những người đang gặp
+            khó khăn. Chúng tôi nỗ lực không ngừng để cải thiện chất lượng cuộc sống của những người cần được giúp đỡ, từ cung cấp các nhu
+            cầu thiết yếu như thực phẩm, quần áo, và chỗ ở, đến tạo ra các cơ hội giáo dục và việc làm.<br/> Charity Life không chỉ đơn thuần 
+            là việc trao tặng mà còn là kết nối, lắng nghe và cùng nhau xây dựng một cộng đồng mạnh mẽ, nơi mọi người đều có cơ hội 
+            để phát triển và sống một cuộc sống trọn vẹn. </p>
+        </div>
+    </div>
 </div>

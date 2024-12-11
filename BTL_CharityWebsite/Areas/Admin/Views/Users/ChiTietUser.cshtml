@@ -5,78 +5,147 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>THÔNG TIN NGƯỜI DÙNG    </h2>
+<style>
+    .user-detail h2 {
+        text-align: center;
+        color: #295e97;
+        font-weight: bold;
+    }
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Họ và tên
-        </dt>
+    .user-detail {
+        width: 70%;
+        margin: 50px auto;
+        padding: 20px;
+        padding-left: 50px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+    }
+    p {
+        text-align: left;
+        margin-top: 20px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
+        p a {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+        }
 
-        <dt>
-            Tên tài khoản
-        </dt>
+        p a {
+            background-color: #428ddd;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.TaiKhoan)
-        </dd>
+            p a:hover {
+                background-color: #0056b3;
+                color: white;
+            }
 
-        <dt>
-            Mật khẩu
-        </dt>
+    .dl-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0; 
+        padding: 0;
+        justify-content: center;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
+        .dl-horizontal dt {
+            width: 20%; 
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+            padding-right: 10px; 
+            margin-bottom: 10px;
+        }
 
-        <dt>
-            Email
-        </dt>
+        .dl-horizontal dd {
+            width: 70%; 
+            margin: 0; 
+            color: #333;
+            margin-bottom: 10px; 
+        }
+</style>
+<div class="user-detail">
+    <h2>THÔNG TIN NGƯỜI DÙNG    </h2>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Họ và tên
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
 
-        <dt>
-            Số điện thoại
-        </dt>
+            <dt>
+                Tên tài khoản
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.TaiKhoan)
+            </dd>
 
-        <dt>
-            Địa chỉ
-        </dt>
+            <dt>
+                Mật khẩu
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.MatKhau)
+            </dd>
 
-        <dt>
-            Ngày sinh
-        </dt>
+            <dt>
+                Email
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dt>
-            Ngày đăng ký
-        </dt>
+            <dt>
+                Số điện thoại
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NgayDangKi)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
 
-    </dl>
+            <dt>
+                Địa chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+            <dt>
+                Ngày sinh
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </dd>
+
+            <dt>
+                Ngày đăng ký
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayDangKi)
+            </dd>
+
+        </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Chỉnh Sửa", "SuaUser", new { id = Model.MaND }) |
-    @Html.ActionLink("Danh sách người dùng", "DanhSachNguoiDung")
-</p>
+<div style="display: flex; justify-content: center; margin-top: -40px">
+    <p>
+        @Html.ActionLink("Chỉnh Sửa", "SuaUser", new { id = Model.MaND }) |
+        @Html.ActionLink("Xoá", "XoaUser", new { id = Model.MaND }) |
+        @Html.ActionLink("Danh sách người dùng", "DanhSachNguoiDung")
+    </p>
+</div>

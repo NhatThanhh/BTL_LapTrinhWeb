@@ -41,13 +41,9 @@ body a {
 /*-- to-top --*/
 
 .banner {
-	background: url(../images/charity_banner.jpeg) no-repeat 0px 0px;
+/*	background: url(../images/charity_banner.jpeg) no-repeat 0px 0px;
 	background-size: cover;
-	-webkit-background-size: cover;
-	-o-background-size: cover;
-	-ms-background-size: cover;
-	-moz-background-size: cover;
-	min-height: 853px;
+	min-height: 853px;*/
 }
 #toTop {
 	display: none;

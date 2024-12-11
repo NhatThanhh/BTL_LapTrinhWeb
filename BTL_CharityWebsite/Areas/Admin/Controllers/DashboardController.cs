@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
 using BTL_CharityWebsite.ViewModel;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
 
 namespace BTL_CharityWebsite.Areas.Admin.Controllers
 {
@@ -126,6 +128,45 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                                     .OrderBy(y => y.Nam).ThenBy(y => y.Thang)
                                     .ToList();
             return Json(quyenGop, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //Export Excel
+        [HttpPost]
+        public ActionResult ExportToExcel(List<List<string>> data)
+        {
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Donations");
+                int row = 1;
+
+                // Header
+                worksheet.Cells[row, 1].Value = "STT";
+                worksheet.Cells[row, 2].Value = "Họ và Tên";
+                worksheet.Cells[row, 3].Value = "Tên dự án";
+                worksheet.Cells[row, 4].Value = "Số tiền";
+                worksheet.Cells[row, 5].Value = "Ngày";
+
+                // Style Header
+                for (int col = 1; col <= 5; col++)
+                {
+                    worksheet.Cells[row, col].Style.Font.Bold = true;
+                    worksheet.Cells[row, col].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row, col].AutoFitColumns();
+                }
+
+                foreach (var rowData in data)
+                {
+                    row++;
+                    for (int col = 0; col < rowData.Count; col++)
+                    {
+                        worksheet.Cells[row, col + 1].Value = rowData[col];
+                    }
+                }
+                // Tạo file Excel
+                var excelData = package.GetAsByteArray();
+                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Donations.xlsx");
+            }
         }
 
     }

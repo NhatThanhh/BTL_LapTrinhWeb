@@ -9,39 +9,28 @@
 <style>
     /* Container chung */
     .campaign-list-container {
-        padding: 20px;
-        margin: 50px 40px;
+        padding: 50px;
     }
-
-        /* Tiêu đề */
-        .campaign-list-container .campaign-list-title {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #8b0000;
-        }
 
         /* Hàng chứa các chiến dịch */
         .campaign-list-container .campaign-list-row {
             display: flex;
             flex-wrap: wrap;
-            justify-content: left; /* Tạo khoảng cách đều */
+            justify-content: left;
         }
 
         /* Thẻ card chứa chiến dịch */
         .campaign-list-container .campaign-card {
             flex: 0 0 23%; /* Mỗi thẻ chiếm 23% chiều rộng */
-            max-width: 23%; /* Giới hạn tối đa chiều rộng */
-            margin-bottom: 20px;
-            margin-left: 30px;
+            max-width: 20%; /* Giới hạn tối đa chiều rộng */
+            margin-bottom: 64px;
+            margin-left: 64px;
             border: 1px solid #e0e0e0; /* Viền nhẹ */
             border-radius: 8px; /* Bo góc thẻ */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
             transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
             overflow: hidden; /* Ẩn các nội dung tràn */
-            text-align: center;           
+            text-align: center;
         }
 
             .campaign-list-container .campaign-card:hover {
@@ -80,31 +69,56 @@
             display: flex;
             justify-content: center;
         }
-
-
+        .campaignlist-title{
+            text-align: center;
+            padding-bottom: 20px;
+        }
+            .campaignlist-title h2 {
+                font-size: 30px;
+                font-weight: bold;
+                color: #8b0000;
+                margin-bottom: 10px;
+            }
 </style>
 
 <div class="campaign-list-container">
-    <h2 class="campaign-list-title">DANH SÁCH DỰ ÁN</h2>
-
-    <div class="campaign-list-row">
-        @foreach (var item in Model)
+    <div class="campaignlist-title">
+        <h2>DANH SÁCH DỰ ÁN</h2>
+        @using (Html.BeginForm("Index", "Campaign", FormMethod.Get, new { @id = "searchForm" }))
         {
-            <div class="campaign-card">
-                <a href="@Url.Action("chiTietCD", "Campaign", new { id = item.MaCD})" style="text-decoration: none;">
-                    <img src="~/Content/images/@item.AnhBia" alt="@item.TenCD" />
-                    <div class="campaign-body">
-                        <h4 class="campaign-title">@item.TenCD</h4>
-                    </div>
-                    <div class="campaign-total">
-                        <p style="padding-bottom: 20px">Tổng quỹ: @String.Format("{0:0,0}", item.TongQuy) VND</p>
-                    </div>
-                </a>
-            </div>
+            <input type="text" name="tenChienDich" placeholder="Nhập từ khóa..." class="search-box" />
+            <button type="submit" style="background: none; border: none; padding: 0;">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 25px; cursor: pointer; color: #8b0000"></i>
+            </button>
         }
     </div>
 
+
+    <div class="campaign-list-row">
+        @if (!Model.Any())
+        {
+            <p>Không tìm thấy dự án nào phù hợp.</p>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="campaign-card">
+                    <a href="@Url.Action("chiTietCD", "Campaign", new { id = item.MaCD})" style="text-decoration: none;">
+                        <img src="~/Content/images/@item.AnhBia" alt="@item.TenCD" />
+                        <div class="campaign-body">
+                            <h4 class="campaign-title">@item.TenCD</h4>
+                        </div>
+                        <div class="campaign-total">
+                            <p style="padding-bottom: 20px">Tổng quỹ: @String.Format("{0:0,0}", item.TongQuy) VND</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
     <div class="pagination-container">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
     </div>
 </div>
+

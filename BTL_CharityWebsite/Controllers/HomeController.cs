@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
 using System.Web.UI;
+using BTL_CharityWebsite.ViewModel;
 
 namespace BTL_CharityWebsite.Controllers
 {
@@ -44,14 +45,38 @@ namespace BTL_CharityWebsite.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            return View();
-        }
-
+        [HttpGet]
         public ActionResult Contact()
         {
-            return View();
+            return View(new LienHeVM());
+        }
+        [HttpPost]
+        public ActionResult Contact(LienHeVM kh)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(kh);
+            }
+            var user = new LIENHE()
+            {
+                TenLH = kh.TenLH,
+                SDTLH = kh.SDTLH,
+                EmailLH = kh.EmailLH,
+                NgayGui = kh.NgayGui
+            };
+            try
+            {
+                db.LIENHEs.Add(user);
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Cảm ơn bạn đã để lại thông tin liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất!";
+                return RedirectToAction("Contact");
+            }
+            catch (Exception ex)
+            {
+                TempData["SuccessMessage"] = "Lỗi";
+                ModelState.AddModelError("", "Đã có lỗi xảy ra, vui lòng thử lại.");
+                return RedirectToAction("Contact");
+            }
         }
     }
 }

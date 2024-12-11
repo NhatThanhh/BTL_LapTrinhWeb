@@ -1,0 +1,80 @@
+﻿@using BTL_CharityWebsite.ViewModel
+
+@{
+    ViewBag.Title = "LichSuQuyenGop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .lichsu-container {
+        text-align: center;
+        height: 500px;
+        overflow-y: auto;
+        width: 70%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+
+    h2 {
+        text-align: center;
+        padding-top: 50px;
+        margin-bottom: 20px;
+        color: #8b0000;
+        font-weight: bold;
+    }
+    .table{
+        background-color: #ffffffb6;
+    }
+    .table th {
+        text-align: center;
+    }
+    .content{
+        height: 50pc;
+    }
+</style>
+
+<div class="content">
+    <h2>LỊCH SỬ QUYÊN GÓP</h2>
+    <div class="lichsu-container">
+
+        @if (ViewBag.ChiTietQuyenGop != null && ((List<ChiTietQuyenGopVM>)ViewBag.ChiTietQuyenGop).Count > 0)
+        {
+            int index = 1;
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th style="display: none">Mã</th>
+                        <th>Tên Chiến Dịch</th>
+                        <th>Số Tiền Quyên Góp</th>
+                        <th>Ngày Quyên Góp</th>
+                        <th>Chi Tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var item in (List<ChiTietQuyenGopVM>)ViewBag.ChiTietQuyenGop)
+                    {
+                       
+                        <tr>
+                            <td>@index</td>
+                            <td style="display: none">@item.MaQG</td>
+                            <td>@item.TenChienDich</td>
+                            <td>@String.Format("{0:N0}", item.SoTienQuyenGop) VND</td>
+                            <td>@item.NgayQuyenGop</td>
+                            <td>
+                                @Html.ActionLink("Chi Tiết", "XacNhanQuyenGop","Donate", new { id = item.MaQG}, new { @class = "btn btn-primary" })
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Bạn chưa thực hiện quyên góp nào.</p>
+        }
+    </div>
+</div>

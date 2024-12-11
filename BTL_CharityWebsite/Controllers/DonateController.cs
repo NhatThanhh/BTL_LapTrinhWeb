@@ -60,9 +60,13 @@ namespace BTL_CharityWebsite.Controllers
         public ActionResult QuyenGop()
         {
             List<DonateVM> lstQuyenGop = layQuyenGop();
-            if (lstQuyenGop.Count == 0)
+            if (Session["TaiKhoan"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("DangNhap", "User");
+            }
+             else if (lstQuyenGop.Count == 0)
+            {
+                ViewBag.ThongBao = "Chưa có dự án nào được chọn";
             }
             ViewBag.Tongtien = TongTien();
             return View(lstQuyenGop);
@@ -164,7 +168,6 @@ namespace BTL_CharityWebsite.Controllers
             }
             db.SaveChanges();
 
-
             // Kiểm tra loại thanh toán
             var paymentType = int.Parse(c["TypePayment"]);
             if (paymentType == 2) // Thanh toán qua VNPay
@@ -179,10 +182,58 @@ namespace BTL_CharityWebsite.Controllers
 
 
 
-        public ActionResult XacNhanQuyenGop()
+        public ActionResult XacNhanQuyenGop(int? id)
         {
-            return View();
+            var user = Session["TaiKhoan"] as NGUOIDUNG;
+            if (user == null)
+            {
+                return RedirectToAction("DangNhap", "User");
+            }
+            QUYENGOP quyenGop;
+            if (id.HasValue)
+            {
+                quyenGop = db.QUYENGOPs.FirstOrDefault(qg => qg.MaQG == id.Value && qg.MaND ==  user.MaND);
+                if (quyenGop == null)
+                {
+                    return RedirectToAction("LichSuQuyenGop", "User"); // Nếu không tìm thấy, quay lại lịch sử
+                }
+            }
+            else
+            {
+                // Nếu không có id (nghĩa là người dùng vừa quyên góp), lấy quyên góp mới nhất
+                quyenGop = db.QUYENGOPs
+                                 .OrderByDescending(qg => qg.NgayQuyenGop)  // Lấy quyên góp mới nhất
+                                 .FirstOrDefault(qg => qg.MaND == user.MaND);
+
+                if (quyenGop == null)
+                {
+                    return RedirectToAction("LichSuQuyenGop", "User");  // Nếu không có quyên góp, quay lại lịch sử
+                }
+            }
+            var chiTietQuyenGopData = db.CHITIETQUYENGOPs
+                .Join(db.QUYENGOPs, ctqg => ctqg.MaQG, qg => qg.MaQG, (ctqg, qg) => new {ctqg, qg})
+                .Where(x => x.qg.MaQG == quyenGop.MaQG) // Lọc theo MaQG
+                .Join(db.CHIENDICHes,
+                      combined => combined.ctqg.MaCD,
+                      cd => cd.MaCD,
+                      (combined, cd) => new { combined, cd })
+                .Select(x => new ChiTietQuyenGopVM
+                {
+                    MaQG = x.combined.ctqg.MaQG,
+                    HoTenNguoiDung = user.HoTen,
+                    TenChienDich = x.cd.TenCD,
+                    SoTienQuyenGop = (decimal)x.combined.ctqg.SoTienQG,
+                    NgayQuyenGop = x.combined.qg.NgayQuyenGop.Value
+                })
+                .ToList();
+            var tongTien = chiTietQuyenGopData.Sum(s => s.SoTienQuyenGop);
+            ViewBag.ChiTietQuyenGop = chiTietQuyenGopData;
+            ViewBag.UserInfo = user;
+            ViewBag.TongTien = tongTien;
+            return View(quyenGop);
         }
+
+
 
 
 

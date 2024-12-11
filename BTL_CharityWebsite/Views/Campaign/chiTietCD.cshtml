@@ -1,4 +1,5 @@
-﻿@model BTL_CharityWebsite.Models.CHIENDICH
+﻿@using BTL_CharityWebsite.ViewModel
+@model BTL_CharityWebsite.Models.CHIENDICH
 @{
     ViewBag.Title = "chiTietCD";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,8 +9,7 @@
     .chiTietCDl_section {
         display: flex;
         justify-content: center; /* Căn giữa toàn bộ nội dung */
-        padding: 20px;
-        background-color: #f9f9f9; /* Màu nền nhạt */
+        padding: 20px;/* Màu nền nhạt */
     }
 
     .chiTietCD_container {
@@ -76,6 +76,19 @@
             background-color: #4c8c8c;
             box-shadow: 0 0 10px 4px rgba(94, 160, 160, 0.8); /* Hiệu ứng viền phát sáng */
         }
+    .donate-data {
+        text-align: center;
+        width: 70%;
+        margin: 0 auto;
+        margin-bottom: 60px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 400px; 
+        overflow-y: auto;
+    }
+        .table th{
+            text-align: center;
+        }
 </style>
 
 
@@ -92,7 +105,7 @@
                     @Model.TenCD
                 </h2>
                 <p><strong>Chịu trách nhiệm bởi: </strong>@ViewBag.TenQL</p>
-                <p><strong>Thông tin chiến dịch: </strong>@Html.Raw(Model.MoTa)</p> 
+                <p><strong>Thông tin chiến dịch: </strong>@Html.Raw(Model.MoTa)</p>
                 <p><strong>Ngày khởi động chiến dịch:</strong> @ViewBag.NgayTao</p>
                 <p style="color: red; font-weight: bold;">
                     Tổng quỹ: @String.Format("{0:0,0}", Model.TongQuy) VND
@@ -106,6 +119,35 @@
             </div>
         </div>
     </div>
-</section>
 
+</section>
+<div class="donate-data" >
+    <h3>Danh sách quyên góp</h3>
+    @if (ViewBag.ChiTietQuyenGop != null && ((List<ChiTietQuyenGopVM>)ViewBag.ChiTietQuyenGop).Count > 0)
+    {
+        <table class="table table-bordered" >
+            <thead>
+                <tr>
+                    <th>Họ và Tên</th>
+                    <th>Số Tiền Quyên Góp</th>
+                    <th>Ngày Quyên Góp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in (List<ChiTietQuyenGopVM>)ViewBag.ChiTietQuyenGop)
+                {
+                    <tr>
+                        <td>@item.HoTenNguoiDung</td>
+                        <td>@String.Format("{0:N0}", item.SoTienQuyenGop) VND</td>
+                        <td>@item.NgayQuyenGop</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Chưa có dữ liệu quyên góp cho chiến dịch này.</p>
+    }
+</div>
 

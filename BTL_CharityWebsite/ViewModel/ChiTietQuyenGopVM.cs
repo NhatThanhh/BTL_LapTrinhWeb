@@ -7,6 +7,7 @@ namespace BTL_CharityWebsite.ViewModel
 {
     public class ChiTietQuyenGopVM
     {
+        public int MaQG {  get; set; }
         public string HoTenNguoiDung { get; set; }
         public string TenChienDich { get; set; }
         public decimal SoTienQuyenGop { get; set; }

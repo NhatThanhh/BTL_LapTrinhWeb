@@ -5,10 +5,13 @@
 }
 
 <style>
+    .login-form{
+        height: 30pc;
+    }
     /* Toàn bộ form */
     .register-form {
-        max-width: 30%;
-        margin: 0 auto; /* Căn giữa form */
+        max-width: 40%;
+        margin: 30px auto; /* Căn giữa form */
         background-color: #f9f9f9; /* Màu nền nhạt */
         border: 1px solid #ddd; /* Viền mỏng */
         border-radius: 8px; /* Bo góc */
@@ -91,41 +94,41 @@
         margin-top: 5px; /* Khoảng cách trên */
     }
 </style>
-
-<h2 style="text-align:center; padding-top: 20px; color:darkred; font-weight: bold">ĐĂNG NHẬP</h2>
-<div class="register-form">
-    @using (Html.BeginForm("DangNhap", "User", FormMethod.Post))
-    {
-        <div class="row">
-            <p>Tên tài khoản</p>
-            <input type="text" name="TenDN" class="form-control" placeholder="Tên tài khoản" />
-            @if (ViewData["Loi1"] != null)
-            {
-                <div class="error-message">@ViewData["Loi1"]</div>
-            }
+<div class="login-form">
+    <h2 style="text-align:center; padding-top: 20px; color:darkred; font-weight: bold">ĐĂNG NHẬP</h2>
+    <div class="register-form">
+        @using (Html.BeginForm("DangNhap", "User", FormMethod.Post))
+        {
+            <div class="row">
+                <p>Tên tài khoản</p>
+                <input type="text" name="TenDN" class="form-control" placeholder="Tên tài khoản" />
+                @if (ViewData["Loi1"] != null)
+                {
+                    <div class="error-message">@ViewData["Loi1"]</div>
+                }
+            </div>
+            <div class="row">
+                <p>Mật khẩu</p>
+                <input type="password" name="MatKhau" class="form-control" placeholder="Mật khẩu" />
+                @if (ViewData["Loi2"] != null)
+                {
+                    <div class="error-message">@ViewData["Loi2"]</div>
+                }
+            </div>
+            <div class="row">
+                @if (ViewData["Loi3"] != null)
+                {
+                    <div class="error-message">@ViewData["Loi3"]</div>
+                }
+            </div>
+            <div class="row row-button">
+                <button type="submit" class="btn btn-success">Đăng Nhập</button>
+            </div>
+        }
+        <div style="padding-top: 20px; text-align:center">
+            <p>Bạn chưa có tài khoản? </p> @Html.ActionLink("Đăng Ký", "Dangky")
         </div>
-        <div class="row">
-            <p>Mật khẩu</p>
-            <input type="password" name="MatKhau" class="form-control" placeholder="Mật khẩu" />
-            @if (ViewData["Loi2"] != null)
-            {
-                <div class="error-message">@ViewData["Loi2"]</div>
-            }
-        </div>
-        <div class="row">
-            @if (ViewData["Loi3"] != null)
-            {
-                <div class="error-message">@ViewData["Loi3"]</div>
-            }
-        </div>
-        <div class="row row-button">
-            <button type="submit" class="btn btn-success">Đăng Nhập</button>
-        </div>
-    }
-    <div style="padding-top: 20px; text-align:center">
-        <caption>Bạn chưa có tài khoản? </caption> @Html.ActionLink("Đăng Ký", "Dangky")
     </div>
 </div>
-
 
 

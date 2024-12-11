@@ -1,56 +1,78 @@
-﻿@{
+﻿@model BTL_CharityWebsite.ViewModel.LienHeVM
+@{
     ViewBag.Title = "Contact";
-    Layout = "~/Views/Shared/_Layout.cshtml"; <!-- Sử dụng layout chung -->
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .contact-home{
+        min-height: 35pc;
+    }
+    .contact-form {
+        max-width: 40%;
+        margin: 30px auto; /* Căn giữa form */
+        background-color: #f9f9f9; /* Màu nền nhạt */
+        border: 1px solid #ddd; /* Viền mỏng */
+        border-radius: 8px; /* Bo góc */
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    }
 
+    .contact-form .btn-div{
+        text-align: center;
+        margin-top: 10px;
+    }
+        .contact-home h2 {
+            text-align: center;
+            color: #8b0000;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    .thongbao{
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #dff0d87a;
+        color: #408d42;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+</style>
 <div id="contact" class="contact-home">
     <div class="container">
-        <div class="col-md-3 about-left text-center">
-            <h3>Contact</h3>
-        </div>
-        <div class="col-md-9 about-right">
-            <p>Charity Trust Services.</p>
-        </div>
-        <div class="clearfix"></div>
-        <div class="gal-btm">
-            <div class="map-home">
-                <!-- Form -->
-                <div class="col-md-6 login-pad">
-                    <h2>Send Message</h2>
-                    <form asp-action="SendMessage" method="post">
-                        <div>
-                            <label for="Name">Name</label>
-                            <input type="text" id="Name" name="Name" class="form-control" required />
-                        </div>
-                        <div>
-                            <label for="Email">Email</label>
-                            <input type="email" id="Email" name="Email" class="form-control" required />
-                        </div>
-                        <div>
-                            <label>
-                                <input type="checkbox" name="Subscribe" checked /> Subscribe to our Newsletter
-                            </label>
-                        </div>
-                        <div>
-                            <label for="Message">Message</label>
-                            <textarea id="Message" name="Message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">SEND</button>
-                    </form>
+        <h2>Thông tin liên lạc của bạn</h2>
+        <div class="contact-form">
+
+            @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+            {
+
+                <div>
+                    <strong>Tên</strong>
+                    @Html.TextBoxFor(m => m.TenLH, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TenLH, "", new { @class = "text-danger" })
                 </div>
 
-                <!-- Contact Info -->
-                <div class="col-md-6 drop-pad sign-gd-two">
-                    <h2>Contact Info</h2>
-                    <p>Charity Services.</p>
-                    <ul>
-                        <li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Address: 02, Ashavamegh Apartment, Main Branch, <span>Ahemadabad City, India.</span></li>
-                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:charitytrust111@gmail.com">charitytrust111@gmail.com</a></li>
-                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: +91 9696858596</li>
-                    </ul>
+                <div>
+                    <strong>Số điện thoại</strong>
+                    @Html.TextBoxFor(m => m.SDTLH, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SDTLH, "", new { @class = "text-danger" })
                 </div>
-                <div class="clearfix"></div>
-            </div>
+
+                <div>
+                    <strong>Email</strong>
+                    @Html.TextBoxFor(m => m.EmailLH, new { @class = "form-control", type = "email" })
+                    @Html.ValidationMessageFor(m => m.EmailLH, "", new { @class = "text-danger" })
+                </div>
+                if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="thongbao">
+                        <strong>@TempData["SuccessMessage"]</strong>
+                    </div>
+                }
+                <div class="btn-div">
+                    <button type="submit" class="btn btn-primary">Gửi</button>
+                </div>
+            }
         </div>
     </div>
 </div>

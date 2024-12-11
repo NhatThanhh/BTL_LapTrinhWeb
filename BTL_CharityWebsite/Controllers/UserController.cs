@@ -145,7 +145,7 @@ namespace BTL_CharityWebsite.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChinhSuaThongTin(NGUOIDUNG userModel)
+        public ActionResult ChinhSuaThongTin(NGUOIDUNG user)
         {
             if (Session["TaiKhoan"] == null || string.IsNullOrEmpty(Session["TaiKhoan"].ToString()))
             {
@@ -157,27 +157,33 @@ namespace BTL_CharityWebsite.Controllers
 
             // Tìm người dùng từ cơ sở dữ liệu theo ID
             var userInDb = db.NGUOIDUNGs.SingleOrDefault(u => u.MaND == currentUser.MaND);
-
             if (userInDb != null)
             {
+                var existingUser = db.NGUOIDUNGs.FirstOrDefault(u => u.Email == user.Email);
+                if (existingUser != null && existingUser.MaND != userInDb.MaND)
+                {
+                    if (existingUser.Email == user.Email)
+                        ModelState.AddModelError("Email", "Email đã được sử dụng.");
+                    return View(userInDb);
+                }
                 // Cập nhật thông tin từ ViewModel (người dùng chỉ được chỉnh sửa các trường cần thiết)
-                userInDb.HoTen = userModel.HoTen;
-                userInDb.Email = userModel.Email;
-                userInDb.SDT = userModel.SDT;
-                userInDb.DiaChi = userModel.DiaChi;
-
+                userInDb.HoTen = user.HoTen;
+                userInDb.Email = user.Email;
+                userInDb.SDT = user.SDT;
+                userInDb.DiaChi = user.DiaChi;
+                
                 // Lưu thay đổi vào cơ sở dữ liệu
                 db.SaveChanges();
 
                 // Cập nhật Session với thông tin mới
                 Session["TaiKhoan"] = userInDb;
-
-                TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
+                
+                TempData["TBThanhCong"] = "Cập nhật thông tin thành công!";
                 return RedirectToAction("ChinhSuaThongTin");
             }
             else
             {
-                TempData["ErrorMessage"] = "Không tìm thấy người dùng!";
+                TempData["TBLoi"] = "Không tìm thấy người dùng!";
                 return RedirectToAction("DangNhap", "User");
             }
         }
@@ -245,6 +251,23 @@ namespace BTL_CharityWebsite.Controllers
 
             return RedirectToAction("ChinhSuaThongTin");
         }
+        [HttpGet]
+        public ActionResult QuenMatKhau() { return View(); }
+        //Quên mật khẩu
+        [HttpPost]
+        public ActionResult QuenMatKhau(string key)
+        {
+            var user = db.NGUOIDUNGs.FirstOrDefault(u => u.TaiKhoan == key || u.Email == key);
+            if(user != null)
+            {
+                ViewBag.ThongBao = $"Mật khẩu tài khoản {user.TaiKhoan}  là: {user.MatKhau}";
+            }
+            else
+            {
+                ViewBag.ThongBao = "Tài khoản không tồn tại";
+            }
+            return View();
+        }
 
         //Đăng xuất
         public ActionResult DangXuat()
@@ -252,7 +275,25 @@ namespace BTL_CharityWebsite.Controllers
             Session["TaiKhoan"] = null;
             return RedirectToAction("DangNhap");
         }
-
+        public ActionResult LichSuQuyenGop()
+        {
+            NGUOIDUNG user = (NGUOIDUNG)Session["TaiKhoan"];
+            int id = user.MaND;
+            var chiTietQuyenGopData = db.CHITIETQUYENGOPs
+                .Join(db.QUYENGOPs, ctqg => ctqg.MaQG, qg => qg.MaQG, (ctqg, qg) => new { ctqg, qg })
+                .Where(x => x.qg.MaND == id)
+                .Join(db.CHIENDICHes, combined => combined.ctqg.MaCD, cd => cd.MaCD, (combined, cd) => new { combined, cd })
+                .Select(x => new ChiTietQuyenGopVM
+                {
+                    MaQG = x.combined.qg.MaQG,
+                    HoTenNguoiDung = db.NGUOIDUNGs.Where(nd => nd.MaND == id).Select(nd => nd.HoTen).FirstOrDefault(),
+                    TenChienDich = x.cd.TenCD,
+                    SoTienQuyenGop = (decimal)x.combined.ctqg.SoTienQG,
+                    NgayQuyenGop = x.combined.qg.NgayQuyenGop.Value
+                }).OrderByDescending(x => x.NgayQuyenGop).ToList();
+            ViewBag.ChiTietQuyenGop = chiTietQuyenGopData;
+            return View();
+        }
 
 
     }

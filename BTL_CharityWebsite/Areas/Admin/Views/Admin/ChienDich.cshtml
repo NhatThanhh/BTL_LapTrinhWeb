@@ -140,13 +140,16 @@
 <p style=" text-align: center">
     @Html.ActionLink("Thêm Mới", "ThemChienDich")
 </p>
-Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<p style=" text-align: center">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+</p>
+
 <div class="pagination-container">
-    @Html.PagedListPager(Model, page => Url.Action("ChienDich", new { page = page ,
-    namTao = Request.QueryString["namTao"],
-    tenChienDich = Request.QueryString["tenChienDich"],
-    minTongQuy = Request.QueryString["minTongQuy"],
-    maxTongQuy = Request.QueryString["maxTongQuy"]
-}))
+        @Html.PagedListPager(Model, page => Url.Action("ChienDich", new { page = page ,
+        namTao = Request.QueryString["namTao"],
+        tenChienDich = Request.QueryString["tenChienDich"],
+        minTongQuy = Request.QueryString["minTongQuy"],
+        maxTongQuy = Request.QueryString["maxTongQuy"]
+    }))
 </div>
 

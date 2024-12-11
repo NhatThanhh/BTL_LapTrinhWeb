@@ -20,7 +20,7 @@
         border-radius: 10px; /* Bo góc container */
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
         padding: 20px; /* Khoảng cách bên trong */
-        overflow-x: auto; /* Cuộn ngang nếu nội dung quá rộng */
+        overflow-y: auto; /* Cuộn ngang nếu nội dung quá rộng */
     }
 
         .donate_container h2 {
@@ -81,17 +81,35 @@
             box-shadow: 0 0 10px rgba(94, 160, 160, 0.8); /* Hiệu ứng đổ bóng khi hover */
         }
 
-        .quyengop_link{
-            text-decoration: none;
-            font-weight: bold;
-        }
-
+    .quyengop_link {
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .empty-noti{
+        height: 30pc;
+        text-align:center;
+        padding-top: 10pc;
+    }
+    .empty-noti p{
+        font-size: 30px;
+        font-weight: bold;
+    }
 </style>
 
+@if (!Model.Any())
+{
 
+    <div class="empty-noti">
+        <p>@ViewBag.ThongBao</p>
+    </div>
+    
+}
+else {
 <section class="donate_section layout_padding" style="display: flex;">
+
     <div class="donate_container" style="text-align: center;">
         <h2 style="text-align:center">THÔNG TIN QUYÊN GÓP</h2>
+
         <table>
             <tr>
                 <th>Mã chiến dịch</th>
@@ -139,3 +157,4 @@
         </table>
     </div>
 </section>
+}

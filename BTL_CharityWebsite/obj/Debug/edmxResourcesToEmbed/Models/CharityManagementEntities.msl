@@ -89,5 +89,16 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="LIENHEs">
+      <EntityTypeMapping TypeName="CharityManagementModel.LIENHE">
+        <MappingFragment StoreEntitySet="LIENHE">
+          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
+          <ScalarProperty Name="EmailLH" ColumnName="EmailLH" />
+          <ScalarProperty Name="SDTLH" ColumnName="SDTLH" />
+          <ScalarProperty Name="TenLH" ColumnName="TenLH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

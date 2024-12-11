@@ -29,6 +29,16 @@
     <Property Name="MaCD" Type="int" Nullable="false" />
     <Property Name="SoTienQG" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
+  <EntityType Name="LIENHE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenLH" Type="nvarchar" MaxLength="60" />
+    <Property Name="SDTLH" Type="varchar" MaxLength="20" />
+    <Property Name="EmailLH" Type="nvarchar" MaxLength="100" />
+    <Property Name="NgayGui" Type="datetime" />
+  </EntityType>
   <EntityType Name="NGUOIDUNG">
     <Key>
       <PropertyRef Name="MaND" />
@@ -139,6 +149,7 @@
     <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHIENDICH" EntityType="Self.CHIENDICH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETQUYENGOP" EntityType="Self.CHITIETQUYENGOP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LIENHE" EntityType="Self.LIENHE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QUANLY" EntityType="Self.QUANLY" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QUYENGOP" EntityType="Self.QUYENGOP" Schema="dbo" store:Type="Tables" />
