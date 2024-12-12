@@ -18,8 +18,10 @@ namespace BTL_CharityWebsite.ViewModel
         [Compare("MatKhau", ErrorMessage ="Xác nhận mật khẩu không chính xác")]
         public string XacNhanMK {  get; set; }
         [Required(ErrorMessage = "Email không được để trống")]
+        [EmailAddress(ErrorMessage = "Email không đúng định dạng.")]
         public string Email {  get; set; }
         [Required(ErrorMessage = "Số điện thoại không được để trống")]
+        [RegularExpression(@"^[0-9]{10,15}$", ErrorMessage = "Số điện thoại không hợp lệ.")]
         public string SDT { get; set; }
         [Required(ErrorMessage = "Địa chỉ không được để trống")]
         public string DiaChi { get; set; }

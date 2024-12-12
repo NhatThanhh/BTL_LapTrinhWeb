@@ -114,9 +114,7 @@
                 {
                     <div class="error-message">@ViewData["Loi2"]</div>
                 }
-            <div style="text-align: right">
-                @Html.ActionLink("Quên Mật Khẩu", "QuenMatKhau")
-            </div>
+
             </div>
             <div class="row">
                 @if (ViewData["Loi3"] != null)
@@ -124,13 +122,16 @@
                     <div class="error-message">@ViewData["Loi3"]</div>
                 }
             </div>
+            <div style="text-align: right">
+                @Html.ActionLink("Quên Mật Khẩu", "QuenMatKhau")
+            </div>
             <div class="row row-button">
                 <button type="submit" class="btn btn-success">Đăng Nhập</button>
             </div>
         }
-    <div style="padding-top: 20px; text-align:center">
-        <p>Bạn chưa có tài khoản? @Html.ActionLink("Đăng Ký", "Dangky")  </p> 
-    </div>
+        <div style="padding-top: 20px; text-align:center">
+            <p>Bạn chưa có tài khoản? @Html.ActionLink("Đăng Ký", "Dangky")  </p>
+        </div>
     </div>
 </div>
 

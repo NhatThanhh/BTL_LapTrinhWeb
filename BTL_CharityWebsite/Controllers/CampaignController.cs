@@ -43,6 +43,8 @@ namespace BTL_CharityWebsite.Controllers
             }
             return View(CDlist.OrderBy(x => x.MaCD).ToPagedList(pageNum, pageSize));
         }
+
+
         [HttpGet]
         public ActionResult chiTietCD(int id)
         {

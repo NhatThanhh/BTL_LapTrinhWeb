@@ -79,6 +79,7 @@ namespace BTL_CharityWebsite.Controllers
         {
             return View(new RegisterVM());
         }
+
         [HttpPost]
         public ActionResult Dangnhap(FormCollection collection)
         {
@@ -179,7 +180,7 @@ namespace BTL_CharityWebsite.Controllers
                 Session["TaiKhoan"] = userInDb;
                 
                 TempData["TBThanhCong"] = "Cập nhật thông tin thành công!";
-                return RedirectToAction("ChinhSuaThongTin");
+                return RedirectToAction("ThongTinNguoiDung", "User");
             }
             else
             {
@@ -294,7 +295,5 @@ namespace BTL_CharityWebsite.Controllers
             ViewBag.ChiTietQuyenGop = chiTietQuyenGopData;
             return View();
         }
-
-
     }
 }
