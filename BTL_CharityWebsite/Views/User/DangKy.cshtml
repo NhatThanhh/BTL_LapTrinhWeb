@@ -7,12 +7,13 @@
 }
 <style>
 .register-layout{
-    height: 50pc;
+    min-height: 60pc;
 }
 /* Toàn bộ form */
 .register-form {
     max-width: 55%;
-    margin: 30px auto; /* Căn giữa form */
+    
+    margin: 0px auto; /* Căn giữa form */
     background-color: #f9f9f9; /* Màu nền nhạt */
     border: 1px solid #ddd; /* Viền mỏng */
     border-radius: 8px; /* Bo góc */
@@ -90,7 +91,7 @@
 
 </style>
 <div class="register-layout">
-    <h2 style="text-align:center; padding-top: 20px; color:darkred; font-weight: bold">ĐĂNG KÝ</h2>
+    <h2 style="text-align:center; padding: 20px 0px; color:darkred; font-weight: bold">ĐĂNG KÝ</h2>
     <div class="register-form">
         @using (Html.BeginForm("DangKy", "User", FormMethod.Post))
         {
