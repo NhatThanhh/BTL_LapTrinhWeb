@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .login-form{
+        height: 30pc;
+    }
+    /* Toàn bộ form */
+    .register-form {
+        max-width: 40%;
+        margin: 30px auto; /* Căn giữa form */
+        background-color: #f9f9f9; /* Màu nền nhạt */
+        border: 1px solid #ddd; /* Viền mỏng */
+        border-radius: 8px; /* Bo góc */
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    }
+
+        /* Tiêu đề */
+        .register-form h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Dòng trong form */
+        .register-form .row {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+    /* Label */
+    .row p {
+        font-weight: bold;
+    }
+
+    /* Input */
+    .register-form .form-control {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+    }
+
+        .register-form .form-control:focus {
+            border-color: #007bff; /* Màu xanh khi focus */
+            outline: none;
+            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+        }
+
+    /* Validation message */
+    .register-form .field-validation-error {
+        color: #e74c3c; /* Màu đỏ cho lỗi */
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    /* Button */
+    .register-form .btn {
+        background-color: #4faba7;
+        color: #fff;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 40%;
+        box-sizing: border-box;
+        align-items: center;
+    }
+
+        .register-form .btn:hover {
+            background-color: #377774; /* Màu đậm hơn khi hover */
+        }
+
+    .register-form .row-button {
+        display: flex;
+        justify-content: center; /* Căn giữa ngang */
+        align-items: center; /* (Tùy chọn) căn giữa dọc */
+        margin-top: 20px; /* Tạo khoảng cách trên */
+    }
+    /* Style cho thông báo lỗi */
+    .error-message {
+        color: #e74c3c; /* Màu đỏ cho lỗi */
+        font-size: 14px; /* Kích thước chữ */
+        margin-top: 5px; /* Khoảng cách trên */
+    }
+</style>
+<div class="login-form">
+    <h2 style="text-align:center; padding-top: 20px; color:darkred; font-weight: bold">ĐĂNG NHẬP</h2>
+    <div class="register-form">
+        @using (Html.BeginForm("DangNhap", "User", FormMethod.Post))
+        {
+            <div class="row">
+                <p>Tên tài khoản</p>
+                <input type="text" name="TenDN" class="form-control" placeholder="Tên tài khoản" />
+                @if (ViewData["Loi1"] != null)
+                {
+                    <div class="error-message">@ViewData["Loi1"]</div>
+                }
+            </div>
+            <div class="row">
+                <p>Mật khẩu</p>
+                <input type="password" name="MatKhau" class="form-control" placeholder="Mật khẩu" />
+                @if (ViewData["Loi2"] != null)
+                {
+                    <div class="error-message">@ViewData["Loi2"]</div>
+                }
+
+            </div>
+            <div class="row">
+                @if (ViewData["Loi3"] != null)
+                {
+                    <div class="error-message">@ViewData["Loi3"]</div>
+                }
+            </div>
+            <div style="text-align: right">
+                @Html.ActionLink("Quên Mật Khẩu", "QuenMatKhau")
+            </div>
+            <div class="row row-button">
+                <button type="submit" class="btn btn-success">Đăng Nhập</button>
+            </div>
+        }
+        <div style="padding-top: 20px; text-align:center">
+            <p>Bạn chưa có tài khoản? @Html.ActionLink("Đăng Ký", "Dangky")  </p>
+        </div>
+    </div>
+</div>
+
+

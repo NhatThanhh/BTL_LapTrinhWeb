@@ -1,0 +1,84 @@
+﻿@model BTL_CharityWebsite.Models.QUANLY
+@{
+    ViewBag.Title = "chiTietQL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Định dạng chung cho section */
+    .team_detail_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+    }
+
+/*     Định dạng cho container */
+    .team_detail_container {
+        text-align: center;
+    }
+/*
+     Định dạng cho hàng (row) */
+    .team_detail_row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+/*     Định dạng cho cột (column) 
+     Định dạng cho ảnh */
+    .img-fluid {
+        width: 20%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+/*     Định dạng cho tiêu đề */
+    h2 {
+        font-weight: bold;
+        color: #5187af;
+        padding-bottom: 20px;
+    }
+
+/*     Định dạng cho đoạn văn */
+    p, P {
+        font-size: 16px;
+        line-height: 2;
+    }
+    .team_detail_row .col-md-6{
+        width: 100%;
+        padding: 10px;
+
+    }
+    .team_detail_container .col-md-6 p{
+        font-weight:600;
+        font-size: 20px;
+    }
+    .team_detail_container .contact_info{
+        padding-top: 50px;
+    }
+</style>
+<section class="team_detail_section layout_padding" style="display: flex;">
+    <div class="team_detail_container">
+        <div class="team_detail_row">
+            <div class="col-md-6">
+                <img src="~/Content/images/@Model.AnhQL" alt="@Model.TenQL" class="img-fluid" /><br />
+                <span style="font-weight: bold; font-size: 20px; padding-top: 20px">@Model.TenQL</span>
+            </div>
+            <div class="col-md-6">
+                <p style="font-size: 20px; background-color: #9ccad3b8; width: 40%; border-radius: 10px; margin: 0 auto;">
+                    Chức Vụ: @Model.ChucVu
+                </p> <br />
+                <P>@Model.TieuSu</P>
+            </div>
+            <div class="contact_info">
+                <p>Thông tin liên hệ:</P>
+                    <i class="fa-solid fa-envelope"></i> @Model.EmailQL <br />
+                    <i class="fa-solid fa-phone"></i> @Model.SDTQL
+            </div>
+        </div>
+    </div>
+</section>
+

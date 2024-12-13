@@ -1,0 +1,117 @@
+﻿@model IEnumerable<BTL_CharityWebsite.Models.LIENHE>
+
+@{
+    ViewBag.Title = "DanhSachLienHe";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .contact-list {
+        width: 90%;
+        height: 500px;
+        margin: 0 auto;
+        overflow-y: auto;
+    }
+
+    .table tr td {
+        border: 1px solid;
+    }
+
+    .table tr th {
+        border: 1px solid;
+    }
+
+    .export-btn {
+        text-align: center;
+    }
+    h2 {
+        text-align: center;
+        padding-top: 40px;
+        font-weight: bold;
+        color: #295e97;
+    }
+</style>
+
+<h2>DANH SÁCH NGƯỜI DÙNG CẦN HỖ TRỢ</h2>
+<div class="export-btn">
+    @using (Html.BeginForm("ExportToExcel", "Contact", FormMethod.Post, new { id = "exportForm" }))
+    {
+        <button id="exportExcel" style="margin: 10px; padding: 5px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">
+            Tải File Excel
+        </button>
+    }
+</div>
+<div class="contact-list">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    Tên
+                </th>
+                <th>
+                    Số điện thoại
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Ngày
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="5" style="text-align: center;">Không có người dùng cần hỗ trợ.</td>
+                </tr>
+            }
+            else
+            {
+                int index = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@index</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenLH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SDTLH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmailLH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayGui)
+                        </td>
+                    </tr>
+                    index++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#exportExcel').on('click', function () {
+            // Tạo form
+            var form = $('#exportForm');
+            form.find('input[type="hidden"]').remove();
+            // Lấy dữ liệu từ bảng
+            $('.table tbody tr').each(function () {
+                var row = $(this).index();
+                $(this).find('td').each(function (column) {
+                    var input = $('<input type="hidden" name="data[' + row + '][' + column + ']" />');
+                    input.val($(this).text().trim());
+                    form.append(input);
+                });
+            });
+            // Gửi form
+            form.submit(); // Gửi form
+            setTimeout(function () { location.reload(); }, 500);
+        });
+    });
+</script>

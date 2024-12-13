@@ -126,21 +126,16 @@
 </div>
 
 <script>
-    //Tìm kiếm
     $(document).ready(function () {
-        // Khi người dùng nhấn vào nút tìm kiếm
         $('#searchForm').on('submit', function (e) {
-            e.preventDefault(); // Ngăn form submit mặc định
-            var ngay = $('#ngay').val(); // Lấy giá trị từ ô tìm kiếm tên người dùng
-            var tuKhoa = $('#tuKhoa').val(); // Lấy giá trị từ ô tìm kiếm ngày đăng ký
-            console.log({ ngay, tuKhoa }); // Xác nhận giá trị trước khi gửi
-
+            e.preventDefault(); 
+            var ngay = $('#ngay').val(); 
+            var tuKhoa = $('#tuKhoa').val(); 
             $.ajax({
-                url: '@Url.Action("ChiTietQuyenGop", "Dashboard", new { area = "Admin" })',  // Gọi action trong controller
-                type: 'GET', // Gửi yêu cầu GET
-                data: { ngay: ngay, tuKhoa: tuKhoa }, // Gửi tham số tìm kiếm
+                url: '@Url.Action("ChiTietQuyenGop", "Dashboard", new { area = "Admin" })',  
+                type: 'GET', 
+                data: { ngay: ngay, tuKhoa: tuKhoa }, 
                 success: function (response) {
-                    //console.log(response);
                     $('#chiTietQuyenGopContainer tbody').html($(response).html());
                 }
             });
@@ -148,23 +143,21 @@
     });
     //Sắp xếp
     $(document).ready(function() {
-        // Khi người dùng thay đổi dropdown sắp xếp theo số tiền quyên góp
         $('.sortByAmount').change(function() {
             var sortByAmount = $(this).val();
-            var ngay = $('#ngay').val(); // Lấy giá trị từ ô tìm kiếm tên người dùng
-            var tuKhoa = $('#tuKhoa').val(); // Lấy giá trị từ ô tìm kiếm ngày đăng ký
+            var ngay = $('#ngay').val(); 
+            var tuKhoa = $('#tuKhoa').val(); 
             console.log({sortByAmount});
             $.ajax({
                 url: '@Url.Action("ChiTietQuyenGop", "Dashboard", new { area = "Admin" })',
                 data: {
                     ngay: ngay,
                     tuKhoa: tuKhoa,
-                    sortBy: sortByAmount // Gửi giá trị của dropdown (asc, desc, none)
+                    sortBy: sortByAmount 
                 },
                 success: function (response) {
                     console.log(response);
-                    // Cập nhật lại bảng trong partial view
-                    $('#chiTietQuyenGopContainer tbody').html($(response).html());  // Cập nhật nội dung bảng
+                    $('#chiTietQuyenGopContainer tbody').html($(response).html());  
                 }
             });
         });
@@ -173,7 +166,6 @@
 
 <script>
     $(document).ready(function () {
-        // Tạo biểu đồ lần đầu với dữ liệu mặc định (năm hiện tại)
         var defaultYear = new Date().getFullYear();
         $.ajax({
             url: '@Url.Action("GetDonationByYear", "Dashboard", new { area = "Admin" })',
@@ -185,15 +177,14 @@
         });
     });
     $(document).ready(function () {
-        // Khi người dùng thay đổi năm
         $('#filterYear').on('change', function () {
-            var selectedYear = $(this).val(); // Lấy giá trị năm được chọn
+            var selectedYear = $(this).val(); 
             $.ajax({
                 url: '@Url.Action("GetDonationByYear", "Dashboard", new { area = "Admin" })',
                 type: 'GET',
                 data: { year: selectedYear },
-                success: function (response) { // Cập nhật biểu đồ nếu đã tồn tại
-                    updateChart(response); // Tạo biểu đồ mới nếu chưa có               
+                success: function (response) { 
+                    updateChart(response);             
                 }
             });
         });
@@ -204,10 +195,8 @@
 <script>
     $(document).ready(function () {
         $('#exportExcel').on('click', function () {
-            // Tạo form
             var form = $('#exportForm');
             form.find('input[type="hidden"]').remove();
-            // Lấy dữ liệu từ bảng
             $('.table tbody tr').each(function () {
                 var row = $(this).index();
                 $(this).find('td').each(function (column) {
@@ -216,8 +205,7 @@
                     form.append(input);
                 });
             });
-            // Gửi form
-            form.submit(); // Gửi form
+            form.submit(); 
         });
     });
 </script>

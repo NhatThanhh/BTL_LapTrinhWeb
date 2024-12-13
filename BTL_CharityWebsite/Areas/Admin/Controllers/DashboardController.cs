@@ -25,6 +25,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         // GET: Admin/Dashboard
         public ActionResult Index()
         {
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             //Tính tổng số người dùng, dự án, số lần quyên góp thành công
             ViewBag.TongNguoiDung = db.NGUOIDUNGs.Select(x => x.MaND).Count();
             ViewBag.TongChienDich = db.CHIENDICHes.Select(x => x.MaCD).Count();
@@ -68,6 +72,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
 
         public ActionResult ChiTietQuyenGop(DateTime? ngay, string tuKhoa, string sortBy)
         {
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             var data = db.CHITIETQUYENGOPs.Join(db.QUYENGOPs,ctqg => ctqg.MaQG,qg => qg.MaQG,(ctqg, qg) => new { ctqg, qg })
                                         .Join(db.NGUOIDUNGs,combined => combined.qg.MaND,nd => nd.MaND,(combined, nd) => new { combined, nd })
                                         .Join(db.CHIENDICHes,combined => combined.combined.ctqg.MaCD,cd => cd.MaCD,(combined, cd) => new ChiTietQuyenGopVM
@@ -100,6 +108,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
 
         public ActionResult ThongKeQuyenGop(DateTime? ngay, string tuKhoa)
         {
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             ViewBag.TongQuyenGop = db.QUYENGOPs.Select(x => x.MaQG).Count();
             var yearList = db.QUYENGOPs.Select(x => x.NgayQuyenGop.Value.Year)
                    .Distinct()

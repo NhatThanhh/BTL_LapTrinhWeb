@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CharityManagementModelStoreContainer" CdmEntityContainer="CharityManagementEntities">
+    <EntitySetMapping Name="CHIENDICHes">
+      <EntityTypeMapping TypeName="CharityManagementModel.CHIENDICH">
+        <MappingFragment StoreEntitySet="CHIENDICH">
+          <ScalarProperty Name="MaCD" ColumnName="MaCD" />
+          <ScalarProperty Name="TenCD" ColumnName="TenCD" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="MaQL" ColumnName="MaQL" />
+          <ScalarProperty Name="AnhBia" ColumnName="AnhBia" />
+          <ScalarProperty Name="TongQuy" ColumnName="TongQuy" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUANLies">
+      <EntityTypeMapping TypeName="CharityManagementModel.QUANLY">
+        <MappingFragment StoreEntitySet="QUANLY">
+          <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+          <ScalarProperty Name="MaQL" ColumnName="MaQL" />
+          <ScalarProperty Name="TenQL" ColumnName="TenQL" />
+          <ScalarProperty Name="EmailQL" ColumnName="EmailQL" />
+          <ScalarProperty Name="SDTQL" ColumnName="SDTQL" />
+          <ScalarProperty Name="TieuSu" ColumnName="TieuSu" />
+          <ScalarProperty Name="AnhQL" ColumnName="AnhQL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHITIETQUYENGOPs">
+      <EntityTypeMapping TypeName="CharityManagementModel.CHITIETQUYENGOP">
+        <MappingFragment StoreEntitySet="CHITIETQUYENGOP">
+          <ScalarProperty Name="SoTienQG" ColumnName="SoTienQG" />
+          <ScalarProperty Name="MaCD" ColumnName="MaCD" />
+          <ScalarProperty Name="MaQG" ColumnName="MaQG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUYENGOPs">
+      <EntityTypeMapping TypeName="CharityManagementModel.QUYENGOP">
+        <MappingFragment StoreEntitySet="QUYENGOP">
+          <ScalarProperty Name="NgayQuyenGop" ColumnName="NgayQuyenGop" />
+          <ScalarProperty Name="SoTien" ColumnName="SoTien" />
+          <ScalarProperty Name="MaND" ColumnName="MaND" />
+          <ScalarProperty Name="MaQG" ColumnName="MaQG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NGUOIDUNGs">
+      <EntityTypeMapping TypeName="CharityManagementModel.NGUOIDUNG">
+        <MappingFragment StoreEntitySet="NGUOIDUNG">
+          <ScalarProperty Name="NgayDangKi" ColumnName="NgayDangKi" />
+          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+          <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="MaND" ColumnName="MaND" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="THUVIENs">
+      <EntityTypeMapping TypeName="CharityManagementModel.THUVIEN">
+        <MappingFragment StoreEntitySet="THUVIEN">
+          <ScalarProperty Name="NgayDang" ColumnName="NgayDang" />
+          <ScalarProperty Name="Anh" ColumnName="Anh" />
+          <ScalarProperty Name="MaHA" ColumnName="MaHA" />
+          <ScalarProperty Name="MaCD" ColumnName="MaCD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ADMINs">
+      <EntityTypeMapping TypeName="CharityManagementModel.ADMIN">
+        <MappingFragment StoreEntitySet="ADMIN">
+          <ScalarProperty Name="NameAdmin" ColumnName="NameAdmin" />
+          <ScalarProperty Name="PassAdmin" ColumnName="PassAdmin" />
+          <ScalarProperty Name="UserAdmin" ColumnName="UserAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_QuyenGopTheoThang" FunctionName="CharityManagementModel.Store.sp_QuyenGopTheoThang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CharityManagementModel.sp_QuyenGopTheoThang_Result">
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+          <ScalarProperty Name="Thang" ColumnName="Thang" />
+          <ScalarProperty Name="SoLuotQuyenGop" ColumnName="SoLuotQuyenGop" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="LIENHEs">
+      <EntityTypeMapping TypeName="CharityManagementModel.LIENHE">
+        <MappingFragment StoreEntitySet="LIENHE">
+          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
+          <ScalarProperty Name="EmailLH" ColumnName="EmailLH" />
+          <ScalarProperty Name="SDTLH" ColumnName="SDTLH" />
+          <ScalarProperty Name="TenLH" ColumnName="TenLH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -60,10 +60,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemThanhVien()
         {
-            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
-            //{
-            //    return RedirectToAction("Login", "Admin");
-            //}
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             return View();
         }
         [HttpPost]

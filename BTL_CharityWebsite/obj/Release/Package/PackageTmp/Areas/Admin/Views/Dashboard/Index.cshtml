@@ -1,0 +1,147 @@
+﻿@using BTL_CharityWebsite.ViewModel
+@model IEnumerable<BTL_CharityWebsite.ViewModel.ChiTietQuyenGopVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Định dạng tổng thể */
+    .dashboard-content {
+        padding: 40px 20px;
+        margin-bottom: 100px;
+    }
+
+    /* Phần thông tin thống kê */
+    .static-dashboard {
+        margin-bottom: 20px;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+    }
+
+    /* Container chứa biểu đồ */
+    .chart-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Định dạng mỗi biểu đồ */
+    .chart-item canvas {
+        flex: 1;
+        padding: 10px;
+        width: 700px !important; /* Đảm bảo canvas chiếm toàn bộ chiều rộng */
+        height: 500px !important; /* Tăng chiều cao biểu đồ */
+    }
+
+    /* Thống kê chi tiết */
+    .thongke {
+        margin-top: 20px;
+    }
+
+    .detail-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .thongke {
+        text-align: center;
+        padding-top: 50px;
+    }
+</style>
+
+
+<div class="dashboard-content">
+    <!-- Thông tin thống kê -->
+    <div class="static-dashboard">
+        <p>Tổng số người dùng: @ViewBag.TongNguoiDung</p>
+        <p>Tổng số dự án: @ViewBag.TongChienDich</p>
+        <p>Tổng số lượt quyên góp: @ViewBag.TongQuyenGop</p>
+    </div>
+
+    <!-- Biểu đồ -->
+    <div class="chart-container">
+        <div class="chart-item">
+            <canvas id="totalChart"></canvas>
+        </div>
+        <div class="chart-item">
+            @Html.Partial("donationChart", Model)
+        </div>
+    </div>
+</div>
+<script>
+    var chartData = @Html.Raw(ViewBag.ChartData);
+    var labels = chartData.map(x => x.TenCD);
+    var data = chartData.map(cd => cd.TongQuy);
+    const totalChartCtx = document.getElementById('totalChart');
+    new Chart(totalChartCtx, {
+        type: 'bar', // Kiểu biểu đồ cột
+        data: {
+            labels: labels, // Nhãn trên trục x
+            datasets: [{
+                label: 'Tổng Quỹ (VNĐ)',
+                data: data, // Giá trị tương ứng
+                backgroundColor: [
+                    'RGBA( 102, 205, 170, 1 )'
+                ],
+                borderColor: [
+                    'RGBA( 32, 178, 170, 1 )'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString(); // Hiển thị số có phân cách
+                        }
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Biểu đồ tổng quỹ theo dự án'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return context.raw.toLocaleString() + " VNĐ";
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+
+
+
+    $(document).ready(function () {
+        // Tạo biểu đồ lần đầu với dữ liệu mặc định (năm hiện tại)
+        var defaultYear = new Date().getFullYear();
+        $.ajax({
+            url: '@Url.Action("GetDonationByYear", "Dashboard", new { area = "Admin" })',
+            type: 'GET',
+            data: { year: defaultYear },
+            success: function (response) {
+               updateChart(response);
+            }
+        });
+    });
+    //Partial view
+    </script>

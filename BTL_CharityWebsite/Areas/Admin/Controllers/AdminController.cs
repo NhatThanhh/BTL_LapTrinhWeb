@@ -78,10 +78,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         }
         public ActionResult ChienDich(int? page, int? namTao, string tenChienDich, decimal? minTongQuy, decimal? maxTongQuy)
         {
-            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
-            //{
-            //    return RedirectToAction("Login", "Admin");
-            //}
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             int pageSize = 6;
             int pageNum = (page ?? 1);
             //Toàn bộ danh sách
@@ -95,11 +95,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemChienDich()
         {
-            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
-            //{
-            //    return RedirectToAction("Login", "Admin");
-            //}
-            // Đưa danh sách người quản lý vào ViewBag
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             ViewBag.MaQL = new SelectList(db.QUANLies.ToList().OrderBy(x => x.TenQL), "MaQL", "TenQL");
             return View();
         }
@@ -108,7 +107,6 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult ThemChienDich(CHIENDICH chienDich, HttpPostedFileBase fileupload)
         {
-            // Đưa lại danh sách người quản lý vào ViewBag để hiển thị khi xảy ra lỗi
             ViewBag.MaQL = new SelectList(db.QUANLies.ToList().OrderBy(x => x.TenQL), "MaQL", "TenQL");
 
             // Kiểm tra file upload
@@ -124,8 +122,6 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                 ViewBag.Thongbao = "Tên chiến dịch đã tồn tại, vui lòng nhập tên khác!";
                 return View(chienDich);
             }
-
-            // Kiểm tra ModelState hợp lệ
             if (!ModelState.IsValid)
             {
                 ViewBag.Thongbao = "Thông tin nhập vào không hợp lệ!";
@@ -144,23 +140,15 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                     ViewBag.Thongbao = "Hình ảnh đã tồn tại, vui lòng chọn ảnh khác!";
                     return View(chienDich);
                 }
-
-                // Lưu file lên server
                 fileupload.SaveAs(path);
-
-                // Gán đường dẫn file cho model
                 chienDich.AnhBia = fileName;
-
-                // Thêm chiến dịch vào cơ sở dữ liệu
                 db.CHIENDICHes.Add(chienDich);
                 db.SaveChanges();
 
-                // Chuyển hướng về trang danh sách chiến dịch
                 return RedirectToAction("ChienDich");
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi và hiển thị thông báo
                 ViewBag.Thongbao = $"Lỗi xảy ra: {ex.Message}";
                 return View(chienDich);
             }
@@ -221,12 +209,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult SuaChienDich(CHIENDICH ChienDich, HttpPostedFileBase fileupload)
         {
-            // Truy xuất bản ghi từ database
             var model = db.CHIENDICHes.SingleOrDefault(x => x.MaCD == ChienDich.MaCD);
             ViewBag.MaQL = new SelectList(db.QUANLies.ToList().OrderBy(x => x.MaQL == ChienDich.MaQL ? 0 : 1), "MaQL", "TenQL", ChienDich.MaQL);
             if (ChienDich == null)
             {
-                // Nếu không tìm thấy chiến dịch
                 return HttpNotFound();
             }
 
@@ -236,7 +222,7 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                 var fileName = Path.GetFileName(fileupload.FileName);
                 var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
 
-                if (!System.IO.File.Exists(path)) // Nếu file chưa tồn tại
+                if (!System.IO.File.Exists(path)) 
                 {
                     fileupload.SaveAs(path);
                     ChienDich.AnhBia = fileName;
@@ -249,7 +235,6 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
             }
             else
             {
-                // Nếu không chọn ảnh mới, giữ lại ảnh hiện tại
                 ChienDich.AnhBia = model.AnhBia;
             }
 

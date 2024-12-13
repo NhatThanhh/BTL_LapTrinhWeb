@@ -1,0 +1,253 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<BTL_CharityWebsite.Models.THUVIEN>
+
+@{
+    ViewBag.Title = "Hình ảnh của chiến dịch";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        color: #295e97;
+        padding: 40px
+    }
+
+    .image-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px; /* Khoảng cách giữa các hình */
+        margin: 20px auto;
+        padding-left: 6%;
+    }
+
+    .image-item {
+        position: relative;
+        width: calc(30% - 10px);
+        box-sizing: border-box;
+    }
+
+        .image-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+    .image-checkbox {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 1;
+        transform: scale(1.2);
+    }
+
+    .delete-image {
+        display: flex;
+        justify-content: center;
+    }
+
+        .delete-image button {
+            text-decoration: none;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 10px;
+            background-color: darkred;
+            margin-top: 40px;
+        }
+
+    .pagination-container {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+        .pagination-container .pagination {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .pagination-container .pagination li a {
+                display: block;
+                padding: 8px 12px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                color: #007bff;
+                background-color: #f8f9fa;
+                transition: all 0.3s ease;
+            }
+
+                .pagination-container .pagination li a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                }
+
+    .add-image {
+        text-align: center;
+        margin: 20px;
+    }
+
+        .add-image button {
+            color: #fff;
+            background-color: #8b0000;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
+
+    .image-item .popup-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,.9);
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+        display: none;
+        margin-top: 20px;
+    }
+
+        .image-item .popup-image span {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 60px;
+            font-weight: bolder;
+            color: #ffff;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .image-item .popup-image img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #fff;
+            width: 750px;
+            object-fit: cover;
+        }
+
+    .popup-image span {
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+        .popup-image span:hover {
+            color: red;
+            cursor: pointer;
+        }
+
+    .pagination-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<h2>@ViewBag.TenCD</h2>
+@if (TempData["thongbao"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["thongbao"]
+    </div>
+}
+@using (Html.BeginForm("ThuVien", "Library", FormMethod.Get, new { style = "margin-bottom: 20px; text-align: center;" }))
+{
+    <label for="ngayDang" style="margin-right: 10px;">Tìm kiếm:</label>
+    <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
+    <input type="date" id="ngayDang" name="ngayDang" value="@Request.QueryString["ngayDang"]" placeholder="Ngày đăng ảnh" />
+    <button type="submit" style="margin-left: 10px; padding: 5px 10px; background-color: #428ddd; color: white; border: none; border-radius: 6px;">Tìm kiếm</button>
+}
+
+@using (Html.BeginForm("XoaAnh", "Library", FormMethod.Post))
+{
+    <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
+    <div class="image-row">
+        @if (!Model.Any())
+        {
+            <div style="text-align: center; width: 100%; margin-left: -3%">Không tìm thấy hình ảnh nào.</div>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="image-item">
+                    <input type="checkbox" name="AnhChon" value="@item.MaHA" class="image-checkbox" />
+                    <img src="~/Content/images/@item.Anh" />
+                    <div class="popup-image">
+                        <span>&times;</span>
+                        <img src="~/Content/images/@item.Anh" alt="" />
+                    </div>
+                    <p>Ngày đăng: @item.NgayDang</p>
+
+                </div>
+            }
+        }
+    </div>
+    <div class="pagination-container">
+        @Html.PagedListPager(Model, page => Url.Action("ThuVien", new { MaCD = ViewBag.MaCD, page = page }))
+    </div>
+    <div class="delete-image">
+        <button type="submit" onclick="confirmDelete(event);">Xoá</button>
+    </div>
+}
+@if (TempData["thongbaoThem"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["thongbaoThem"]
+    </div>
+}
+@using (Html.BeginForm("ThemAnh", "Library", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="add-image">
+        <input type="hidden" name="MaCD" value="@ViewBag.MaCD" />
+
+        <!-- Input file ẩn -->
+        <input type="file" name="fileupload" id="fileInput" class="file-input" multiple />
+        <div class="add-btn">
+            <button type="submit">Tải lên ảnh</button>
+        </div>
+    </div>
+}
+
+<p style="text-align: center">
+    @Html.ActionLink("Danh sách chiến dịch", "DanhSachChienDich")
+</p>
+
+
+<script>
+    function confirmDelete(event) {
+        event.preventDefault(); // Ngăn không cho form gửi ngay lập tức
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Dữ liệu sẽ bị xóa và không thể khôi phục!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.form.submit(); // Gửi form nếu người dùng xác nhận
+            }
+        });
+    }
+    // Phóng to ảnh
+    document.querySelectorAll('.image-item img').forEach(image => {
+        image.onclick = () => {
+            document.querySelector('.popup-image').style.display = 'block';
+            document.querySelector('.popup-image img').src = image.getAttribute('src');
+        }
+    });
+    document.querySelector('.popup-image span').onclick = () => {
+        document.querySelector('.popup-image').style.display = 'none';
+    }
+</script>

@@ -29,10 +29,10 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
         }
         public ActionResult DanhSachLienHe()
         {
-            //if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
-            //{
-            //    return RedirectToAction("Login", "Admin");
-            //}
+            if (Session["AdminTK"] == null || string.IsNullOrEmpty(Session["AdminTK"].ToString()))
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             //Toàn bộ danh sách
             var DSLienHe = db.LIENHEs.ToList();
             return View(DSLienHe);
@@ -44,15 +44,11 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
             {
                 var worksheet = package.Workbook.Worksheets.Add("Contacts");
                 int row = 1;
-
-                // Header
                 worksheet.Cells[row, 1].Value = "STT";
                 worksheet.Cells[row, 2].Value = "Họ và Tên";
                 worksheet.Cells[row, 3].Value = "Số điện thoại";
                 worksheet.Cells[row, 4].Value = "Email";
                 worksheet.Cells[row, 5].Value = "Ngày";
-
-                // Style Header
                 for (int col = 1; col <= 5; col++)
                 {
                     worksheet.Cells[row, col].Style.Font.Bold = true;
@@ -68,7 +64,6 @@ namespace BTL_CharityWebsite.Areas.Admin.Controllers
                         worksheet.Cells[row, col + 1].Value = rowData[col];
                     }
                 }
-                // Tạo file Excel
                 var excelData = package.GetAsByteArray();
                 var contacts = db.LIENHEs.ToList();
                 db.LIENHEs.RemoveRange(contacts);

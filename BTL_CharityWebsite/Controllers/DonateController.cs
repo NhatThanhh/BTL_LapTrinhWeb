@@ -11,6 +11,7 @@ using BTL_CharityWebsite.Models;
 using BTL_CharityWebsite.ViewModel;
 using BTL_CharityWebsite.Models.Payments;
 using System.Configuration;
+using System.Web.UI.WebControls;
 
 
 namespace BTL_CharityWebsite.Controllers
@@ -268,7 +269,6 @@ namespace BTL_CharityWebsite.Controllers
             {
                 vnpay.AddRequestData("vnp_BankCode", "INTCARD");
             }
-
             vnpay.AddRequestData("vnp_CreateDate", (quyenGop.NgayQuyenGop ?? DateTime.Now).ToString("yyyyMMddHHmmss"));
             vnpay.AddRequestData("vnp_CurrCode", "VND");
             vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
@@ -351,7 +351,6 @@ namespace BTL_CharityWebsite.Controllers
                         catch (Exception)
                         {
                             transaction.Rollback();
-                            // Xử lý lỗi nếu cần
                         }
                     }
 
@@ -360,7 +359,6 @@ namespace BTL_CharityWebsite.Controllers
             }
             else
             {
-                // Sai chữ ký
                 return RedirectToAction("QuyenGop");
             }
         }

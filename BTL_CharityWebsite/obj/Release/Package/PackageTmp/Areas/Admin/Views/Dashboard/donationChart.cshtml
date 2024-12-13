@@ -1,0 +1,66 @@
+﻿<div class="chart-item">
+    <canvas id="donationChart"></canvas>
+</div>
+
+
+<script>
+    var donationChart; // Biến lưu trữ biểu đồ
+
+    // Dữ liệu mặc định ban đầu (biểu đồ rỗng)
+    var data = {
+        labels: [], // Nhãn trục X (ban đầu là trống)
+        datasets: [{
+            label: 'Số lượt quyên góp',
+            data: [], // Dữ liệu trống ban đầu
+            borderColor: 'RGBA(102, 205, 170, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+            tension: 0.2
+        }]
+    };
+
+    // Cấu hình các tùy chọn của biểu đồ
+    var options = {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Biểu đồ thống kê quyên góp theo tháng'
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function (value) {
+                        return Number.isInteger(value) ? value : ''; // Hiển thị số nguyên
+                    },
+                    stepSize: 5 // Bước nhảy giữa các giá trị trục Y
+                }
+            }
+        }
+    };
+
+    // Kết hợp data và options để tạo cấu hình biểu đồ
+    var config = {
+        type: 'line',
+        data: data,
+        options: options
+    };
+
+    // Tạo biểu đồ rỗng ban đầu
+    var ctx = document.getElementById('donationChart').getContext('2d');
+    donationChart = new Chart(ctx, config);
+
+    // Hàm cập nhật dữ liệu biểu đồ
+    function updateChart(quyenGop) {
+        var labels = quyenGop.map(item => `${item.Thang}/${item.Nam}`);
+        var counts = quyenGop.map(item => Math.round(item.SoLuotQuyenGop));
+
+        // Cập nhật dữ liệu trong biểu đồ
+        donationChart.data.labels = labels;
+        donationChart.data.datasets[0].data = counts;
+        donationChart.update(); // Cập nhật biểu đồ với dữ liệu mới
+    }
+</script>

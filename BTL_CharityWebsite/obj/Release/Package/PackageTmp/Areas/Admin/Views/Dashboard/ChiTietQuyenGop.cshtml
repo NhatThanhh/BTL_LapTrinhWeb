@@ -1,0 +1,28 @@
+﻿@model IEnumerable<BTL_CharityWebsite.ViewModel.ChiTietQuyenGopVM>
+
+
+<tbody>
+    @if (!Model.Any())
+    {
+        <tr>
+            <td colspan="7" style="text-align: center;">Không tìm thấy dữ liệu.</td>
+        </tr>
+    }
+    else
+    {
+        int index = 1;
+        foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@index</td>
+                <td>@item.HoTenNguoiDung</td>
+                <td>@item.TenChienDich</td>
+                <td> @String.Format("{0:0,0}", @item.SoTienQuyenGop) VNĐ</td>
+                <td>@item.NgayQuyenGop</td>
+            </tr>
+            index++;
+        }
+
+    }
+</tbody>

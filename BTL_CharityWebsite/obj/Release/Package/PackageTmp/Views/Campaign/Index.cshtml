@@ -1,0 +1,121 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<BTL_CharityWebsite.Models.CHIENDICH>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .campaign-list-container {
+        padding: 50px;
+    }
+
+        .campaign-list-container .campaign-list-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+        }
+
+        .campaign-list-container .campaign-card {
+            background-color:#ffffff86;
+            flex: 0 0 23%; 
+            max-width: 20%; 
+            margin-bottom: 64px;
+            margin-left: 64px;
+            border: 1px solid #e0e0e0; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            overflow: hidden; 
+            text-align: center;
+        }
+
+            .campaign-list-container .campaign-card:hover {
+                transform: translateY(-5px); 
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+                cursor: pointer;
+            }
+
+            
+            .campaign-list-container .campaign-card img {
+                width: 100%;
+                height: auto;
+            }
+
+            .campaign-list-container .campaign-card .campaign-body {
+                padding: 20px;
+            }
+
+            .campaign-list-container .campaign-card .campaign-title {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333; 
+                margin-bottom: 10px;
+            }
+
+            .campaign-list-container .campaign-card .campaign-total {
+                font-size: 16px;
+                color: red; 
+                padding-bottom: 10px;
+            }
+
+        .campaign-list-container .pagination-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .campaignlist-title{
+            text-align: center;
+            padding-bottom: 20px;
+        }
+            .campaignlist-title h2 {
+                font-size: 30px;
+                font-weight: bold;
+                color: #8b0000;
+                margin-bottom: 10px;
+            }
+</style>
+
+<div class="campaign-list-container">
+    <div class="campaignlist-title">
+        <h2>DANH SÁCH DỰ ÁN</h2>
+        @using (Html.BeginForm("Index", "Campaign", FormMethod.Get, new { @id = "searchForm" }))
+        {
+            <input type="text" name="tenChienDich" placeholder="Nhập từ khóa..." class="search-box" />
+            <button type="submit" style="background: none; border: none; padding: 0;">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 25px; cursor: pointer; color: #8b0000"></i>
+            </button>
+        }
+    </div>
+
+
+    <div class="campaign-list-row">
+        @if (!Model.Any())
+        {
+            <p>Không tìm thấy dự án nào phù hợp.</p>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="campaign-card">
+                    <a href="@Url.Action("chiTietCD", "Campaign", new { id = item.MaCD})" style="text-decoration: none;">
+                        <img src="~/Content/images/@item.AnhBia" alt="@item.TenCD" />
+                        <div class="campaign-body">
+                            <h4 class="campaign-title">@item.TenCD</h4>
+                        </div>
+                        <div class="campaign-total">
+                            <p style="padding-bottom: 20px">Tổng quỹ: @String.Format("{0:0,0}", item.TongQuy) VND</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+    <div class="pagination-container">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+</div>
+

@@ -117,15 +117,14 @@
 
 <script>
     $(document).ready(function () {
-        // Khi người dùng nhấn vào nút tìm kiếm
         $('#searchForm').on('submit', function (e) {
-            e.preventDefault(); // Ngăn form submit mặc định
-            var tenUser = $('#tenUser').val(); // Lấy giá trị từ ô tìm kiếm tên người dùng
-            var NgayDangKy = $('#NgayDangKy').val(); // Lấy giá trị từ ô tìm kiếm ngày đăng ký
+            e.preventDefault();
+            var tenUser = $('#tenUser').val(); 
+            var NgayDangKy = $('#NgayDangKy').val(); 
             $.ajax({
-                url: '@Url.Action("ThongKeUser", "Users", new { area = "Admin" })',  // Gọi action trong controller
-                type: 'GET', // Gửi yêu cầu GET
-                data: { tenUser: tenUser, NgayDangKy: NgayDangKy }, // Gửi tham số tìm kiếm
+                url: '@Url.Action("ThongKeUser", "Users", new { area = "Admin" })',  
+                type: 'GET', 
+                data: { tenUser: tenUser, NgayDangKy: NgayDangKy }, 
                 success: function (response) {
                     $('#userContainer tbody').html($(response).html());
                     attachExportEvent();
@@ -149,13 +148,13 @@
         $(document).ready(function () {
             // Khi người dùng thay đổi năm
             $('#addYear').on('change', function () {
-                var selectedYear = $(this).val(); // Lấy giá trị năm được chọn
+                var selectedYear = $(this).val(); 
                 $.ajax({
                     url: '@Url.Action("GetUserDataByYear", "Users", new { area = "Admin" })',
                     type: 'GET',
                     data: { year: selectedYear },
-                    success: function (response) { // Cập nhật biểu đồ nếu đã tồn tại
-                        updateChart(response); // Tạo biểu đồ mới nếu chưa có
+                    success: function (response) { 
+                        updateChart(response); 
                     }
                 });
             });
@@ -167,10 +166,8 @@
 <script>
     $(document).ready(function () {
         $('#exportExcel').on('click', function () {
-            // Tạo form
             var form = $('#exportForm');
             form.find('input[type="hidden"]').remove();
-            // Lấy dữ liệu từ bảng
             $('.table tbody tr').each(function () {
                 var row = $(this).index();
                 $(this).find('td').each(function (column) {
@@ -179,7 +176,7 @@
                     form.append(input);
                 });
             });
-            form.submit(); // Gửi form
+            form.submit(); 
         });
     });
 </script>

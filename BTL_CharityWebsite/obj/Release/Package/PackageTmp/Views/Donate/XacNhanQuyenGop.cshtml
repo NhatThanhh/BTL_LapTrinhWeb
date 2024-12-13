@@ -1,0 +1,75 @@
+﻿@using BTL_CharityWebsite.ViewModel
+@model BTL_CharityWebsite.Models.QUYENGOP 
+@{
+    ViewBag.Title = "XacNhanQuyenGop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = ViewBag.UserInfo as BTL_CharityWebsite.Models.NGUOIDUNG;
+}
+<style>
+    .hoadon {
+        text-align: center;
+        height: 25pc;
+    }
+    .hoadon table{
+        width: 60%;
+        font-size: 18px;
+        margin: 0 auto;
+        border: 1px solid;
+        border-radius: 5px;
+    }
+    .hoadon table td{
+        border: 1px solid;
+        height: 30px;
+    }
+    h2 {
+        text-align: center;
+        padding: 40px;
+        font-weight: bold;
+        color: #8b0000;
+    }
+</style>
+<h2>HOÁ ĐƠN</h2>
+<div class="hoadon">
+    <table>
+        @if (user != null)
+        {
+            <tr style="height:40px">
+                <td>Họ và tên:</td>
+                <td colspan="2">@user.HoTen</td>
+            </tr>
+            <tr style="height:40px">
+                <td>Email:</td>
+                <td colspan="2">@user.Email</td>
+            </tr>
+            <tr style="height:40px">
+                <td>Điện thoại:</td>
+                <td colspan="2">@user.SDT</td>
+            </tr>
+            <tr style="height:40px">
+                <td>Ngày quyên góp:</td>
+                <!-- Hiển thị ngày quyên góp -->
+                <td colspan="2">@Model.NgayQuyenGop</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3" style="text-align: center; background-color: darkgrey">
+                Các dự án
+            </td>
+        </tr>
+        <tr>
+            <td>Tên dự án</td>
+            <td>Số tiền</td>
+        </tr>
+        @foreach (var item in ViewBag.ChiTietQuyenGop as List<ChiTietQuyenGopVM>)
+        {   
+            <tr>
+                <td>@item.TenChienDich</td>
+                <td>@String.Format("{0:0,0}", item.SoTienQuyenGop)VND</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2">Tổng: @String.Format("{0:0,0}", ViewBag.TongTien)VND</td>
+        </tr>
+    </table>
+</div>
+

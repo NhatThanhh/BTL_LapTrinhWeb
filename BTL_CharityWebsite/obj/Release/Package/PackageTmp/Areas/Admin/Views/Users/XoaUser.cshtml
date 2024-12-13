@@ -1,0 +1,183 @@
+﻿﻿@model BTL_CharityWebsite.Models.NGUOIDUNG
+
+@{
+    ViewBag.Title = "XoaUser";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .delete-user h2 {
+        text-align: center;
+        color: #295e97;
+        font-weight: bold;
+    }
+
+    .delete-user {
+        width: 40%;
+        margin: 50px auto;
+        padding: 20px;
+        padding-left: 50px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+    }
+
+    p {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+        p a {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+    /* Button styles */
+    .btn {
+        background-color: #428ddd;
+        color: #fff;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+    /* Styling dl to make dt and dd inline */
+    .dl-horizontal {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 0; /* Remove default margin */
+        padding: 0;
+    }
+
+        .dl-horizontal dt {
+            width: 20%; /* Adjust label width */
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+            padding-right: 10px; /* Add spacing between label and value */
+            margin-bottom: 10px;
+        }
+
+        .dl-horizontal dd {
+            width: 70%; /* Adjust value width */
+            margin: 0; /* Remove default margin */
+            color: #333;
+            margin-bottom: 10px; /* Add spacing between rows */
+        }
+
+    .form-actions {
+        text-align: center;
+        margin-bottom: 50px;
+        margin-top: -40px;
+    }
+</style>
+
+<div class="delete-user">
+    <h2>NGƯỜI DÙNG</h2>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                Họ và tên:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
+
+            <dt>
+                Tài khoản:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TaiKhoan)
+            </dd>
+
+            <dt>
+                Mật khẩu:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MatKhau)
+            </dd>
+
+            <dt>
+                Email:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                Số điện thoại:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt>
+                Địa chỉ:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+            <dt>
+                Ngày sinh:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </dd>
+
+            <dt>
+                Ngày đăng kí:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayDangKi)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" onclick="confirmDelete(event);" /> 
+    </div>
+}
+
+@Html.ActionLink("Danh sách người dùng", "DanhSachNguoiDung")
+<script>
+    function confirmDelete(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Dữ liệu sẽ bị xóa và không thể khôi phục!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.form.submit(); 
+            }
+        });
+    }
+</script>

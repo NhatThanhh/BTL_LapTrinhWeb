@@ -24,6 +24,7 @@
     <_SelectedScaffolderCategoryPath>root/Common/MVC/Area</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_AreaDialogWidth>600</WebStackScaffolding_AreaDialogWidth>
     <WebStackScaffolding_DbContextTypeFullName>BTL_CharityWebsite.Models.CharityManagementEntities</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>E:\Lập trình web\Bài tập lớn\BTL_CharityWebsite\BTL_CharityWebsite\Properties\PublishProfiles\thanhnguyen2004-001-site1 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

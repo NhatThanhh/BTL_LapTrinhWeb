@@ -1,0 +1,78 @@
+﻿@model BTL_CharityWebsite.ViewModel.LienHeVM
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .contact-home{
+        min-height: 35pc;
+    }
+    .contact-form {
+        max-width: 40%;
+        margin: 30px auto; 
+        background-color: #f9f9f9; 
+        border: 1px solid #ddd; 
+        border-radius: 8px; 
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form .btn-div{
+        text-align: center;
+        margin-top: 10px;
+    }
+        .contact-home h2 {
+            text-align: center;
+            color: #8b0000;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    .thongbao{
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #dff0d87a;
+        color: #408d42;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+</style>
+<div id="contact" class="contact-home">
+    <div class="container">
+        <h2>Thông tin liên lạc của bạn</h2>
+        <div class="contact-form">
+
+            @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+            {
+
+                <div>
+                    <strong>Tên</strong>
+                    @Html.TextBoxFor(m => m.TenLH, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TenLH, "", new { @class = "text-danger" })
+                </div>
+
+                <div>
+                    <strong>Số điện thoại</strong>
+                    @Html.TextBoxFor(m => m.SDTLH, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SDTLH, "", new { @class = "text-danger" })
+                </div>
+
+                <div>
+                    <strong>Email</strong>
+                    @Html.TextBoxFor(m => m.EmailLH, new { @class = "form-control", type = "email" })
+                    @Html.ValidationMessageFor(m => m.EmailLH, "", new { @class = "text-danger" })
+                </div>
+                if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="thongbao">
+                        <strong>@TempData["SuccessMessage"]</strong>
+                    </div>
+                }
+                <div class="btn-div">
+                    <button type="submit" class="btn btn-primary">Gửi</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

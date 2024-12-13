@@ -1,0 +1,87 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<BTL_CharityWebsite.Models.CHIENDICH>
+
+@{
+    ViewBag.Title = "DanhSachChienDich";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        color: #295e97;
+        padding: 40px
+    }
+    .list{
+        width: 40%;
+        margin: 0 auto;
+    }
+    .pagination-container {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+    td a{
+        text-decoration: none;
+        color: #fff;
+        background-color: #428ddd;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+
+        .pagination-container .pagination {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .pagination-container .pagination li a {
+                display: block;
+                padding: 8px 12px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                color: #007bff;
+                background-color: #f8f9fa;
+                transition: all 0.3s ease;
+            }
+
+                .pagination-container .pagination li a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                }
+</style>
+<h2>DỰ ÁN</h2>
+<div class="list">
+    <table class="table">
+        <tr>
+            <th>
+                Tên dự án
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenCD)
+                </td>
+                <td style="text-align: right">
+                    @Html.ActionLink("Chi tiết", "ThuVien", new { MaCD = item.MaCD })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p style="text-align: center">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+</p>
+<div class="pagination-container">
+    @Html.PagedListPager(Model, page => Url.Action("DanhSachChienDich", new { page = page }))
+</div>
+

@@ -1,0 +1,178 @@
+﻿@model BTL_CharityWebsite.Models.QUANLY
+
+@{
+    ViewBag.Title = "XoaThanhVien";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<style>
+    .delete-member h2 {
+        text-align: center;
+        color: #295e97;
+        font-weight: bold;
+    }
+
+    .delete-member {
+        width: 60%;
+        margin: 50px auto;
+        padding: 20px;
+        padding-left: 50px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+    }
+
+    img {
+        width: 50%;
+        height: auto;
+        display: block;
+        margin: 10px;
+    }
+
+    p {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+        p a {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+    /* Button styles */
+    .btn {
+        background-color: #428ddd;
+        color: #fff;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+    /* Styling dl to make dt and dd inline */
+    .dl-horizontal {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 0; /* Remove default margin */
+        padding: 0;
+
+    }
+
+        .dl-horizontal dt {
+            width: 20%; /* Adjust label width */
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+            padding-right: 10px; /* Add spacing between label and value */
+            margin-bottom: 10px;
+        }
+
+        .dl-horizontal dd {
+            width: 70%; /* Adjust value width */
+            margin: 0; /* Remove default margin */
+            color: #333;
+            margin-bottom: 10px; /* Add spacing between rows */
+        }
+
+    .form-actions {
+        text-align: center;
+        margin-bottom: 50px;
+        margin-top: -40px;
+    }
+</style>
+
+
+
+
+<div class="delete-member">
+    <h2>THÀNH VIÊN</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenQL)
+        </dd>
+
+        <dt>
+            Chức vụ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChucVu)
+        </dd>
+        <dt>
+            Email:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailQL)
+        </dd>
+
+        <dt>
+            Số điện thoại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SDTQL)
+        </dd>
+
+        <dt>
+            Tiểu sử:
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.TieuSu)
+        </dd>
+
+        <dt>
+            Ảnh:
+        </dt>
+
+        <dd>
+            <img src="~/Content/images/@Model.AnhQL" style="width:300px; height: auto" />
+        </dd>
+    </dl>
+</div>
+
+@using (Html.BeginForm("XoaThanhVien", "Member", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Xoá" class="btn btn-default" onclick="confirmDelete(event);" />
+    </div>
+}
+@Html.ActionLink("Danh Sách Thành Viên", "DanhSachThanhVien")
+
+<script>
+    function confirmDelete(event) {
+        event.preventDefault(); // Ngăn không cho form gửi ngay lập tức
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Dữ liệu sẽ bị xóa và không thể khôi phục!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.form.submit(); // Gửi form nếu người dùng xác nhận
+            }
+        });
+    }
+</script>

@@ -1,0 +1,170 @@
+﻿@using BTL_CharityWebsite.ViewModel
+@model List<DonateVM>
+@{
+    ViewBag.Title = "ThongTinQuyenGop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Định dạng cho section thông tin quyên góp */
+
+    .donation_section {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+        /* Tiêu đề chính */
+
+        .donation_section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: darkred;
+            font-weight: bold;
+        }
+    /* Định dạng cho bảng */
+    .donation_container{
+        width: 60%;
+    }
+    table {
+        width: 100%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        table tr {
+            height: 50px;
+            text-align: center;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+        table img {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+        }
+    /* Định dạng cho dòng tổng tiền */
+
+    .total-row td {
+        font-weight: bold;
+        color: #333;
+        background-color: #f9f9f9;
+    }
+    /* Định dạng cho input và nút */
+
+    input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4dbbb8;
+        color: #fff;
+        border: 1px solid #378280;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #35928f;
+        }
+
+    input[type="date"] {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    /* Định dạng cho liên kết hành động */
+
+    .action-link td {
+        padding: 20px;
+    }
+
+    .action-link a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+        .action-link a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+</style>
+
+<section class="donation_section layout_padding" style="display: flex;">
+    <div class="donation_container" style="text-align: center;">
+        <h2 style="text-align:center; color: darkred">THÔNG TIN QUYÊN GÓP</h2>
+        @using (Html.BeginForm("ThongTinQuyenGop", "Donate", FormMethod.Post))
+        {
+            <table>
+                @{
+                    BTL_CharityWebsite.Models.NGUOIDUNG nd = (BTL_CharityWebsite.Models.NGUOIDUNG)Session["TaiKhoan"];
+                }
+                @if (nd != null)
+                {
+                    <tr style="height:40px">
+                        <td>Họ và tên:</td>
+                        <td colspan="2">@nd.HoTen</td>
+                    </tr>
+                    <tr style="height:40px">
+                        <td>Email:</td>
+                        <td colspan="2">@nd.Email</td>
+                    </tr>
+                    <tr style="height:40px">
+                        <td>Điện thoại:</td>
+                        <td colspan="2">@nd.SDT</td>
+                    </tr>
+                    <tr style="height:40px">
+                        <td>Ngày quyên góp:</td>
+                        <td colspan="2">@DateTime.Now.ToShortDateString()</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3" style="text-align: center; background-color: darkgrey">
+                        Các dự án
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tên dự án</td>
+                    <td>Ảnh bìa</td>
+                    <td>Số tiền</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width: 300px">@item.iTenCD</td>
+                        <td><img src="~/Content/images/@item.iAnhbia" alt="Ảnh bìa" /></td>
+                        <td>@String.Format("{0:0,0}", item.iSoTien)</td>
+                    </tr>
+                }
+                <tr class="total-row">
+                    <td colspan="3">Tổng tiền: @String.Format("{0:0,0}", ViewBag.Tongtien) VND</td>
+                </tr>         
+                
+                <tr style="height:40px">
+                    <td colspan="3">
+                        <input type="hidden" id="TypePayment" name="TypePayment" value="2" />
+                        <input type="submit" value="XÁC NHẬN" class="btn btn-primary" />
+                    </td>
+                </tr>
+
+                <tr class="action-link">
+                    <td colspan="3" align="center">
+                        @Html.ActionLink("Chỉnh sửa", "QuyenGop", "Donate")
+                    </td>
+                </tr>
+            </table>
+        }
+
+    </div>
+</section>
+

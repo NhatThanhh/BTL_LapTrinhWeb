@@ -1,0 +1,160 @@
+﻿@using BTL_CharityWebsite.ViewModel
+@model List<DonateVM>
+@{
+    ViewBag.Title = "QuyenGop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .donate_section {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .donate_container {
+        width: 90%; 
+        max-width: 1200px;
+        background-color: #fff; 
+        border-radius: 10px; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+        .donate_container h2 {
+            font-size: 24px; 
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .donate_container table {
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px;
+        }
+
+        .donate_container th,
+        .donate_container td {
+            padding: 15px; 
+            text-align: center; 
+            border: 1px solid #ddd; 
+        }
+
+        .donate_container th {
+            background-color: #5ea0a0;
+            color: #fff; 
+            text-transform: uppercase;
+            font-weight: bold; 
+        }
+
+        .donate_container td img {
+            max-width: 100px; 
+            height: auto; 
+            border-radius: 5px; 
+        }
+
+        .donate_container td input[type="number"] {
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+        }
+
+    .quyengop_btn {
+        background-color: #5ea0a0;
+        color: #fff; 
+        padding: 10px 20px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        transition: background-color 0.3s, box-shadow 0.3s; 
+    }
+
+        .quyengop_btn:hover {
+            background-color: #4c8c8c; 
+            box-shadow: 0 0 10px rgba(94, 160, 160, 0.8); 
+        }
+
+    .quyengop_link {
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .empty-noti{
+        height: 30pc;
+        text-align:center;
+        padding-top: 10pc;
+    }
+    .empty-noti p{
+        font-size: 30px;
+        font-weight: bold;
+    }
+</style>
+<div style="min-height: 30pc">
+    @if (!Model.Any())
+    {
+
+        <div class="empty-noti">
+            <p>@ViewBag.ThongBao</p>
+        </div>
+
+    }
+    else
+    {
+        <section class="donate_section layout_padding" style="display: flex;">
+
+            <div class="donate_container" style="text-align: center;">
+                <h2 style="text-align:center">THÔNG TIN QUYÊN GÓP</h2>
+
+                <table>
+                    <tr>
+                        <th>Mã dự án</th>
+                        <th>Tên dự án</th>
+                        <th>Ảnh bìa</th>
+                        <th>Tổng quỹ</th>
+                        <th>Số tiền bạn muốn quyên góp</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.iMaCD</td>
+                            <td>@item.iTenCD</td>
+                            <td><img src="~/Content/images/@item.iAnhbia" /></td>
+                            <td>@String.Format("{0:0,0}", item.iTongquy)</td>
+                            @using (Html.BeginForm("capNhatQuyenGop", "Donate", new { iMaCDich = item.iMaCD }))
+                            {
+                                <td>
+                                    <input type="number" min="0" name="tienQuyenGop" value="@item.iSoTien" />
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("chiTietCD", "Campaign", new { id = item.iMaCD})" class="quyengop_link">Thông tin chiến dịch</a>
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Xoá", "xoaQuyenGop", new { iMaCDich = item.iMaCD }, new { @class = "quyengop_link" })
+                                </td>
+                                <td><input type="submit" value="Cập nhật" /></td>
+                            }
+
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="4" style="text-align:right">Tổng số tiền bạn muốn quyên góp: </td>
+                        <td colspan="4">@String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                            <a href="@Url.Action("ThongTinQuyenGop", "Donate")" class="quyengop_btn">Quyên Góp</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    }
+</div>

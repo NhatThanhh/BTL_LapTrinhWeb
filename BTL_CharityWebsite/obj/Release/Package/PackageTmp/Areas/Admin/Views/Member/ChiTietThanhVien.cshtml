@@ -1,0 +1,146 @@
+﻿@model BTL_CharityWebsite.Models.QUANLY
+
+@{
+    ViewBag.Title = "ChiTietThanhVien";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .member-detail h2 {
+        text-align: center;
+        color: #295e97;
+        font-weight: bold;
+    }
+
+    .member-detail {
+        width: 70%;
+        margin: 50px auto;
+        padding: 20px;
+        padding-left: 50px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+    }
+
+    img {
+        width: 50%;
+        height: auto;
+        display: block;
+        margin: 10px;
+    }
+
+    p {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+        p a {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        /* Button styles */
+        p a {
+            background-color: #428ddd;
+        }
+
+            p a:hover {
+                background-color: #0056b3;
+                color: white;
+            }
+
+    /* Styling dl to make dt and dd inline */
+    .dl-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0; /* Remove default margin */
+        padding: 0;
+        justify-content: center;
+    }
+
+        .dl-horizontal dt {
+            width: 20%; /* Adjust label width */
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+            padding-right: 10px; /* Add spacing between label and value */
+            margin-bottom: 10px;
+        }
+
+        .dl-horizontal dd {
+            width: 70%; /* Adjust value width */
+            margin: 0; /* Remove default margin */
+            color: #333;
+            margin-bottom: 10px; /* Add spacing between rows */
+        }
+</style>
+
+<div class="member-detail">
+    <h2>THÔNG TIN THÀNH VIÊN</h2>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Tên:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TenQL)
+            </dd>
+
+            <dt>
+                Ảnh:
+            </dt>
+
+            <dd>
+                <img src="~/Content/images/@Model.AnhQL" />
+            </dd>
+            <dt>
+                Chức vụ:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ChucVu)
+            </dd>
+            <dt>
+                Email:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmailQL)
+            </dd>
+
+            <dt>
+                Số điện thoại:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDTQL)
+            </dd>
+
+            <dt>
+                Tiểu sử:
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.TieuSu)
+            </dd>
+
+
+
+
+        </dl>
+    </div>
+</div>
+<div style="display: flex; justify-content: center; margin-top: -40px">
+    <p>
+        @Html.ActionLink("Chỉnh sửa", "SuaThanhVien", new { id = Model.MaQL }) |
+        @Html.ActionLink("Xoá", "XoaThanhVien", new { id = Model.MaQL }) |
+        @Html.ActionLink("Danh sách thành viên", "DanhSachThanhVien")
+    </p>
+</div>

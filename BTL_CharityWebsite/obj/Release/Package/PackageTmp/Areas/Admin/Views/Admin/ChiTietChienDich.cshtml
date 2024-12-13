@@ -1,0 +1,145 @@
+﻿@using BTL_CharityWebsite.Models
+@model BTL_CharityWebsite.Models.CHIENDICH
+
+@{
+    ViewBag.Title = "ChiTietChienDich";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .campaign-detail h2 {
+        text-align: center;
+        color: #295e97;
+        font-weight: bold;
+    }
+
+    .campaign-detail {
+        width: 60%;
+        margin: 50px auto;
+        padding: 20px;
+        padding-left: 50px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+    }
+
+    img {
+        width: 50%;
+        height: auto;
+        display: block;
+        margin: 10px;
+    }
+
+    p {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+        p a {
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        /* Button styles */
+        p a {
+            background-color: #428ddd;
+        }
+
+            p a:hover {
+                background-color: #0056b3;
+                color: white;
+            }
+
+    /* Styling dl to make dt and dd inline */
+    .dl-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0; /* Remove default margin */
+        padding: 0;
+    }
+
+        .dl-horizontal dt {
+            width: 20%; /* Adjust label width */
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+            padding-right: 10px; /* Add spacing between label and value */
+            margin-bottom: 10px;
+        }
+
+        .dl-horizontal dd {
+            width: 70%; /* Adjust value width */
+            margin: 0; /* Remove default margin */
+            color: #333;
+            margin-bottom: 10px; /* Add spacing between rows */
+        }
+</style>
+
+<div class="campaign-detail">
+    <h2>CHI TIẾT DỰ ÁN</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên dự án:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenCD)
+        </dd>
+
+        <dt>
+            Thông tin:
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.MoTa)
+        </dd>
+
+        <dt>
+            Quản lí:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(modelItem => Model.QUANLY.TenQL)
+        </dd>
+
+        <dt>
+            Ảnh:
+        </dt>
+
+        <dd>
+            <img src="~/Content/images/@Model.AnhBia" />
+        </dd>
+
+        <dt>
+            Tổng quỹ:
+        </dt>
+
+        <dd>
+            @String.Format("{0:0,0}", Model.TongQuy)
+
+        </dd>
+
+        <dt>
+            Ngày tạo:
+        </dt>
+
+        <dd>
+            @(Model.NgayTao.HasValue ? Model.NgayTao.Value.ToString("dd/MM/yyyy") : "N/A")
+        </dd>
+
+    </dl>
+</div>
+<div style="display: flex; justify-content: center">
+    <p>
+        @Html.ActionLink("Chỉnh sửa", "SuaChienDich", new { id = Model.MaCD }) |
+        @Html.ActionLink("Xoá", "XoaChienDich", new { id = Model.MaCD }) |
+        @Html.ActionLink("Danh sách chiến dịch", "ChienDich")
+    </p>
+</div>
